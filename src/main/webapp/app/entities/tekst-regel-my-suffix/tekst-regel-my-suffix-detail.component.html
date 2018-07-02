@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tekstRegel">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.tekstRegel.detail.title">Tekst Regel</span> {{tekstRegel.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.tekstRegel.regelnummer">Regelnummer</span></dt>
+                <dd>
+                    <span>{{tekstRegel.regelnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.tekstRegel.tekst">Tekst</span></dt>
+                <dd>
+                    <span>{{tekstRegel.tekst}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.tekstRegel.vrijeTekst">Vrije Tekst</span></dt>
+                <dd>
+                    <div *ngIf="tekstRegel.vrijeTekstId">
+                        <a [routerLink]="['/vrije-tekst-my-suffix', tekstRegel.vrijeTekstId, 'view']">{{tekstRegel.vrijeTekstId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tekst-regel-my-suffix', tekstRegel.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

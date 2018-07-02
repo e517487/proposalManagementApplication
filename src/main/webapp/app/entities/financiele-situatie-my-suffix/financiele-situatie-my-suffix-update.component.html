@@ -1,0 +1,81 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-financiele-situatie-my-suffix-heading" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.home.createOrEditLabel">Create or edit a Financiele Situatie</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!financieleSituatie.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="financieleSituatie.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.volgnummer" for="field_volgnummer">Volgnummer</label>
+                    <input type="number" class="form-control" name="volgnummer" id="field_volgnummer"
+                        [(ngModel)]="financieleSituatie.volgnummer" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.brutoMaandInk" for="field_brutoMaandInk">Bruto Maand Ink</label>
+                    <input type="number" class="form-control" name="brutoMaandInk" id="field_brutoMaandInk"
+                        [(ngModel)]="financieleSituatie.brutoMaandInk" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.nettoMaandInk" for="field_nettoMaandInk">Netto Maand Ink</label>
+                    <input type="number" class="form-control" name="nettoMaandInk" id="field_nettoMaandInk"
+                        [(ngModel)]="financieleSituatie.nettoMaandInk" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.voorlopigeTeruggaaf" for="field_voorlopigeTeruggaaf">Voorlopige Teruggaaf</label>
+                    <input type="text" class="form-control" name="voorlopigeTeruggaaf" id="field_voorlopigeTeruggaaf"
+                        [(ngModel)]="financieleSituatie.voorlopigeTeruggaaf" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.eigenWoning" for="field_eigenWoning">Eigen Woning</label>
+                    <input type="text" class="form-control" name="eigenWoning" id="field_eigenWoning"
+                        [(ngModel)]="financieleSituatie.eigenWoning" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.hypotheek" for="field_hypotheek">Hypotheek</label>
+                    <input type="text" class="form-control" name="hypotheek" id="field_hypotheek"
+                        [(ngModel)]="financieleSituatie.hypotheek" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.brutoMndHypotheek" for="field_brutoMndHypotheek">Bruto Mnd Hypotheek</label>
+                    <input type="number" class="form-control" name="brutoMndHypotheek" id="field_brutoMndHypotheek"
+                        [(ngModel)]="financieleSituatie.brutoMndHypotheek" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.lopendeLeningen" for="field_lopendeLeningen">Lopende Leningen</label>
+                    <input type="text" class="form-control" name="lopendeLeningen" id="field_lopendeLeningen"
+                        [(ngModel)]="financieleSituatie.lopendeLeningen" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.woonsituatie" for="field_woonsituatie">Woonsituatie</label>
+                    <input type="text" class="form-control" name="woonsituatie" id="field_woonsituatie"
+                        [(ngModel)]="financieleSituatie.woonsituatie" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.woonlasten" for="field_woonlasten">Woonlasten</label>
+                    <input type="number" class="form-control" name="woonlasten" id="field_woonlasten"
+                        [(ngModel)]="financieleSituatie.woonlasten" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.financieleSituatie.fdnAanvrager" for="field_fdnAanvrager">Fdn Aanvrager</label>
+                    <select class="form-control" id="field_fdnAanvrager" name="fdnAanvrager" [(ngModel)]="financieleSituatie.fdnAanvragerId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="fdnAanvragerOption.id" *ngFor="let fdnAanvragerOption of fdnaanvragers; trackBy: trackFdnAanvragerById">{{fdnAanvragerOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

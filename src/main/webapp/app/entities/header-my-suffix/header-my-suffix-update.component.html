@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-header-my-suffix-heading" jhiTranslate="proposalManagementApplicationApp.header.home.createOrEditLabel">Create or edit a Header</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!header.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="header.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.header.emailZender" for="field_emailZender">Email Zender</label>
+                    <input type="text" class="form-control" name="emailZender" id="field_emailZender"
+                        [(ngModel)]="header.emailZender" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.header.emailOntvanger" for="field_emailOntvanger">Email Ontvanger</label>
+                    <input type="text" class="form-control" name="emailOntvanger" id="field_emailOntvanger"
+                        [(ngModel)]="header.emailOntvanger" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.header.ontvangerNaam" for="field_ontvangerNaam">Ontvanger Naam</label>
+                    <input type="text" class="form-control" name="ontvangerNaam" id="field_ontvangerNaam"
+                        [(ngModel)]="header.ontvangerNaam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.header.lognaam" for="field_lognaam">Lognaam</label>
+                    <input type="text" class="form-control" name="lognaam" id="field_lognaam"
+                        [(ngModel)]="header.lognaam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.header.messageRef" for="field_messageRef">Message Ref</label>
+                    <input type="text" class="form-control" name="messageRef" id="field_messageRef"
+                        [(ngModel)]="header.messageRef" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.header.berichtVersie" for="field_berichtVersie">Bericht Versie</label>
+                    <input type="number" class="form-control" name="berichtVersie" id="field_berichtVersie"
+                        [(ngModel)]="header.berichtVersie" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.header.verzendDt" for="field_verzendDt">Verzend Dt</label>
+                    <div class="input-group">
+                        <input id="field_verzendDt" type="text" class="form-control" name="verzendDt" ngbDatepicker  #verzendDtDp="ngbDatepicker" [(ngModel)]="header.verzendDt"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="verzendDtDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.header.verzendTijd" for="field_verzendTijd">Verzend Tijd</label>
+                    <div class="input-group">
+                        <input id="field_verzendTijd" type="text" class="form-control" name="verzendTijd" ngbDatepicker  #verzendTijdDp="ngbDatepicker" [(ngModel)]="header.verzendTijd"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="verzendTijdDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "creditScore" : {
+            "home": {
+                "title": "CreditScores",
+                "createLabel": "Créer un nouveau Credit Score",
+                "createOrEditLabel": "Créer ou éditer un Credit Score"
+            },
+            "created": "Un nouveau Credit Score a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Credit Score avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Credit Score avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Credit Score {{ id }} ?"
+            },
+            "detail": {
+                "title": "Credit Score"
+            },
+            "request": "Request"
+        }
+    }
+}

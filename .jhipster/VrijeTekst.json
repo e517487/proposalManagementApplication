@@ -1,0 +1,34 @@
+{
+    "name": "VrijeTekst",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "tekstRegel",
+            "otherEntityName": "tekstRegel",
+            "otherEntityRelationshipName": "vrijeTekst"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "aanvraagbericht",
+            "otherEntityName": "aanvraagbericht",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213755",
+    "javadoc": "0..n of VrijeTekst allowed per <Aanvraagbericht>\nMake a tekst blok(s) containing severalrows of tekst.",
+    "entityTableName": "vrije_tekst",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

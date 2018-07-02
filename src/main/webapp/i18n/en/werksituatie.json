@@ -1,0 +1,27 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "werksituatie" : {
+            "home": {
+                "title": "Werksituaties",
+                "createLabel": "Create a new Werksituatie",
+                "createOrEditLabel": "Create or edit a Werksituatie"
+            },
+            "created": "A new Werksituatie is created with identifier {{ param }}",
+            "updated": "A Werksituatie is updated with identifier {{ param }}",
+            "deleted": "A Werksituatie is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Werksituatie {{ id }}?"
+            },
+            "detail": {
+                "title": "Werksituatie"
+            },
+            "volgnummer": "Volgnummer",
+            "beroep": "Beroep",
+            "aardDienstverband": "Aard Dienstverband",
+            "beginDienstverbandDt": "Begin Dienstverband Dt",
+            "nawWerkgeverUWV": "Naw Werkgever UWV",
+            "fdnAanvrager": "Fdn Aanvrager"
+        }
+    }
+}

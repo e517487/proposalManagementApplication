@@ -1,0 +1,57 @@
+{
+    "name": "Header",
+    "fields": [
+        {
+            "fieldName": "emailZender",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "emailOntvanger",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ontvangerNaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lognaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "messageRef",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "berichtVersie",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "verzendDt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "verzendTijd",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "aanvraagbericht",
+            "otherEntityName": "aanvraagbericht",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "header"
+        }
+    ],
+    "changelogDate": "20180702213745",
+    "javadoc": "1 Header allowed per <Aanvraagbericht>",
+    "entityTableName": "header",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

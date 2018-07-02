@@ -1,0 +1,35 @@
+{
+    "name": "NawWerkgeverUWV",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "naam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "plaatsNaam",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "werksituatie",
+            "otherEntityName": "werksituatie",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213751",
+    "entityTableName": "naw_werkgever_uwv",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

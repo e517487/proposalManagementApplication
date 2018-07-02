@@ -1,0 +1,62 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "kredietAanvraag" : {
+            "home": {
+                "title": "KredietAanvraags",
+                "createLabel": "Créer un nouveau Krediet Aanvraag",
+                "createOrEditLabel": "Créer ou éditer un Krediet Aanvraag"
+            },
+            "created": "Un nouveau Krediet Aanvraag a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Krediet Aanvraag avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Krediet Aanvraag avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Krediet Aanvraag {{ id }} ?"
+            },
+            "detail": {
+                "title": "Krediet Aanvraag"
+            },
+            "volgnummer": "Volgnummer",
+            "duurInMnd": "Duur In Mnd",
+            "soortAanvraag": "Soort Aanvraag",
+            "produktCodeNaam": "Produkt Code Naam",
+            "leningBedrag": "Lening Bedrag",
+            "mndAflosBedrag": "Mnd Aflos Bedrag",
+            "gevrBedrInHanden": "Gevr Bedr In Handen",
+            "zekerheid": "Zekerheid",
+            "bestedingsdoel": "Bestedingsdoel",
+            "merkObject": "Merk Object",
+            "typeObject": "Type Object",
+            "bouwjaarObject": "Bouwjaar Object",
+            "koopsomWaardeObj": "Koopsom Waarde Obj",
+            "kenteken": "Kenteken",
+            "chassisnr": "Chassisnr",
+            "inruilbedrag": "Inruilbedrag",
+            "doelNieuw": "Doel Nieuw",
+            "aanbetalingbedrag": "Aanbetalingbedrag",
+            "modelObject": "Model Object",
+            "sparen": "Sparen",
+            "typeTarief": "Type Tarief",
+            "tariefNaam": "Tarief Naam",
+            "soortContract": "Soort Contract",
+            "kontraktNaam": "Kontrakt Naam",
+            "produktNr": "Produkt Nr",
+            "perspectief": "Perspectief",
+            "nieuwGebruikt": "Nieuw Gebruikt",
+            "verkoopprijs": "Verkoopprijs",
+            "aanbetaling": "Aanbetaling",
+            "overnameLopendeLening": "Overname Lopende Lening",
+            "kredietSom": "Krediet Som",
+            "gMI": "G MI",
+            "overnameKentekennr": "Overname Kentekennr",
+            "overnameFinanMy": "Overname Finan My",
+            "ovvrnameContractNr": "Ovvrname Contract Nr",
+            "overnamePlaats": "Overname Plaats",
+            "duurinMnd": "Duurin Mnd",
+            "restantbetaling": "Restantbetaling",
+            "effectiveRente": "Effective Rente",
+            "verkoper": "Verkoper",
+            "aanvraagbericht": "Aanvraagbericht"
+        }
+    }
+}

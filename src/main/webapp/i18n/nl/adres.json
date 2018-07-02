@@ -1,0 +1,29 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "adres" : {
+            "home": {
+                "title": "Adres",
+                "createLabel": "Maak een nieuwe Adres",
+                "createOrEditLabel": "Maak of wijzig een Adres"
+            },
+            "created": "A new Adres is created with identifier {{ param }}",
+            "updated": "A Adres is updated with identifier {{ param }}",
+            "deleted": "A Adres is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Adres {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Adres"
+            },
+            "volgnummer": "Volgnummer",
+            "soortAdres": "Soort Adres",
+            "straatNaam": "Straat Naam",
+            "huisNr": "Huis Nr",
+            "plaatsNaam": "Plaats Naam",
+            "postcode": "Postcode",
+            "land": "Land",
+            "fdnAanvrager": "Fdn Aanvrager"
+        }
+    }
+}

@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.home.title">Fdn Aanvragers</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-fdn-aanvrager-my-suffix" [routerLink]="['/fdn-aanvrager-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.home.createLabel">
+            Create new Fdn Aanvrager
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="fdnAanvragers">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.volgnummer">Volgnummer</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.soortAanvrager">Soort Aanvrager</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.achterNaam">Achter Naam</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.voorletters">Voorletters</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.gebNaam">Geb Naam</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.woonachtigHuidigDt">Woonachtig Huidig Dt</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.telBereikbaar">Tel Bereikbaar</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.telefoonNrPrive">Telefoon Nr Prive</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.iban">Iban</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.geboorteDt">Geboorte Dt</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.nationaliteit">Nationaliteit</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.geslacht">Geslacht</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.sociaalFiscaalNr">Sociaal Fiscaal Nr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.relatieTp">Relatie Tp</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.aanvraagbericht">Aanvraagbericht</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let fdnAanvrager of fdnAanvragers ;trackBy: trackId">
+                <td><a [routerLink]="['/fdn-aanvrager-my-suffix', fdnAanvrager.id, 'view' ]">{{fdnAanvrager.id}}</a></td>
+                <td>{{fdnAanvrager.volgnummer}}</td>
+                <td>{{fdnAanvrager.soortAanvrager}}</td>
+                <td>{{fdnAanvrager.achterNaam}}</td>
+                <td>{{fdnAanvrager.voorletters}}</td>
+                <td>{{fdnAanvrager.gebNaam}}</td>
+                <td>{{fdnAanvrager.woonachtigHuidigDt | date:'mediumDate'}}</td>
+                <td>{{fdnAanvrager.telBereikbaar}}</td>
+                <td>{{fdnAanvrager.telefoonNrPrive}}</td>
+                <td>{{fdnAanvrager.iban}}</td>
+                <td>{{fdnAanvrager.geboorteDt | date:'mediumDate'}}</td>
+                <td>{{fdnAanvrager.nationaliteit}}</td>
+                <td>{{fdnAanvrager.geslacht}}</td>
+                <td>{{fdnAanvrager.sociaalFiscaalNr}}</td>
+                <td>{{fdnAanvrager.relatieTp}}</td>
+                <td>
+                    <div *ngIf="fdnAanvrager.aanvraagberichtId">
+                        <a [routerLink]="['../aanvraagbericht-my-suffix', fdnAanvrager.aanvraagberichtId , 'view' ]" >{{fdnAanvrager.aanvraagberichtId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/fdn-aanvrager-my-suffix', fdnAanvrager.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/fdn-aanvrager-my-suffix', fdnAanvrager.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'fdn-aanvrager-my-suffix/'+ fdnAanvrager.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

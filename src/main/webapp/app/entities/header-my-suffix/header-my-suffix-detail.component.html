@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="header">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.header.detail.title">Header</span> {{header.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.header.emailZender">Email Zender</span></dt>
+                <dd>
+                    <span>{{header.emailZender}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.header.emailOntvanger">Email Ontvanger</span></dt>
+                <dd>
+                    <span>{{header.emailOntvanger}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.header.ontvangerNaam">Ontvanger Naam</span></dt>
+                <dd>
+                    <span>{{header.ontvangerNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.header.lognaam">Lognaam</span></dt>
+                <dd>
+                    <span>{{header.lognaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.header.messageRef">Message Ref</span></dt>
+                <dd>
+                    <span>{{header.messageRef}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.header.berichtVersie">Bericht Versie</span></dt>
+                <dd>
+                    <span>{{header.berichtVersie}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.header.verzendDt">Verzend Dt</span></dt>
+                <dd>
+                    <span>{{header.verzendDt}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.header.verzendTijd">Verzend Tijd</span></dt>
+                <dd>
+                    <span>{{header.verzendTijd}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/header-my-suffix', header.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

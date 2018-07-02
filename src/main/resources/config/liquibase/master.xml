@@ -5,6 +5,51 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213740_added_entity_Request.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213741_added_entity_CreditScore.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213742_added_entity_Customer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213743_added_entity_RekenmoduleAanvraag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213744_added_entity_Aanvraagbericht.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213745_added_entity_Header.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213746_added_entity_Algemeen.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213747_added_entity_FdnAanvrager.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213748_added_entity_Adres.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213749_added_entity_Legitimatiebewijs.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213750_added_entity_Werksituatie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213751_added_entity_NawWerkgeverUWV.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213752_added_entity_Gezinssituatie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213753_added_entity_FinancieleSituatie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213754_added_entity_KredietAanvraag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213755_added_entity_VrijeTekst.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213756_added_entity_TekstRegel.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213757_added_entity_Region.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213758_added_entity_Country.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213759_added_entity_Location.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213800_added_entity_Department.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213801_added_entity_Task.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213802_added_entity_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213803_added_entity_Job.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213804_added_entity_JobHistory.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20180702213740_added_entity_constraints_Request.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213741_added_entity_constraints_CreditScore.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213743_added_entity_constraints_RekenmoduleAanvraag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213744_added_entity_constraints_Aanvraagbericht.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213747_added_entity_constraints_FdnAanvrager.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213748_added_entity_constraints_Adres.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213749_added_entity_constraints_Legitimatiebewijs.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213750_added_entity_constraints_Werksituatie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213751_added_entity_constraints_NawWerkgeverUWV.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213752_added_entity_constraints_Gezinssituatie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213753_added_entity_constraints_FinancieleSituatie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213754_added_entity_constraints_KredietAanvraag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213755_added_entity_constraints_VrijeTekst.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213756_added_entity_constraints_TekstRegel.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213758_added_entity_constraints_Country.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213759_added_entity_constraints_Location.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213800_added_entity_constraints_Department.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213802_added_entity_constraints_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213803_added_entity_constraints_Job.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180702213804_added_entity_constraints_JobHistory.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

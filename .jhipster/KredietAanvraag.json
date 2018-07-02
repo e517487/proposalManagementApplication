@@ -1,0 +1,184 @@
+{
+    "name": "KredietAanvraag",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "duurInMnd",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "soortAanvraag",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "produktCodeNaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "leningBedrag",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "mndAflosBedrag",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "gevrBedrInHanden",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "zekerheid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bestedingsdoel",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "merkObject",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "typeObject",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bouwjaarObject",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "koopsomWaardeObj",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "kenteken",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "chassisnr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "inruilbedrag",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "doelNieuw",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "aanbetalingbedrag",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "modelObject",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sparen",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "typeTarief",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tariefNaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "soortContract",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "kontraktNaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "produktNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "perspectief",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nieuwGebruikt",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "verkoopprijs",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "aanbetaling",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "overnameLopendeLening",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "kredietSom",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "gMI",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "overnameKentekennr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "overnameFinanMy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ovvrnameContractNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "overnamePlaats",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "duurinMnd",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "restantbetaling",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "effectiveRente",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "verkoper",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "aanvraagbericht",
+            "otherEntityName": "aanvraagbericht",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213754",
+    "javadoc": "0..n of KredietAanvraag allowed per <Aanvraagbericht>",
+    "entityTableName": "krediet_aanvraag",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

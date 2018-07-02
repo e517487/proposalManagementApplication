@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="nawWerkgeverUWV">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.detail.title">Naw Werkgever UWV</span> {{nawWerkgeverUWV.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.volgnummer">Volgnummer</span></dt>
+                <dd>
+                    <span>{{nawWerkgeverUWV.volgnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.naam">Naam</span></dt>
+                <dd>
+                    <span>{{nawWerkgeverUWV.naam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.plaatsNaam">Plaats Naam</span></dt>
+                <dd>
+                    <span>{{nawWerkgeverUWV.plaatsNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.werksituatie">Werksituatie</span></dt>
+                <dd>
+                    <div *ngIf="nawWerkgeverUWV.werksituatieId">
+                        <a [routerLink]="['/werksituatie-my-suffix', nawWerkgeverUWV.werksituatieId, 'view']">{{nawWerkgeverUWV.werksituatieId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/naw-werkgever-uwv-my-suffix', nawWerkgeverUWV.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

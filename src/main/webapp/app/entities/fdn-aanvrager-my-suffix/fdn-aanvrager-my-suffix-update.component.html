@@ -1,0 +1,111 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-fdn-aanvrager-my-suffix-heading" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.home.createOrEditLabel">Create or edit a Fdn Aanvrager</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!fdnAanvrager.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="fdnAanvrager.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.volgnummer" for="field_volgnummer">Volgnummer</label>
+                    <input type="number" class="form-control" name="volgnummer" id="field_volgnummer"
+                        [(ngModel)]="fdnAanvrager.volgnummer" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.soortAanvrager" for="field_soortAanvrager">Soort Aanvrager</label>
+                    <input type="text" class="form-control" name="soortAanvrager" id="field_soortAanvrager"
+                        [(ngModel)]="fdnAanvrager.soortAanvrager" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.achterNaam" for="field_achterNaam">Achter Naam</label>
+                    <input type="text" class="form-control" name="achterNaam" id="field_achterNaam"
+                        [(ngModel)]="fdnAanvrager.achterNaam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.voorletters" for="field_voorletters">Voorletters</label>
+                    <input type="text" class="form-control" name="voorletters" id="field_voorletters"
+                        [(ngModel)]="fdnAanvrager.voorletters" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.gebNaam" for="field_gebNaam">Geb Naam</label>
+                    <input type="text" class="form-control" name="gebNaam" id="field_gebNaam"
+                        [(ngModel)]="fdnAanvrager.gebNaam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.woonachtigHuidigDt" for="field_woonachtigHuidigDt">Woonachtig Huidig Dt</label>
+                    <div class="input-group">
+                        <input id="field_woonachtigHuidigDt" type="text" class="form-control" name="woonachtigHuidigDt" ngbDatepicker  #woonachtigHuidigDtDp="ngbDatepicker" [(ngModel)]="fdnAanvrager.woonachtigHuidigDt"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="woonachtigHuidigDtDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.telBereikbaar" for="field_telBereikbaar">Tel Bereikbaar</label>
+                    <input type="text" class="form-control" name="telBereikbaar" id="field_telBereikbaar"
+                        [(ngModel)]="fdnAanvrager.telBereikbaar" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.telefoonNrPrive" for="field_telefoonNrPrive">Telefoon Nr Prive</label>
+                    <input type="text" class="form-control" name="telefoonNrPrive" id="field_telefoonNrPrive"
+                        [(ngModel)]="fdnAanvrager.telefoonNrPrive" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.iban" for="field_iban">Iban</label>
+                    <input type="text" class="form-control" name="iban" id="field_iban"
+                        [(ngModel)]="fdnAanvrager.iban" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.geboorteDt" for="field_geboorteDt">Geboorte Dt</label>
+                    <div class="input-group">
+                        <input id="field_geboorteDt" type="text" class="form-control" name="geboorteDt" ngbDatepicker  #geboorteDtDp="ngbDatepicker" [(ngModel)]="fdnAanvrager.geboorteDt"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="geboorteDtDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.nationaliteit" for="field_nationaliteit">Nationaliteit</label>
+                    <input type="text" class="form-control" name="nationaliteit" id="field_nationaliteit"
+                        [(ngModel)]="fdnAanvrager.nationaliteit" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.geslacht" for="field_geslacht">Geslacht</label>
+                    <input type="text" class="form-control" name="geslacht" id="field_geslacht"
+                        [(ngModel)]="fdnAanvrager.geslacht" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.sociaalFiscaalNr" for="field_sociaalFiscaalNr">Sociaal Fiscaal Nr</label>
+                    <input type="text" class="form-control" name="sociaalFiscaalNr" id="field_sociaalFiscaalNr"
+                        [(ngModel)]="fdnAanvrager.sociaalFiscaalNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.relatieTp" for="field_relatieTp">Relatie Tp</label>
+                    <input type="text" class="form-control" name="relatieTp" id="field_relatieTp"
+                        [(ngModel)]="fdnAanvrager.relatieTp" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.aanvraagbericht" for="field_aanvraagbericht">Aanvraagbericht</label>
+                    <select class="form-control" id="field_aanvraagbericht" name="aanvraagbericht" [(ngModel)]="fdnAanvrager.aanvraagberichtId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="aanvraagberichtOption.id" *ngFor="let aanvraagberichtOption of aanvraagberichts; trackBy: trackAanvraagberichtById">{{aanvraagberichtOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

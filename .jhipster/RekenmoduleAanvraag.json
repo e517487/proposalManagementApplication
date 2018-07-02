@@ -1,0 +1,37 @@
+{
+    "name": "RekenmoduleAanvraag",
+    "fields": [
+        {
+            "fieldName": "rekenmoduleAanvraagFileName",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "request",
+            "otherEntityName": "request",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "rekenmoduleAanvraag"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "aanvraagbericht",
+            "otherEntityName": "aanvraagbericht",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "rekenmoduleAanvraag"
+        }
+    ],
+    "changelogDate": "20180702213743",
+    "javadoc": "Request from Rekenmodule.\nInput xml file containing request(s) for financing a car.",
+    "entityTableName": "rekenmodule_aanvraag",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

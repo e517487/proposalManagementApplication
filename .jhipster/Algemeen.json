@@ -1,0 +1,73 @@
+{
+    "name": "Algemeen",
+    "fields": [
+        {
+            "fieldName": "viewcode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "versiecode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "valuta",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "aanvraagVersie",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "aanvraagVolgNr",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "tussenpersoonNr",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "bedrijfsnaamTp",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "contactPersoonTp",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "maatschappij",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "registratieDt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "subagentNr",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "verkopersNaam",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "aanvraagbericht",
+            "otherEntityName": "aanvraagbericht",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "algemeen"
+        }
+    ],
+    "changelogDate": "20180702213746",
+    "javadoc": "1 Algemeen allowed per <Aanvraagbericht>",
+    "entityTableName": "algemeen",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

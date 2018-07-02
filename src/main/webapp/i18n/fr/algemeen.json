@@ -1,0 +1,34 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "algemeen" : {
+            "home": {
+                "title": "Algemeens",
+                "createLabel": "Créer un nouveau Algemeen",
+                "createOrEditLabel": "Créer ou éditer un Algemeen"
+            },
+            "created": "Un nouveau Algemeen a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Algemeen avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Algemeen avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Algemeen {{ id }} ?"
+            },
+            "detail": {
+                "title": "Algemeen"
+            },
+            "viewcode": "Viewcode",
+            "versiecode": "Versiecode",
+            "valuta": "Valuta",
+            "aanvraagVersie": "Aanvraag Versie",
+            "aanvraagVolgNr": "Aanvraag Volg Nr",
+            "tussenpersoonNr": "Tussenpersoon Nr",
+            "bedrijfsnaamTp": "Bedrijfsnaam Tp",
+            "contactPersoonTp": "Contact Persoon Tp",
+            "maatschappij": "Maatschappij",
+            "registratieDt": "Registratie Dt",
+            "subagentNr": "Subagent Nr",
+            "verkopersNaam": "Verkopers Naam",
+            "aanvraagbericht": "Aanvraagbericht"
+        }
+    }
+}

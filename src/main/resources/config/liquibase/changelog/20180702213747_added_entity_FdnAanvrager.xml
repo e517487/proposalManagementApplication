@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity FdnAanvrager.
+    -->
+    <changeSet id="20180702213747-1" author="jhipster">
+        <createTable tableName="fdn_aanvrager" remarks="0..n of FdnAanvrager allowed per &lt;Aanvraagbericht&gt;">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="volgnummer" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="soort_aanvrager" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="achter_naam" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="voorletters" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="geb_naam" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="woonachtig_huidig_dt" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tel_bereikbaar" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="telefoon_nr_prive" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="iban" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="geboorte_dt" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="nationaliteit" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="geslacht" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="sociaal_fiscaal_nr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="relatie_tp" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="aanvraagbericht_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

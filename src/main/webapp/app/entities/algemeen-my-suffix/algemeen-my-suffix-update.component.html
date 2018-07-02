@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-algemeen-my-suffix-heading" jhiTranslate="proposalManagementApplicationApp.algemeen.home.createOrEditLabel">Create or edit a Algemeen</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!algemeen.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="algemeen.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.viewcode" for="field_viewcode">Viewcode</label>
+                    <input type="text" class="form-control" name="viewcode" id="field_viewcode"
+                        [(ngModel)]="algemeen.viewcode" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.versiecode" for="field_versiecode">Versiecode</label>
+                    <input type="text" class="form-control" name="versiecode" id="field_versiecode"
+                        [(ngModel)]="algemeen.versiecode" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.valuta" for="field_valuta">Valuta</label>
+                    <input type="text" class="form-control" name="valuta" id="field_valuta"
+                        [(ngModel)]="algemeen.valuta" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.aanvraagVersie" for="field_aanvraagVersie">Aanvraag Versie</label>
+                    <input type="number" class="form-control" name="aanvraagVersie" id="field_aanvraagVersie"
+                        [(ngModel)]="algemeen.aanvraagVersie" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.aanvraagVolgNr" for="field_aanvraagVolgNr">Aanvraag Volg Nr</label>
+                    <input type="number" class="form-control" name="aanvraagVolgNr" id="field_aanvraagVolgNr"
+                        [(ngModel)]="algemeen.aanvraagVolgNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.tussenpersoonNr" for="field_tussenpersoonNr">Tussenpersoon Nr</label>
+                    <input type="number" class="form-control" name="tussenpersoonNr" id="field_tussenpersoonNr"
+                        [(ngModel)]="algemeen.tussenpersoonNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.bedrijfsnaamTp" for="field_bedrijfsnaamTp">Bedrijfsnaam Tp</label>
+                    <input type="text" class="form-control" name="bedrijfsnaamTp" id="field_bedrijfsnaamTp"
+                        [(ngModel)]="algemeen.bedrijfsnaamTp" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.contactPersoonTp" for="field_contactPersoonTp">Contact Persoon Tp</label>
+                    <input type="text" class="form-control" name="contactPersoonTp" id="field_contactPersoonTp"
+                        [(ngModel)]="algemeen.contactPersoonTp" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.maatschappij" for="field_maatschappij">Maatschappij</label>
+                    <input type="text" class="form-control" name="maatschappij" id="field_maatschappij"
+                        [(ngModel)]="algemeen.maatschappij" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.registratieDt" for="field_registratieDt">Registratie Dt</label>
+                    <div class="input-group">
+                        <input id="field_registratieDt" type="text" class="form-control" name="registratieDt" ngbDatepicker  #registratieDtDp="ngbDatepicker" [(ngModel)]="algemeen.registratieDt"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="registratieDtDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.subagentNr" for="field_subagentNr">Subagent Nr</label>
+                    <input type="number" class="form-control" name="subagentNr" id="field_subagentNr"
+                        [(ngModel)]="algemeen.subagentNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.algemeen.verkopersNaam" for="field_verkopersNaam">Verkopers Naam</label>
+                    <input type="text" class="form-control" name="verkopersNaam" id="field_verkopersNaam"
+                        [(ngModel)]="algemeen.verkopersNaam" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

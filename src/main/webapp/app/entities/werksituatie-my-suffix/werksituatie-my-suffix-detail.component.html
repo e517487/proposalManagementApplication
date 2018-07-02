@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="werksituatie">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.werksituatie.detail.title">Werksituatie</span> {{werksituatie.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.werksituatie.volgnummer">Volgnummer</span></dt>
+                <dd>
+                    <span>{{werksituatie.volgnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.werksituatie.beroep">Beroep</span></dt>
+                <dd>
+                    <span>{{werksituatie.beroep}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.werksituatie.aardDienstverband">Aard Dienstverband</span></dt>
+                <dd>
+                    <span>{{werksituatie.aardDienstverband}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.werksituatie.beginDienstverbandDt">Begin Dienstverband Dt</span></dt>
+                <dd>
+                    <span>{{werksituatie.beginDienstverbandDt}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.werksituatie.fdnAanvrager">Fdn Aanvrager</span></dt>
+                <dd>
+                    <div *ngIf="werksituatie.fdnAanvragerId">
+                        <a [routerLink]="['/fdn-aanvrager-my-suffix', werksituatie.fdnAanvragerId, 'view']">{{werksituatie.fdnAanvragerId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/werksituatie-my-suffix', werksituatie.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

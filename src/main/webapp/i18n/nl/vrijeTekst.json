@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "vrijeTekst" : {
+            "home": {
+                "title": "Vrije Teksts",
+                "createLabel": "Maak een nieuwe Vrije Tekst",
+                "createOrEditLabel": "Maak of wijzig een Vrije Tekst"
+            },
+            "created": "A new Vrije Tekst is created with identifier {{ param }}",
+            "updated": "A Vrije Tekst is updated with identifier {{ param }}",
+            "deleted": "A Vrije Tekst is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Vrije Tekst {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Vrije Tekst"
+            },
+            "volgnummer": "Volgnummer",
+            "tekstRegel": "Tekst Regel",
+            "aanvraagbericht": "Aanvraagbericht"
+        }
+    }
+}

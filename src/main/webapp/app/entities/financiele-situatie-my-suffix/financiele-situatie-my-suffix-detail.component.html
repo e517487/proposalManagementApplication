@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="financieleSituatie">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.detail.title">Financiele Situatie</span> {{financieleSituatie.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.volgnummer">Volgnummer</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.volgnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.brutoMaandInk">Bruto Maand Ink</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.brutoMaandInk}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.nettoMaandInk">Netto Maand Ink</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.nettoMaandInk}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.voorlopigeTeruggaaf">Voorlopige Teruggaaf</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.voorlopigeTeruggaaf}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.eigenWoning">Eigen Woning</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.eigenWoning}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.hypotheek">Hypotheek</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.hypotheek}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.brutoMndHypotheek">Bruto Mnd Hypotheek</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.brutoMndHypotheek}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.lopendeLeningen">Lopende Leningen</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.lopendeLeningen}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.woonsituatie">Woonsituatie</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.woonsituatie}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.woonlasten">Woonlasten</span></dt>
+                <dd>
+                    <span>{{financieleSituatie.woonlasten}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.financieleSituatie.fdnAanvrager">Fdn Aanvrager</span></dt>
+                <dd>
+                    <div *ngIf="financieleSituatie.fdnAanvragerId">
+                        <a [routerLink]="['/fdn-aanvrager-my-suffix', financieleSituatie.fdnAanvragerId, 'view']">{{financieleSituatie.fdnAanvragerId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/financiele-situatie-my-suffix', financieleSituatie.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

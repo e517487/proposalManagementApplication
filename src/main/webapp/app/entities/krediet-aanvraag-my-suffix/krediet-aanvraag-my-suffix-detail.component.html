@@ -1,0 +1,189 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="kredietAanvraag">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.detail.title">Krediet Aanvraag</span> {{kredietAanvraag.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.volgnummer">Volgnummer</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.volgnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.duurInMnd">Duur In Mnd</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.duurInMnd}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.soortAanvraag">Soort Aanvraag</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.soortAanvraag}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.produktCodeNaam">Produkt Code Naam</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.produktCodeNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.leningBedrag">Lening Bedrag</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.leningBedrag}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.mndAflosBedrag">Mnd Aflos Bedrag</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.mndAflosBedrag}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.gevrBedrInHanden">Gevr Bedr In Handen</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.gevrBedrInHanden}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.zekerheid">Zekerheid</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.zekerheid}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.bestedingsdoel">Bestedingsdoel</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.bestedingsdoel}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.merkObject">Merk Object</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.merkObject}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.typeObject">Type Object</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.typeObject}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.bouwjaarObject">Bouwjaar Object</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.bouwjaarObject}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.koopsomWaardeObj">Koopsom Waarde Obj</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.koopsomWaardeObj}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kenteken">Kenteken</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.kenteken}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.chassisnr">Chassisnr</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.chassisnr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.inruilbedrag">Inruilbedrag</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.inruilbedrag}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.doelNieuw">Doel Nieuw</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.doelNieuw}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanbetalingbedrag">Aanbetalingbedrag</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.aanbetalingbedrag}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.modelObject">Model Object</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.modelObject}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.sparen">Sparen</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.sparen}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.typeTarief">Type Tarief</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.typeTarief}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.tariefNaam">Tarief Naam</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.tariefNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.soortContract">Soort Contract</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.soortContract}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kontraktNaam">Kontrakt Naam</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.kontraktNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.produktNr">Produkt Nr</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.produktNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.perspectief">Perspectief</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.perspectief}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.nieuwGebruikt">Nieuw Gebruikt</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.nieuwGebruikt}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.verkoopprijs">Verkoopprijs</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.verkoopprijs}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanbetaling">Aanbetaling</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.aanbetaling}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameLopendeLening">Overname Lopende Lening</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.overnameLopendeLening}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kredietSom">Krediet Som</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.kredietSom}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.gMI">G MI</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.gMI}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameKentekennr">Overname Kentekennr</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.overnameKentekennr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameFinanMy">Overname Finan My</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.overnameFinanMy}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.ovvrnameContractNr">Ovvrname Contract Nr</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.ovvrnameContractNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnamePlaats">Overname Plaats</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.overnamePlaats}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.duurinMnd">Duurin Mnd</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.duurinMnd}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.restantbetaling">Restantbetaling</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.restantbetaling}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.effectiveRente">Effective Rente</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.effectiveRente}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.verkoper">Verkoper</span></dt>
+                <dd>
+                    <span>{{kredietAanvraag.verkoper}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanvraagbericht">Aanvraagbericht</span></dt>
+                <dd>
+                    <div *ngIf="kredietAanvraag.aanvraagberichtId">
+                        <a [routerLink]="['/aanvraagbericht-my-suffix', kredietAanvraag.aanvraagberichtId, 'view']">{{kredietAanvraag.aanvraagberichtId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/krediet-aanvraag-my-suffix', kredietAanvraag.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

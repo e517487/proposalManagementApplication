@@ -1,0 +1,47 @@
+{
+    "name": "Gezinssituatie",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "burgerlijkeStaat",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "huwelijkseVw",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "huwelijkOntbonden",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "weduweWeduwnaar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "kinderenAantal",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "fdnAanvrager",
+            "otherEntityName": "fdnAanvrager",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213752",
+    "entityTableName": "gezinssituatie",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

@@ -1,0 +1,32 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "financieleSituatie" : {
+            "home": {
+                "title": "Financiele Situaties",
+                "createLabel": "Create a new Financiele Situatie",
+                "createOrEditLabel": "Create or edit a Financiele Situatie"
+            },
+            "created": "A new Financiele Situatie is created with identifier {{ param }}",
+            "updated": "A Financiele Situatie is updated with identifier {{ param }}",
+            "deleted": "A Financiele Situatie is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Financiele Situatie {{ id }}?"
+            },
+            "detail": {
+                "title": "Financiele Situatie"
+            },
+            "volgnummer": "Volgnummer",
+            "brutoMaandInk": "Bruto Maand Ink",
+            "nettoMaandInk": "Netto Maand Ink",
+            "voorlopigeTeruggaaf": "Voorlopige Teruggaaf",
+            "eigenWoning": "Eigen Woning",
+            "hypotheek": "Hypotheek",
+            "brutoMndHypotheek": "Bruto Mnd Hypotheek",
+            "lopendeLeningen": "Lopende Leningen",
+            "woonsituatie": "Woonsituatie",
+            "woonlasten": "Woonlasten",
+            "fdnAanvrager": "Fdn Aanvrager"
+        }
+    }
+}

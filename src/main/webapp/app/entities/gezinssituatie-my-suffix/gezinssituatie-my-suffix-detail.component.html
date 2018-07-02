@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="gezinssituatie">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.gezinssituatie.detail.title">Gezinssituatie</span> {{gezinssituatie.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.gezinssituatie.volgnummer">Volgnummer</span></dt>
+                <dd>
+                    <span>{{gezinssituatie.volgnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.gezinssituatie.burgerlijkeStaat">Burgerlijke Staat</span></dt>
+                <dd>
+                    <span>{{gezinssituatie.burgerlijkeStaat}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.gezinssituatie.huwelijkseVw">Huwelijkse Vw</span></dt>
+                <dd>
+                    <span>{{gezinssituatie.huwelijkseVw}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.gezinssituatie.huwelijkOntbonden">Huwelijk Ontbonden</span></dt>
+                <dd>
+                    <span>{{gezinssituatie.huwelijkOntbonden}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.gezinssituatie.weduweWeduwnaar">Weduwe Weduwnaar</span></dt>
+                <dd>
+                    <span>{{gezinssituatie.weduweWeduwnaar}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.gezinssituatie.kinderenAantal">Kinderen Aantal</span></dt>
+                <dd>
+                    <span>{{gezinssituatie.kinderenAantal}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.gezinssituatie.fdnAanvrager">Fdn Aanvrager</span></dt>
+                <dd>
+                    <div *ngIf="gezinssituatie.fdnAanvragerId">
+                        <a [routerLink]="['/fdn-aanvrager-my-suffix', gezinssituatie.fdnAanvragerId, 'view']">{{gezinssituatie.fdnAanvragerId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/gezinssituatie-my-suffix', gezinssituatie.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

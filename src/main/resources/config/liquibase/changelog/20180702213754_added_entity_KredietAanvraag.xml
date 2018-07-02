@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity KredietAanvraag.
+    -->
+    <changeSet id="20180702213754-1" author="jhipster">
+        <createTable tableName="krediet_aanvraag" remarks="0..n of KredietAanvraag allowed per &lt;Aanvraagbericht&gt;">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="volgnummer" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="duur_in_mnd" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="soort_aanvraag" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="produkt_code_naam" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="lening_bedrag" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="mnd_aflos_bedrag" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="gevr_bedr_in_handen" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="zekerheid" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="bestedingsdoel" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="merk_object" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="type_object" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="bouwjaar_object" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="koopsom_waarde_obj" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="kenteken" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="chassisnr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="inruilbedrag" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="doel_nieuw" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="aanbetalingbedrag" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="model_object" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="sparen" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="type_tarief" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tarief_naam" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="soort_contract" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="kontrakt_naam" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="produkt_nr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="perspectief" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="nieuw_gebruikt" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="verkoopprijs" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="aanbetaling" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="overname_lopende_lening" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="krediet_som" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="g_mi" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="overname_kentekennr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="overname_finan_my" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="ovvrname_contract_nr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="overname_plaats" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="duurin_mnd" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="restantbetaling" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="effective_rente" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="verkoper" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="aanvraagbericht_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

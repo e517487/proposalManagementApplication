@@ -1,0 +1,28 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "gezinssituatie" : {
+            "home": {
+                "title": "Gezinssituaties",
+                "createLabel": "Create a new Gezinssituatie",
+                "createOrEditLabel": "Create or edit a Gezinssituatie"
+            },
+            "created": "A new Gezinssituatie is created with identifier {{ param }}",
+            "updated": "A Gezinssituatie is updated with identifier {{ param }}",
+            "deleted": "A Gezinssituatie is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Gezinssituatie {{ id }}?"
+            },
+            "detail": {
+                "title": "Gezinssituatie"
+            },
+            "volgnummer": "Volgnummer",
+            "burgerlijkeStaat": "Burgerlijke Staat",
+            "huwelijkseVw": "Huwelijkse Vw",
+            "huwelijkOntbonden": "Huwelijk Ontbonden",
+            "weduweWeduwnaar": "Weduwe Weduwnaar",
+            "kinderenAantal": "Kinderen Aantal",
+            "fdnAanvrager": "Fdn Aanvrager"
+        }
+    }
+}

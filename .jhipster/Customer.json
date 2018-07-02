@@ -1,0 +1,23 @@
+{
+    "name": "Customer",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "request",
+            "otherEntityName": "request",
+            "otherEntityRelationshipName": "customer"
+        }
+    ],
+    "changelogDate": "20180702213742",
+    "javadoc": "Customer\n\nCustomer of the financing request.\nThe customer has to be checked if it is already known (existing customer, or multiple requests from multiple dealers)\nIf Customer already known this can speedup credit scoring process if this previous scoring is available an still valid.\ni.e. one credit scoring for multiple requests done by this customer.\n\nMain issues for this entity\n- customer known in Miles?\n- processing multiple requests in short time window (multiple request for one financing issue)",
+    "entityTableName": "customer",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

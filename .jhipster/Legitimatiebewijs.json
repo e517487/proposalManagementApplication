@@ -1,0 +1,35 @@
+{
+    "name": "Legitimatiebewijs",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "soort",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "land",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "fdnAanvrager",
+            "otherEntityName": "fdnAanvrager",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213749",
+    "entityTableName": "legitimatiebewijs",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

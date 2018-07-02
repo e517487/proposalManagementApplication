@@ -1,0 +1,378 @@
+/**
+ * Request to be scored
+ *
+ * Contains all the information and assessment status of the request for financing done.
+ *
+ *
+ */
+ entity Request {
+ }
+relationship OneToOne {
+    RekenmoduleAanvraag {request} to Request {rekenmoduleAanvraag}
+    CreditScore {request} to Request {creditScore}
+}
+relationship OneToMany {
+    Customer{request} to Request{customer}
+}
+
+
+ /**
+  * Credit scoring
+  *
+  * Status of the credit scoring of a finance request for the customer.
+  *  Relations to information for the assessment to be done and results of these assessments
+  *  Final judgement of the request done for the customer.
+  * Every credit score is uniquely bounded to a request.
+  */
+  entity CreditScore {
+
+  }
+
+
+
+ /**
+  * Customer
+  *
+  * Customer of the financing request.
+  * The customer has to be checked if it is already known (existing customer, or multiple requests from multiple dealers)
+  * If Customer already known this can speedup credit scoring process if this previous scoring is available an still valid.
+  * i.e. one credit scoring for multiple requests done by this customer.
+  *
+  * Main issues for this entity
+  *  - customer known in Miles?
+  *  - processing multiple requests in short time window (multiple request for one financing issue)
+  *
+  */
+  entity Customer {
+
+  }
+//****************************************************************
+
+/**
+ * Request from Rekenmodule.
+ * Input xml file containing request(s) for financing a car.
+*/
+entity RekenmoduleAanvraag {
+	 rekenmoduleAanvraagFileName String //,
+     //aanvraagbericht Aanvraagbericht,
+}
+relationship OneToOne {
+	 Aanvraagbericht {rekenmoduleAanvraag} to RekenmoduleAanvraag {aanvraagbericht}
+}
+
+/**
+*  Main entry of rekenmodule aanvraag xml file with the request.
+*/
+entity Aanvraagbericht {
+    //header Header,
+    //algemeen Algemeen,
+    //fdnAanvrager List<FdnAanvrager>,
+	//kredietAanvraag List<KredietAanvraag>,
+	//vrijeTekst List<VrijeTekst>
+}
+relationship OneToOne  { Aanvraagbericht {header}          to Header {aanvraagbericht}}
+relationship OneToOne  { Aanvraagbericht {algemeen}        to Algemeen {aanvraagbericht}}
+relationship OneToMany { Aanvraagbericht {fdnAanvrager}    to FdnAanvrager {aanvraagbericht}}
+relationship OneToMany { Aanvraagbericht {kredietAanvraag} to KredietAanvraag {aanvraagbericht}}
+relationship OneToMany { Aanvraagbericht {vrijeTekst}      to VrijeTekst {aanvraagbericht}}
+
+/**
+* 1 Header allowed per <Aanvraagbericht>
+*/
+entity Header {
+	emailZender String,
+    emailOntvanger String,
+    ontvangerNaam String,
+    lognaam String,
+    messageRef String,
+    berichtVersie Integer,
+    verzendDt LocalDate,
+    verzendTijd LocalDate
+}
+
+/**
+* 1 Algemeen allowed per <Aanvraagbericht>
+*/
+entity Algemeen {
+	viewcode String,
+    versiecode String,
+    valuta String,
+    aanvraagVersie Long,
+    aanvraagVolgNr Long,
+    tussenpersoonNr Long,
+    bedrijfsnaamTp String,
+    contactPersoonTp String,
+    maatschappij String,
+    registratieDt LocalDate,
+    subagentNr Long,
+    verkopersNaam String
+}
+
+/**
+* 0..n of FdnAanvrager allowed per <Aanvraagbericht>
+*/
+entity FdnAanvrager {
+ 	volgnummer Long,
+
+    soortAanvrager String,
+    achterNaam String,
+    voorletters String,
+    gebNaam String,
+    woonachtigHuidigDt LocalDate,
+    telBereikbaar String,
+    telefoonNrPrive String,
+    iban String,
+    geboorteDt LocalDate,
+    nationaliteit String,
+    geslacht String,
+    sociaalFiscaalNr String,
+    relatieTp String
+    //adres
+    //legitimatiebewijs
+    //werksituatie
+    //gezinsituatie
+    //financieleSituatie
+}
+/** not an ignored comment */
+entity Adres {
+ 	volgnummer Long,
+
+	soortAdres	String,
+	straatNaam	String,
+	huisNr		String,
+	plaatsNaam	String,
+	postcode	String,
+	land		String
+}
+entity Legitimatiebewijs {
+ 	volgnummer Long,
+
+    soort	String,
+    land	String
+}
+entity Werksituatie {
+	volgnummer Long
+
+    beroep	String,
+    aardDienstverband	String,
+    beginDienstverbandDt	LocalDate,
+}
+entity NawWerkgeverUWV {
+	volgnummer Long,
+
+    naam	String,
+    plaatsNaam	String
+}
+relationship OneToMany { Werksituatie {nawWerkgeverUWV} to NawWerkgeverUWV {werksituatie}}
+entity Gezinssituatie {
+	volgnummer Long,
+
+    burgerlijkeStaat		String,
+	huwelijkseVw		String,
+	huwelijkOntbonden		String,
+	weduweWeduwnaar		String,
+	kinderenAantal	Integer
+}
+entity FinancieleSituatie {
+	volgnummer Long,
+
+    brutoMaandInk BigDecimal,
+	nettoMaandInk BigDecimal,
+	voorlopigeTeruggaaf String,
+	eigenWoning	String,
+	hypotheek String,
+	brutoMndHypotheek	BigDecimal,
+	lopendeLeningen	String,
+	woonsituatie	String,
+	woonlasten	BigDecimal
+}
+relationship OneToMany {
+	FdnAanvrager {adres}              to Adres {fdnAanvrager}
+    FdnAanvrager {legitimatiebewijs}  to Legitimatiebewijs {fdnAanvrager}
+    FdnAanvrager {werksituatie}       to Werksituatie {fdnAanvrager}
+    FdnAanvrager {gezinssituatie}     to Gezinssituatie {fdnAanvrager}
+    FdnAanvrager {financieleSituatie} to FinancieleSituatie {fdnAanvrager}
+}
+/**
+* 0..n of KredietAanvraag allowed per <Aanvraagbericht>
+*/
+entity KredietAanvraag {
+	volgnummer Long,
+
+    duurInMnd String,
+    soortAanvraag String,
+    produktCodeNaam String,
+    leningBedrag BigDecimal,
+    mndAflosBedrag BigDecimal,
+    gevrBedrInHanden BigDecimal,
+    zekerheid String,
+    bestedingsdoel String,
+    merkObject String,
+    typeObject String,
+	bouwjaarObject String,
+    koopsomWaardeObj String,
+    kenteken String,
+    chassisnr String,
+    inruilbedrag String,
+    doelNieuw String,
+    aanbetalingbedrag BigDecimal,
+    inruilbedrag BigDecimal,
+    modelObject	 String,
+    sparen String,
+	typeTarief String,
+    tariefNaam String,
+    soortContract String,
+    kontraktNaam String,
+    produktNr String,
+    produktCodeNaam String,
+    perspectief String,
+    nieuwGebruikt String,
+    verkoopprijs BigDecimal,
+    aanbetaling BigDecimal,
+    overnameLopendeLening String,
+    kredietSom BigDecimal,
+    gMI String,
+    overnameKentekennr String,
+    overnameFinanMy String,
+    ovvrnameContractNr String,
+    overnamePlaats String,
+    duurinMnd String,
+    restantbetaling	BigDecimal,
+    effectiveRente  String,
+    verkoper String,
+}
+//------------------------
+/**
+* 0..n of VrijeTekst allowed per <Aanvraagbericht>
+* Make a tekst blok(s) containing severalrows of tekst.
+*/
+entity VrijeTekst {
+	volgnummer Long,
+    //TekstRegel List<String>
+}
+/**
+* 0..n Rows of text in the parent VrijeTekst
+*/
+entity TekstRegel {
+	regelnummer Long,
+    tekst String
+}
+relationship OneToMany {VrijeTekst {tekstRegel} to  TekstRegel {vrijeTekst} }
+
+//------------------------
+entity Region {
+	regionName String
+}
+
+entity Country {
+	countryName String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Location {
+	streetAddress String,
+	postalCode String,
+	city String,
+	stateProvince String
+}
+
+entity Department {
+	departmentName String required
+}
+
+/**
+ * Task entity.
+ * @author The JHipster team.
+ */
+entity Task {
+	title String,
+	description String
+}
+
+/**
+ * The Employee entity.
+ */
+entity Employee {
+	/**
+	* The firstname attribute.
+	*/
+	firstName String,
+	lastName String,
+	email String,
+	phoneNumber String,
+	hireDate Instant,
+	salary Long,
+	commissionPct Long
+}
+
+entity Job {
+	jobTitle String,
+	minSalary Long,
+	maxSalary Long
+}
+
+entity JobHistory {
+	startDate Instant,
+	endDate Instant,
+	language Language
+}
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
+relationship OneToOne {
+	Country{region} to Region
+}
+
+relationship OneToOne {
+	Location{country} to Country
+}
+
+relationship OneToOne {
+	Department{location} to Location
+}
+
+relationship ManyToMany {
+	Job{task(title)} to Task{job}
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Employee{job} to Job,
+	/**
+	* A relationship
+	*/
+	Department{employee} to
+	/**
+	* Another side of the same relationship
+	*/
+	Employee
+}
+
+relationship ManyToOne {
+	Employee{manager} to Employee
+}
+
+// defining multiple oneToOne relationships
+relationship OneToOne {
+	JobHistory{job} to Job,
+	JobHistory{department} to Department,
+	JobHistory{employee} to Employee
+}
+
+//**********************************************************
+
+// Set pagination options
+paginate JobHistory, Employee with infinite-scroll
+paginate Job with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+// Set an angular suffix
+angularSuffix * with mySuffix
+
+

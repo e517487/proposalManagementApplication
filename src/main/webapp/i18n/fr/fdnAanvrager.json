@@ -1,0 +1,41 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "fdnAanvrager" : {
+            "home": {
+                "title": "FdnAanvragers",
+                "createLabel": "Créer un nouveau Fdn Aanvrager",
+                "createOrEditLabel": "Créer ou éditer un Fdn Aanvrager"
+            },
+            "created": "Un nouveau Fdn Aanvrager a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Fdn Aanvrager avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Fdn Aanvrager avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Fdn Aanvrager {{ id }} ?"
+            },
+            "detail": {
+                "title": "Fdn Aanvrager"
+            },
+            "volgnummer": "Volgnummer",
+            "soortAanvrager": "Soort Aanvrager",
+            "achterNaam": "Achter Naam",
+            "voorletters": "Voorletters",
+            "gebNaam": "Geb Naam",
+            "woonachtigHuidigDt": "Woonachtig Huidig Dt",
+            "telBereikbaar": "Tel Bereikbaar",
+            "telefoonNrPrive": "Telefoon Nr Prive",
+            "iban": "Iban",
+            "geboorteDt": "Geboorte Dt",
+            "nationaliteit": "Nationaliteit",
+            "geslacht": "Geslacht",
+            "sociaalFiscaalNr": "Sociaal Fiscaal Nr",
+            "relatieTp": "Relatie Tp",
+            "adres": "Adres",
+            "legitimatiebewijs": "Legitimatiebewijs",
+            "werksituatie": "Werksituatie",
+            "gezinssituatie": "Gezinssituatie",
+            "financieleSituatie": "Financiele Situatie",
+            "aanvraagbericht": "Aanvraagbericht"
+        }
+    }
+}

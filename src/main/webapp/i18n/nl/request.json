@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "request" : {
+            "home": {
+                "title": "Requests",
+                "createLabel": "Maak een nieuwe Request",
+                "createOrEditLabel": "Maak of wijzig een Request"
+            },
+            "created": "A new Request is created with identifier {{ param }}",
+            "updated": "A Request is updated with identifier {{ param }}",
+            "deleted": "A Request is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Request {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Request"
+            },
+            "rekenmoduleAanvraag": "Rekenmodule Aanvraag",
+            "creditScore": "Credit Score",
+            "customer": "Customer"
+        }
+    }
+}

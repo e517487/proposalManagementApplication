@@ -1,0 +1,25 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "nawWerkgeverUWV" : {
+            "home": {
+                "title": "NawWerkgeverUWVS",
+                "createLabel": "Créer un nouveau Naw Werkgever UWV",
+                "createOrEditLabel": "Créer ou éditer un Naw Werkgever UWV"
+            },
+            "created": "Un nouveau Naw Werkgever UWV a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Naw Werkgever UWV avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Naw Werkgever UWV avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Naw Werkgever UWV {{ id }} ?"
+            },
+            "detail": {
+                "title": "Naw Werkgever UWV"
+            },
+            "volgnummer": "Volgnummer",
+            "naam": "Naam",
+            "plaatsNaam": "Plaats Naam",
+            "werksituatie": "Werksituatie"
+        }
+    }
+}

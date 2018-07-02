@@ -1,0 +1,22 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "creditScore" : {
+            "home": {
+                "title": "Credit Scores",
+                "createLabel": "Maak een nieuwe Credit Score",
+                "createOrEditLabel": "Maak of wijzig een Credit Score"
+            },
+            "created": "A new Credit Score is created with identifier {{ param }}",
+            "updated": "A Credit Score is updated with identifier {{ param }}",
+            "deleted": "A Credit Score is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Credit Score {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Credit Score"
+            },
+            "request": "Request"
+        }
+    }
+}

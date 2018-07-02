@@ -1,0 +1,138 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.home.title">Krediet Aanvraags</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-krediet-aanvraag-my-suffix" [routerLink]="['/krediet-aanvraag-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.home.createLabel">
+            Create new Krediet Aanvraag
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="kredietAanvraags">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.volgnummer">Volgnummer</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.duurInMnd">Duur In Mnd</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.soortAanvraag">Soort Aanvraag</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.produktCodeNaam">Produkt Code Naam</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.leningBedrag">Lening Bedrag</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.mndAflosBedrag">Mnd Aflos Bedrag</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.gevrBedrInHanden">Gevr Bedr In Handen</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.zekerheid">Zekerheid</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.bestedingsdoel">Bestedingsdoel</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.merkObject">Merk Object</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.typeObject">Type Object</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.bouwjaarObject">Bouwjaar Object</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.koopsomWaardeObj">Koopsom Waarde Obj</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kenteken">Kenteken</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.chassisnr">Chassisnr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.inruilbedrag">Inruilbedrag</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.doelNieuw">Doel Nieuw</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanbetalingbedrag">Aanbetalingbedrag</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.modelObject">Model Object</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.sparen">Sparen</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.typeTarief">Type Tarief</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.tariefNaam">Tarief Naam</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.soortContract">Soort Contract</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kontraktNaam">Kontrakt Naam</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.produktNr">Produkt Nr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.perspectief">Perspectief</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.nieuwGebruikt">Nieuw Gebruikt</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.verkoopprijs">Verkoopprijs</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanbetaling">Aanbetaling</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameLopendeLening">Overname Lopende Lening</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kredietSom">Krediet Som</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.gMI">G MI</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameKentekennr">Overname Kentekennr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameFinanMy">Overname Finan My</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.ovvrnameContractNr">Ovvrname Contract Nr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnamePlaats">Overname Plaats</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.duurinMnd">Duurin Mnd</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.restantbetaling">Restantbetaling</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.effectiveRente">Effective Rente</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.verkoper">Verkoper</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanvraagbericht">Aanvraagbericht</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let kredietAanvraag of kredietAanvraags ;trackBy: trackId">
+                <td><a [routerLink]="['/krediet-aanvraag-my-suffix', kredietAanvraag.id, 'view' ]">{{kredietAanvraag.id}}</a></td>
+                <td>{{kredietAanvraag.volgnummer}}</td>
+                <td>{{kredietAanvraag.duurInMnd}}</td>
+                <td>{{kredietAanvraag.soortAanvraag}}</td>
+                <td>{{kredietAanvraag.produktCodeNaam}}</td>
+                <td>{{kredietAanvraag.leningBedrag}}</td>
+                <td>{{kredietAanvraag.mndAflosBedrag}}</td>
+                <td>{{kredietAanvraag.gevrBedrInHanden}}</td>
+                <td>{{kredietAanvraag.zekerheid}}</td>
+                <td>{{kredietAanvraag.bestedingsdoel}}</td>
+                <td>{{kredietAanvraag.merkObject}}</td>
+                <td>{{kredietAanvraag.typeObject}}</td>
+                <td>{{kredietAanvraag.bouwjaarObject}}</td>
+                <td>{{kredietAanvraag.koopsomWaardeObj}}</td>
+                <td>{{kredietAanvraag.kenteken}}</td>
+                <td>{{kredietAanvraag.chassisnr}}</td>
+                <td>{{kredietAanvraag.inruilbedrag}}</td>
+                <td>{{kredietAanvraag.doelNieuw}}</td>
+                <td>{{kredietAanvraag.aanbetalingbedrag}}</td>
+                <td>{{kredietAanvraag.modelObject}}</td>
+                <td>{{kredietAanvraag.sparen}}</td>
+                <td>{{kredietAanvraag.typeTarief}}</td>
+                <td>{{kredietAanvraag.tariefNaam}}</td>
+                <td>{{kredietAanvraag.soortContract}}</td>
+                <td>{{kredietAanvraag.kontraktNaam}}</td>
+                <td>{{kredietAanvraag.produktNr}}</td>
+                <td>{{kredietAanvraag.perspectief}}</td>
+                <td>{{kredietAanvraag.nieuwGebruikt}}</td>
+                <td>{{kredietAanvraag.verkoopprijs}}</td>
+                <td>{{kredietAanvraag.aanbetaling}}</td>
+                <td>{{kredietAanvraag.overnameLopendeLening}}</td>
+                <td>{{kredietAanvraag.kredietSom}}</td>
+                <td>{{kredietAanvraag.gMI}}</td>
+                <td>{{kredietAanvraag.overnameKentekennr}}</td>
+                <td>{{kredietAanvraag.overnameFinanMy}}</td>
+                <td>{{kredietAanvraag.ovvrnameContractNr}}</td>
+                <td>{{kredietAanvraag.overnamePlaats}}</td>
+                <td>{{kredietAanvraag.duurinMnd}}</td>
+                <td>{{kredietAanvraag.restantbetaling}}</td>
+                <td>{{kredietAanvraag.effectiveRente}}</td>
+                <td>{{kredietAanvraag.verkoper}}</td>
+                <td>
+                    <div *ngIf="kredietAanvraag.aanvraagberichtId">
+                        <a [routerLink]="['../aanvraagbericht-my-suffix', kredietAanvraag.aanvraagberichtId , 'view' ]" >{{kredietAanvraag.aanvraagberichtId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/krediet-aanvraag-my-suffix', kredietAanvraag.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/krediet-aanvraag-my-suffix', kredietAanvraag.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'krediet-aanvraag-my-suffix/'+ kredietAanvraag.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Algemeen.
+    -->
+    <changeSet id="20180702213746-1" author="jhipster">
+        <createTable tableName="algemeen" remarks="1 Algemeen allowed per &lt;Aanvraagbericht&gt;">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="viewcode" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="versiecode" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="valuta" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="aanvraag_versie" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="aanvraag_volg_nr" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tussenpersoon_nr" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="bedrijfsnaam_tp" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="contact_persoon_tp" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="maatschappij" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="registratie_dt" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="subagent_nr" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="verkopers_naam" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

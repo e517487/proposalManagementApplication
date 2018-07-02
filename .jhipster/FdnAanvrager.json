@@ -1,0 +1,110 @@
+{
+    "name": "FdnAanvrager",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "soortAanvrager",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "achterNaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "voorletters",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "gebNaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "woonachtigHuidigDt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "telBereikbaar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telefoonNrPrive",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "iban",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "geboorteDt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "nationaliteit",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "geslacht",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sociaalFiscaalNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "relatieTp",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "adres",
+            "otherEntityName": "adres",
+            "otherEntityRelationshipName": "fdnAanvrager"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "legitimatiebewijs",
+            "otherEntityName": "legitimatiebewijs",
+            "otherEntityRelationshipName": "fdnAanvrager"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "werksituatie",
+            "otherEntityName": "werksituatie",
+            "otherEntityRelationshipName": "fdnAanvrager"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "gezinssituatie",
+            "otherEntityName": "gezinssituatie",
+            "otherEntityRelationshipName": "fdnAanvrager"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "financieleSituatie",
+            "otherEntityName": "financieleSituatie",
+            "otherEntityRelationshipName": "fdnAanvrager"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "aanvraagbericht",
+            "otherEntityName": "aanvraagbericht",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213747",
+    "javadoc": "0..n of FdnAanvrager allowed per <Aanvraagbericht>",
+    "entityTableName": "fdn_aanvrager",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

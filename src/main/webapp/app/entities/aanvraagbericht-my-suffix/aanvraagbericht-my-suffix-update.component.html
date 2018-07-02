@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-aanvraagbericht-my-suffix-heading" jhiTranslate="proposalManagementApplicationApp.aanvraagbericht.home.createOrEditLabel">Create or edit a Aanvraagbericht</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!aanvraagbericht.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="aanvraagbericht.id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.aanvraagbericht.rekenmoduleAanvraag" for="field_rekenmoduleAanvraag">Rekenmodule Aanvraag</label>
+                    <select class="form-control" id="field_rekenmoduleAanvraag" name="rekenmoduleAanvraag" [(ngModel)]="aanvraagbericht.rekenmoduleAanvraagId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="rekenmoduleAanvraagOption.id" *ngFor="let rekenmoduleAanvraagOption of rekenmoduleaanvraags; trackBy: trackRekenmoduleAanvraagById">{{rekenmoduleAanvraagOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.aanvraagbericht.header" for="field_header">Header</label>
+                    <select class="form-control" id="field_header" name="header" [(ngModel)]="aanvraagbericht.headerId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="headerOption.id" *ngFor="let headerOption of headers; trackBy: trackHeaderById">{{headerOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.aanvraagbericht.algemeen" for="field_algemeen">Algemeen</label>
+                    <select class="form-control" id="field_algemeen" name="algemeen" [(ngModel)]="aanvraagbericht.algemeenId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="algemeenOption.id" *ngFor="let algemeenOption of algemeens; trackBy: trackAlgemeenById">{{algemeenOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

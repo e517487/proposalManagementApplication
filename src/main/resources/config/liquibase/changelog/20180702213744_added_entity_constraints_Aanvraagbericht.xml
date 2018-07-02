@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Aanvraagbericht.
+    -->
+    <changeSet id="20180702213744-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="rekenmodule_aanvraag_id"
+                                 baseTableName="aanvraagbericht"
+                                 constraintName="fk_aanvraagbericht_rekenmodule_aanvraag_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rekenmodule_aanvraag"/>
+
+        <addForeignKeyConstraint baseColumnNames="header_id"
+                                 baseTableName="aanvraagbericht"
+                                 constraintName="fk_aanvraagbericht_header_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="header"/>
+
+        <addForeignKeyConstraint baseColumnNames="algemeen_id"
+                                 baseTableName="aanvraagbericht"
+                                 constraintName="fk_aanvraagbericht_algemeen_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="algemeen"/>
+
+    </changeSet>
+</databaseChangeLog>

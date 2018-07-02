@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="rekenmoduleAanvraag">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.rekenmoduleAanvraag.detail.title">Rekenmodule Aanvraag</span> {{rekenmoduleAanvraag.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.rekenmoduleAanvraag.rekenmoduleAanvraagFileName">Rekenmodule Aanvraag File Name</span></dt>
+                <dd>
+                    <span>{{rekenmoduleAanvraag.rekenmoduleAanvraagFileName}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.rekenmoduleAanvraag.request">Request</span></dt>
+                <dd>
+                    <div *ngIf="rekenmoduleAanvraag.requestId">
+                        <a [routerLink]="['/request-my-suffix', rekenmoduleAanvraag.requestId, 'view']">{{rekenmoduleAanvraag.requestId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/rekenmodule-aanvraag-my-suffix', rekenmoduleAanvraag.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

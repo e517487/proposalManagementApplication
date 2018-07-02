@@ -1,0 +1,45 @@
+{
+    "name": "Werksituatie",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "beroep",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "aardDienstverband",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "beginDienstverbandDt",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "nawWerkgeverUWV",
+            "otherEntityName": "nawWerkgeverUWV",
+            "otherEntityRelationshipName": "werksituatie"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "fdnAanvrager",
+            "otherEntityName": "fdnAanvrager",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213750",
+    "entityTableName": "werksituatie",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

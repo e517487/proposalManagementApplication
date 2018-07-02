@@ -1,0 +1,25 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "legitimatiebewijs" : {
+            "home": {
+                "title": "Legitimatiebewijs",
+                "createLabel": "Maak een nieuwe Legitimatiebewijs",
+                "createOrEditLabel": "Maak of wijzig een Legitimatiebewijs"
+            },
+            "created": "A new Legitimatiebewijs is created with identifier {{ param }}",
+            "updated": "A Legitimatiebewijs is updated with identifier {{ param }}",
+            "deleted": "A Legitimatiebewijs is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Legitimatiebewijs {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Legitimatiebewijs"
+            },
+            "volgnummer": "Volgnummer",
+            "soort": "Soort",
+            "land": "Land",
+            "fdnAanvrager": "Fdn Aanvrager"
+        }
+    }
+}

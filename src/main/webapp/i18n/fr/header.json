@@ -1,0 +1,30 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "header" : {
+            "home": {
+                "title": "Headers",
+                "createLabel": "Créer un nouveau Header",
+                "createOrEditLabel": "Créer ou éditer un Header"
+            },
+            "created": "Un nouveau Header a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Header avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Header avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Header {{ id }} ?"
+            },
+            "detail": {
+                "title": "Header"
+            },
+            "emailZender": "Email Zender",
+            "emailOntvanger": "Email Ontvanger",
+            "ontvangerNaam": "Ontvanger Naam",
+            "lognaam": "Lognaam",
+            "messageRef": "Message Ref",
+            "berichtVersie": "Bericht Versie",
+            "verzendDt": "Verzend Dt",
+            "verzendTijd": "Verzend Tijd",
+            "aanvraagbericht": "Aanvraagbericht"
+        }
+    }
+}

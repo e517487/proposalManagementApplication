@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "rekenmoduleAanvraag" : {
+            "home": {
+                "title": "RekenmoduleAanvraags",
+                "createLabel": "Créer un nouveau Rekenmodule Aanvraag",
+                "createOrEditLabel": "Créer ou éditer un Rekenmodule Aanvraag"
+            },
+            "created": "Un nouveau Rekenmodule Aanvraag a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Rekenmodule Aanvraag avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Rekenmodule Aanvraag avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Rekenmodule Aanvraag {{ id }} ?"
+            },
+            "detail": {
+                "title": "Rekenmodule Aanvraag"
+            },
+            "rekenmoduleAanvraagFileName": "Rekenmodule Aanvraag File Name",
+            "request": "Request",
+            "aanvraagbericht": "Aanvraagbericht"
+        }
+    }
+}

@@ -1,0 +1,85 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="fdnAanvrager">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.detail.title">Fdn Aanvrager</span> {{fdnAanvrager.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.volgnummer">Volgnummer</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.volgnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.soortAanvrager">Soort Aanvrager</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.soortAanvrager}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.achterNaam">Achter Naam</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.achterNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.voorletters">Voorletters</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.voorletters}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.gebNaam">Geb Naam</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.gebNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.woonachtigHuidigDt">Woonachtig Huidig Dt</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.woonachtigHuidigDt}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.telBereikbaar">Tel Bereikbaar</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.telBereikbaar}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.telefoonNrPrive">Telefoon Nr Prive</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.telefoonNrPrive}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.iban">Iban</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.iban}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.geboorteDt">Geboorte Dt</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.geboorteDt}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.nationaliteit">Nationaliteit</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.nationaliteit}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.geslacht">Geslacht</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.geslacht}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.sociaalFiscaalNr">Sociaal Fiscaal Nr</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.sociaalFiscaalNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.relatieTp">Relatie Tp</span></dt>
+                <dd>
+                    <span>{{fdnAanvrager.relatieTp}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.fdnAanvrager.aanvraagbericht">Aanvraagbericht</span></dt>
+                <dd>
+                    <div *ngIf="fdnAanvrager.aanvraagberichtId">
+                        <a [routerLink]="['/aanvraagbericht-my-suffix', fdnAanvrager.aanvraagberichtId, 'view']">{{fdnAanvrager.aanvraagberichtId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/fdn-aanvrager-my-suffix', fdnAanvrager.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

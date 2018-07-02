@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "tekstRegel" : {
+            "home": {
+                "title": "Tekst Regels",
+                "createLabel": "Create a new Tekst Regel",
+                "createOrEditLabel": "Create or edit a Tekst Regel"
+            },
+            "created": "A new Tekst Regel is created with identifier {{ param }}",
+            "updated": "A Tekst Regel is updated with identifier {{ param }}",
+            "deleted": "A Tekst Regel is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tekst Regel {{ id }}?"
+            },
+            "detail": {
+                "title": "Tekst Regel"
+            },
+            "regelnummer": "Regelnummer",
+            "tekst": "Tekst",
+            "vrijeTekst": "Vrije Tekst"
+        }
+    }
+}

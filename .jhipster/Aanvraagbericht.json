@@ -1,0 +1,59 @@
+{
+    "name": "Aanvraagbericht",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "rekenmoduleAanvraag",
+            "otherEntityName": "rekenmoduleAanvraag",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "aanvraagbericht"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "header",
+            "otherEntityName": "header",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "aanvraagbericht"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "algemeen",
+            "otherEntityName": "algemeen",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "aanvraagbericht"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "fdnAanvrager",
+            "otherEntityName": "fdnAanvrager",
+            "otherEntityRelationshipName": "aanvraagbericht"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "kredietAanvraag",
+            "otherEntityName": "kredietAanvraag",
+            "otherEntityRelationshipName": "aanvraagbericht"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "vrijeTekst",
+            "otherEntityName": "vrijeTekst",
+            "otherEntityRelationshipName": "aanvraagbericht"
+        }
+    ],
+    "changelogDate": "20180702213744",
+    "javadoc": "Main entry of rekenmodule aanvraag xml file with the request.",
+    "entityTableName": "aanvraagbericht",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

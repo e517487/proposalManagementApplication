@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="adres">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.adres.detail.title">Adres</span> {{adres.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.adres.volgnummer">Volgnummer</span></dt>
+                <dd>
+                    <span>{{adres.volgnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.adres.soortAdres">Soort Adres</span></dt>
+                <dd>
+                    <span>{{adres.soortAdres}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.adres.straatNaam">Straat Naam</span></dt>
+                <dd>
+                    <span>{{adres.straatNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.adres.huisNr">Huis Nr</span></dt>
+                <dd>
+                    <span>{{adres.huisNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.adres.plaatsNaam">Plaats Naam</span></dt>
+                <dd>
+                    <span>{{adres.plaatsNaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.adres.postcode">Postcode</span></dt>
+                <dd>
+                    <span>{{adres.postcode}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.adres.land">Land</span></dt>
+                <dd>
+                    <span>{{adres.land}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.adres.fdnAanvrager">Fdn Aanvrager</span></dt>
+                <dd>
+                    <div *ngIf="adres.fdnAanvragerId">
+                        <a [routerLink]="['/fdn-aanvrager-my-suffix', adres.fdnAanvragerId, 'view']">{{adres.fdnAanvragerId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/adres-my-suffix', adres.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+{
+    "name": "Request",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "rekenmoduleAanvraag",
+            "otherEntityName": "rekenmoduleAanvraag",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "request"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "creditScore",
+            "otherEntityName": "creditScore",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "request"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213740",
+    "javadoc": "Request to be scored\n\nContains all the information and assessment status of the request for financing done.",
+    "entityTableName": "request",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

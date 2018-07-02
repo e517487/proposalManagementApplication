@@ -1,0 +1,25 @@
+{
+    "name": "CreditScore",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "request",
+            "otherEntityName": "request",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "creditScore"
+        }
+    ],
+    "changelogDate": "20180702213741",
+    "javadoc": "Credit scoring\n\nStatus of the credit scoring of a finance request for the customer.\nRelations to information for the assessment to be done and results of these assessments\nFinal judgement of the request done for the customer.\nEvery credit score is uniquely bounded to a request.",
+    "entityTableName": "credit_score",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

@@ -1,0 +1,27 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "aanvraagbericht" : {
+            "home": {
+                "title": "Aanvraagberichts",
+                "createLabel": "Create a new Aanvraagbericht",
+                "createOrEditLabel": "Create or edit a Aanvraagbericht"
+            },
+            "created": "A new Aanvraagbericht is created with identifier {{ param }}",
+            "updated": "A Aanvraagbericht is updated with identifier {{ param }}",
+            "deleted": "A Aanvraagbericht is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Aanvraagbericht {{ id }}?"
+            },
+            "detail": {
+                "title": "Aanvraagbericht"
+            },
+            "rekenmoduleAanvraag": "Rekenmodule Aanvraag",
+            "header": "Header",
+            "algemeen": "Algemeen",
+            "fdnAanvrager": "Fdn Aanvrager",
+            "kredietAanvraag": "Krediet Aanvraag",
+            "vrijeTekst": "Vrije Tekst"
+        }
+    }
+}

@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="vrijeTekst">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.vrijeTekst.detail.title">Vrije Tekst</span> {{vrijeTekst.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.vrijeTekst.volgnummer">Volgnummer</span></dt>
+                <dd>
+                    <span>{{vrijeTekst.volgnummer}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.vrijeTekst.aanvraagbericht">Aanvraagbericht</span></dt>
+                <dd>
+                    <div *ngIf="vrijeTekst.aanvraagberichtId">
+                        <a [routerLink]="['/aanvraagbericht-my-suffix', vrijeTekst.aanvraagberichtId, 'view']">{{vrijeTekst.aanvraagberichtId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/vrije-tekst-my-suffix', vrijeTekst.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

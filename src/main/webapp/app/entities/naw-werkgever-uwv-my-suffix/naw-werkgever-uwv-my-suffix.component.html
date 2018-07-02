@@ -1,0 +1,64 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.home.title">Naw Werkgever UWVS</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-naw-werkgever-uwv-my-suffix" [routerLink]="['/naw-werkgever-uwv-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.home.createLabel">
+            Create new Naw Werkgever UWV
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="nawWerkgeverUWVS">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.volgnummer">Volgnummer</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.naam">Naam</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.plaatsNaam">Plaats Naam</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.nawWerkgeverUWV.werksituatie">Werksituatie</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let nawWerkgeverUWV of nawWerkgeverUWVS ;trackBy: trackId">
+                <td><a [routerLink]="['/naw-werkgever-uwv-my-suffix', nawWerkgeverUWV.id, 'view' ]">{{nawWerkgeverUWV.id}}</a></td>
+                <td>{{nawWerkgeverUWV.volgnummer}}</td>
+                <td>{{nawWerkgeverUWV.naam}}</td>
+                <td>{{nawWerkgeverUWV.plaatsNaam}}</td>
+                <td>
+                    <div *ngIf="nawWerkgeverUWV.werksituatieId">
+                        <a [routerLink]="['../werksituatie-my-suffix', nawWerkgeverUWV.werksituatieId , 'view' ]" >{{nawWerkgeverUWV.werksituatieId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/naw-werkgever-uwv-my-suffix', nawWerkgeverUWV.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/naw-werkgever-uwv-my-suffix', nawWerkgeverUWV.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'naw-werkgever-uwv-my-suffix/'+ nawWerkgeverUWV.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

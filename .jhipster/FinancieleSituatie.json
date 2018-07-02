@@ -1,0 +1,63 @@
+{
+    "name": "FinancieleSituatie",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "brutoMaandInk",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "nettoMaandInk",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "voorlopigeTeruggaaf",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "eigenWoning",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "hypotheek",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "brutoMndHypotheek",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "lopendeLeningen",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "woonsituatie",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "woonlasten",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "fdnAanvrager",
+            "otherEntityName": "fdnAanvrager",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213753",
+    "entityTableName": "financiele_situatie",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

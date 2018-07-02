@@ -1,0 +1,231 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-krediet-aanvraag-my-suffix-heading" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.home.createOrEditLabel">Create or edit a Krediet Aanvraag</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!kredietAanvraag.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="kredietAanvraag.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.volgnummer" for="field_volgnummer">Volgnummer</label>
+                    <input type="number" class="form-control" name="volgnummer" id="field_volgnummer"
+                        [(ngModel)]="kredietAanvraag.volgnummer" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.duurInMnd" for="field_duurInMnd">Duur In Mnd</label>
+                    <input type="text" class="form-control" name="duurInMnd" id="field_duurInMnd"
+                        [(ngModel)]="kredietAanvraag.duurInMnd" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.soortAanvraag" for="field_soortAanvraag">Soort Aanvraag</label>
+                    <input type="text" class="form-control" name="soortAanvraag" id="field_soortAanvraag"
+                        [(ngModel)]="kredietAanvraag.soortAanvraag" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.produktCodeNaam" for="field_produktCodeNaam">Produkt Code Naam</label>
+                    <input type="text" class="form-control" name="produktCodeNaam" id="field_produktCodeNaam"
+                        [(ngModel)]="kredietAanvraag.produktCodeNaam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.leningBedrag" for="field_leningBedrag">Lening Bedrag</label>
+                    <input type="number" class="form-control" name="leningBedrag" id="field_leningBedrag"
+                        [(ngModel)]="kredietAanvraag.leningBedrag" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.mndAflosBedrag" for="field_mndAflosBedrag">Mnd Aflos Bedrag</label>
+                    <input type="number" class="form-control" name="mndAflosBedrag" id="field_mndAflosBedrag"
+                        [(ngModel)]="kredietAanvraag.mndAflosBedrag" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.gevrBedrInHanden" for="field_gevrBedrInHanden">Gevr Bedr In Handen</label>
+                    <input type="number" class="form-control" name="gevrBedrInHanden" id="field_gevrBedrInHanden"
+                        [(ngModel)]="kredietAanvraag.gevrBedrInHanden" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.zekerheid" for="field_zekerheid">Zekerheid</label>
+                    <input type="text" class="form-control" name="zekerheid" id="field_zekerheid"
+                        [(ngModel)]="kredietAanvraag.zekerheid" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.bestedingsdoel" for="field_bestedingsdoel">Bestedingsdoel</label>
+                    <input type="text" class="form-control" name="bestedingsdoel" id="field_bestedingsdoel"
+                        [(ngModel)]="kredietAanvraag.bestedingsdoel" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.merkObject" for="field_merkObject">Merk Object</label>
+                    <input type="text" class="form-control" name="merkObject" id="field_merkObject"
+                        [(ngModel)]="kredietAanvraag.merkObject" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.typeObject" for="field_typeObject">Type Object</label>
+                    <input type="text" class="form-control" name="typeObject" id="field_typeObject"
+                        [(ngModel)]="kredietAanvraag.typeObject" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.bouwjaarObject" for="field_bouwjaarObject">Bouwjaar Object</label>
+                    <input type="text" class="form-control" name="bouwjaarObject" id="field_bouwjaarObject"
+                        [(ngModel)]="kredietAanvraag.bouwjaarObject" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.koopsomWaardeObj" for="field_koopsomWaardeObj">Koopsom Waarde Obj</label>
+                    <input type="text" class="form-control" name="koopsomWaardeObj" id="field_koopsomWaardeObj"
+                        [(ngModel)]="kredietAanvraag.koopsomWaardeObj" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kenteken" for="field_kenteken">Kenteken</label>
+                    <input type="text" class="form-control" name="kenteken" id="field_kenteken"
+                        [(ngModel)]="kredietAanvraag.kenteken" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.chassisnr" for="field_chassisnr">Chassisnr</label>
+                    <input type="text" class="form-control" name="chassisnr" id="field_chassisnr"
+                        [(ngModel)]="kredietAanvraag.chassisnr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.inruilbedrag" for="field_inruilbedrag">Inruilbedrag</label>
+                    <input type="number" class="form-control" name="inruilbedrag" id="field_inruilbedrag"
+                        [(ngModel)]="kredietAanvraag.inruilbedrag" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.doelNieuw" for="field_doelNieuw">Doel Nieuw</label>
+                    <input type="text" class="form-control" name="doelNieuw" id="field_doelNieuw"
+                        [(ngModel)]="kredietAanvraag.doelNieuw" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanbetalingbedrag" for="field_aanbetalingbedrag">Aanbetalingbedrag</label>
+                    <input type="number" class="form-control" name="aanbetalingbedrag" id="field_aanbetalingbedrag"
+                        [(ngModel)]="kredietAanvraag.aanbetalingbedrag" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.modelObject" for="field_modelObject">Model Object</label>
+                    <input type="text" class="form-control" name="modelObject" id="field_modelObject"
+                        [(ngModel)]="kredietAanvraag.modelObject" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.sparen" for="field_sparen">Sparen</label>
+                    <input type="text" class="form-control" name="sparen" id="field_sparen"
+                        [(ngModel)]="kredietAanvraag.sparen" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.typeTarief" for="field_typeTarief">Type Tarief</label>
+                    <input type="text" class="form-control" name="typeTarief" id="field_typeTarief"
+                        [(ngModel)]="kredietAanvraag.typeTarief" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.tariefNaam" for="field_tariefNaam">Tarief Naam</label>
+                    <input type="text" class="form-control" name="tariefNaam" id="field_tariefNaam"
+                        [(ngModel)]="kredietAanvraag.tariefNaam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.soortContract" for="field_soortContract">Soort Contract</label>
+                    <input type="text" class="form-control" name="soortContract" id="field_soortContract"
+                        [(ngModel)]="kredietAanvraag.soortContract" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kontraktNaam" for="field_kontraktNaam">Kontrakt Naam</label>
+                    <input type="text" class="form-control" name="kontraktNaam" id="field_kontraktNaam"
+                        [(ngModel)]="kredietAanvraag.kontraktNaam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.produktNr" for="field_produktNr">Produkt Nr</label>
+                    <input type="text" class="form-control" name="produktNr" id="field_produktNr"
+                        [(ngModel)]="kredietAanvraag.produktNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.perspectief" for="field_perspectief">Perspectief</label>
+                    <input type="text" class="form-control" name="perspectief" id="field_perspectief"
+                        [(ngModel)]="kredietAanvraag.perspectief" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.nieuwGebruikt" for="field_nieuwGebruikt">Nieuw Gebruikt</label>
+                    <input type="text" class="form-control" name="nieuwGebruikt" id="field_nieuwGebruikt"
+                        [(ngModel)]="kredietAanvraag.nieuwGebruikt" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.verkoopprijs" for="field_verkoopprijs">Verkoopprijs</label>
+                    <input type="number" class="form-control" name="verkoopprijs" id="field_verkoopprijs"
+                        [(ngModel)]="kredietAanvraag.verkoopprijs" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanbetaling" for="field_aanbetaling">Aanbetaling</label>
+                    <input type="number" class="form-control" name="aanbetaling" id="field_aanbetaling"
+                        [(ngModel)]="kredietAanvraag.aanbetaling" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameLopendeLening" for="field_overnameLopendeLening">Overname Lopende Lening</label>
+                    <input type="text" class="form-control" name="overnameLopendeLening" id="field_overnameLopendeLening"
+                        [(ngModel)]="kredietAanvraag.overnameLopendeLening" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.kredietSom" for="field_kredietSom">Krediet Som</label>
+                    <input type="number" class="form-control" name="kredietSom" id="field_kredietSom"
+                        [(ngModel)]="kredietAanvraag.kredietSom" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.gMI" for="field_gMI">G MI</label>
+                    <input type="text" class="form-control" name="gMI" id="field_gMI"
+                        [(ngModel)]="kredietAanvraag.gMI" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameKentekennr" for="field_overnameKentekennr">Overname Kentekennr</label>
+                    <input type="text" class="form-control" name="overnameKentekennr" id="field_overnameKentekennr"
+                        [(ngModel)]="kredietAanvraag.overnameKentekennr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnameFinanMy" for="field_overnameFinanMy">Overname Finan My</label>
+                    <input type="text" class="form-control" name="overnameFinanMy" id="field_overnameFinanMy"
+                        [(ngModel)]="kredietAanvraag.overnameFinanMy" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.ovvrnameContractNr" for="field_ovvrnameContractNr">Ovvrname Contract Nr</label>
+                    <input type="text" class="form-control" name="ovvrnameContractNr" id="field_ovvrnameContractNr"
+                        [(ngModel)]="kredietAanvraag.ovvrnameContractNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.overnamePlaats" for="field_overnamePlaats">Overname Plaats</label>
+                    <input type="text" class="form-control" name="overnamePlaats" id="field_overnamePlaats"
+                        [(ngModel)]="kredietAanvraag.overnamePlaats" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.duurinMnd" for="field_duurinMnd">Duurin Mnd</label>
+                    <input type="text" class="form-control" name="duurinMnd" id="field_duurinMnd"
+                        [(ngModel)]="kredietAanvraag.duurinMnd" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.restantbetaling" for="field_restantbetaling">Restantbetaling</label>
+                    <input type="number" class="form-control" name="restantbetaling" id="field_restantbetaling"
+                        [(ngModel)]="kredietAanvraag.restantbetaling" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.effectiveRente" for="field_effectiveRente">Effective Rente</label>
+                    <input type="text" class="form-control" name="effectiveRente" id="field_effectiveRente"
+                        [(ngModel)]="kredietAanvraag.effectiveRente" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.verkoper" for="field_verkoper">Verkoper</label>
+                    <input type="text" class="form-control" name="verkoper" id="field_verkoper"
+                        [(ngModel)]="kredietAanvraag.verkoper" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.kredietAanvraag.aanvraagbericht" for="field_aanvraagbericht">Aanvraagbericht</label>
+                    <select class="form-control" id="field_aanvraagbericht" name="aanvraagbericht" [(ngModel)]="kredietAanvraag.aanvraagberichtId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="aanvraagberichtOption.id" *ngFor="let aanvraagberichtOption of aanvraagberichts; trackBy: trackAanvraagberichtById">{{aanvraagberichtOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

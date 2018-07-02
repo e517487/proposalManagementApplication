@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="algemeen">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.algemeen.detail.title">Algemeen</span> {{algemeen.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.viewcode">Viewcode</span></dt>
+                <dd>
+                    <span>{{algemeen.viewcode}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.versiecode">Versiecode</span></dt>
+                <dd>
+                    <span>{{algemeen.versiecode}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.valuta">Valuta</span></dt>
+                <dd>
+                    <span>{{algemeen.valuta}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.aanvraagVersie">Aanvraag Versie</span></dt>
+                <dd>
+                    <span>{{algemeen.aanvraagVersie}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.aanvraagVolgNr">Aanvraag Volg Nr</span></dt>
+                <dd>
+                    <span>{{algemeen.aanvraagVolgNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.tussenpersoonNr">Tussenpersoon Nr</span></dt>
+                <dd>
+                    <span>{{algemeen.tussenpersoonNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.bedrijfsnaamTp">Bedrijfsnaam Tp</span></dt>
+                <dd>
+                    <span>{{algemeen.bedrijfsnaamTp}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.contactPersoonTp">Contact Persoon Tp</span></dt>
+                <dd>
+                    <span>{{algemeen.contactPersoonTp}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.maatschappij">Maatschappij</span></dt>
+                <dd>
+                    <span>{{algemeen.maatschappij}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.registratieDt">Registratie Dt</span></dt>
+                <dd>
+                    <span>{{algemeen.registratieDt}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.subagentNr">Subagent Nr</span></dt>
+                <dd>
+                    <span>{{algemeen.subagentNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.algemeen.verkopersNaam">Verkopers Naam</span></dt>
+                <dd>
+                    <span>{{algemeen.verkopersNaam}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/algemeen-my-suffix', algemeen.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+{
+    "name": "Adres",
+    "fields": [
+        {
+            "fieldName": "volgnummer",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "soortAdres",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "straatNaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "huisNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "plaatsNaam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "postcode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "land",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "fdnAanvrager",
+            "otherEntityName": "fdnAanvrager",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180702213748",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "adres",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}
