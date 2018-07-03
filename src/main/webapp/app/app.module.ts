@@ -16,6 +16,7 @@ import { ProposalManagementApplicationAppRoutingModule } from './app-routing.mod
 import { ProposalManagementApplicationHomeModule } from './home/home.module';
 import { ProposalManagementApplicationAccountModule } from './account/account.module';
 import { ProposalManagementApplicationEntityModule } from './entities/entity.module';
+import { ProposalManagementApplicationAppHiThereModule } from './hi-there/hi-there.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
@@ -28,7 +29,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         ProposalManagementApplicationCoreModule,
         ProposalManagementApplicationHomeModule,
         ProposalManagementApplicationAccountModule,
-        ProposalManagementApplicationEntityModule
+        ProposalManagementApplicationEntityModule,
+        ProposalManagementApplicationAppHiThereModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
