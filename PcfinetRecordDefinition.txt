@@ -1,0 +1,1824 @@
+Option Explicit
+Option Base 1
+
+ ' 120904 PROOVIT-EH: ALN-36 (MB) : Alle record lengtes zijn aangepast van 512 > 640
+
+Dim mAanvraagNr As String
+
+Dim mROL_RTHC  As String ' van tabel PARAMTR
+Dim mROL_RTMC1 As String ' van tabel PARAMTR
+Dim mROL_RTMC2 As String ' van tabel PARAMTR
+Dim mROL_RTBC1 As String ' van tabel PARAMTR
+Dim mROL_RTBC2 As String ' van tabel PARAMTR
+
+Private Enum TRecordType
+    rtVoorloopRecord = 0
+    rtStart = 1
+    rtEinde = 99
+    rtAanvraagAlgemeen = 10
+    rtAanvraagOpmerking = 11
+    rtBKR = 15
+    rtfinancieel = 20
+    rtHerfinanciering = 25
+    rtInruil = 30
+    rtObject = 35
+    rtScore = 40
+    rtRelatie = 45
+    rtRelatieHuish = 46
+    rtBedrijf = 50
+    rtScoring = 55
+    rtUitlegHoofdContrt = 61
+    rtUitlegMedeContrt = 62
+    rtUitlegBorgContrt = 63
+End Enum
+
+' Recorddefinities voor FINET2PCRT interface
+' Deze moesten public zijn, anders werkte de code niet
+' ************************
+' * Recordbeschrijvingen *
+' ************************
+
+' Recordtype 1 : Start (
+'Private Type Record_Start
+'  PCFinetnr    As String * 11
+'  RecordType   As String * 2
+'  Volgnr       As String * 3
+'  CreatieDatum As String * 8
+'  CreatieTijd  As String * 5
+'  FILLER       As String * 483 '<- in doc. stond 482, maar uit bestand blijkt 483 !
+'  FILLER2     As String * 128
+'End Type
+
+' RecordType 99: Eindrecord
+'Private Type Record_Eind
+'  PCFinetnr       As String * 11
+'  RecordType      As String * 2
+'  Volgnr          As String * 3
+'  CreatieDatum    As String * 8
+'  CreatieTijd     As String * 5
+'  AantalAanvragen As String * 5
+'  AantalRegels    As String * 5
+'  FILLER          As String * 473 ' In doc. stond 472, uit bestand blijkt 473
+'  FILLER2     As String * 128
+'End Type
+
+' Recordtype 10 : Aanvraaggegevens algemeen
+Private Type Record_AV_ALG
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  DEALERNR          As String * 6
+  PROD_CODE         As String * 5
+  Zoeknaam          As String * 20
+  Verkoper          As String * 30
+  DealerTelnr       As String * 20
+  Acceptatie        As String * 1
+  Aanv_datum        As String * 8
+  Aanv_tijd         As String * 5
+  Acc_Datum         As String * 8
+  Acc_tijd          As String * 5
+  Prt_Datum         As String * 8
+  Invoerder         As String * 7
+  Acceptant         As String * 7
+  FILLER            As String * 365
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 11 : Aanvraaggegevens, opmerking
+Private Type Record_AV_Opmerking
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  Regel1            As String * 80
+  Regel2            As String * 80
+  Regel3            As String * 80
+  Regel4            As String * 80
+  Regel5            As String * 80
+  Regel6            As String * 80
+  FILLER            As String * 31 ' in doc stond 32?
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 20 : Financieel
+Private Type Record_Financieel
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  con_soort         As String * 2
+  Ma_Optie          As String * 1 ' niet meer gebruikt in PCRT
+  KM_Jaar           As String * 6 ' niet meer gebruikt in PCRT
+  KM_Stand          As String * 6 ' niet meer gebruikt in PCRT
+  Afg_kent          As String * 6
+  Verkprijs         As String * 9
+  Aanbetal          As String * 9
+  Vergoeding        As String * 9
+  herfin_bed        As String * 9
+  hoofdsom          As String * 9 ' EH 27-5-2004
+  fin_bedrag        As String * 9 ' EH 27-5-2004
+  Restant           As String * 9 ' EH 27-5-2004
+  Looptijd          As String * 2
+  Termijn           As String * 9
+  Interest          As String * 7
+  Service           As String * 1
+  GMINRUIL          As String * 9 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  FILLER            As String * 383
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 25 : Herfinanciering
+Private Type Record_Herfin
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  Srt_Finmij        As String * 1
+  Finmij            As String * 30
+  Bruto             As String * 9
+  Stat_Datum        As String * 8
+  Contractnr        As String * 20
+  Bethist           As String * 1
+  FILLER            As String * 426 ' in doc. stond 428
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 30 : Inruil
+Private Type Record_Inruil
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  Merk              As String * 15
+  Type              As String * 6
+  Model             As String * 20
+  bouwjaar          As String * 4
+  FILLER            As String * 451
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 35 : Object
+Private Type Record_Object
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  Merk              As String * 15
+  Type              As String * 6
+  Model             As String * 20
+  Onderpand         As String * 30
+  Categorie         As String * 1
+  bouwjaar          As String * 4
+  Kenteken          As String * 8
+  Chassisnr         As String * 15
+  Mfrt_merk         As String * 2
+  Mfrt_Type         As String * 4
+  MdlAggrnr         As String * 3
+  FILLER            As String * 388
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 40 : Acceptatie / Score
+Private Type Record_Score
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  Tenaamstel        As String * 20
+  Riskmodel         As String * 1
+  MatigHist         As String * 1
+  InTeleGids        As String * 1
+  Interview         As String * 1
+  Bekend            As String * 1
+  Eerder            As String * 1
+  Alias             As String * 1
+  aCode             As String * 1
+  APlusCode         As String * 1
+  ACodeHyp          As String * 1
+  Afgelost          As String * 1
+  Lopend            As String * 1
+  Lopend_sk         As String * 1
+  Leg               As String * 1
+  Afgewezen         As String * 1
+  Score             As String * 4
+  Klasse            As String * 1
+  Auto_Acc          As String * 1
+  Add_Info          As String * 1
+  Afwijzen          As String * 1
+  Log_Score         As String * 33
+  Log_Info          As String * 24
+  Log_Afwijs        As String * 4
+  Zekerheden        As String * 5
+  bkrscore          As String * 1 ' 100713 PROOVIT-EH: Toevoeging ivm Basel 2
+  avstatus          As String * 2 ' 100713 PROOVIT-EH: Toevoeging ivm Basel 2
+  AantInkomn        As String * 1 ' 100907 PROOVIT-EH: Toevoeging ivm Basel 2 - AANTINKOMEN
+  AantBkrCtr        As String * 2 ' 100907 PROOVIT-EH: Toevoeging ivm Basel 2 - AANTBKRCONTR
+  FILLER            As String * 380 ' in doc. stond 380...
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 45 : Relatie
+Private Type Record_Relatie
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  Rol               As String * 2
+  Titulatuur        As String * 2
+  Voorletter        As String * 20
+  prefix            As String * 20
+  Naam              As String * 30
+  Zoeknaam          As String * 20
+  Straat            As String * 32
+  HuisNr            As String * 5
+  ToevhuisNr        As String * 7
+  Postcode          As String * 6
+  Plaats            As String * 32
+  TelefoonNr        As String * 20
+  gebdatum          As String * 8
+  GebPlaats         As String * 32
+  Nat               As String * 2
+  Burgstatus        As String * 2
+  geslacht          As String * 2
+  Rekeningnr        As String * 20
+  Bankgroep         As String * 2
+  Rijbewijs         As String * 20
+  Beroep            As String * 30
+  Cat_Beroep        As String * 2
+  Srt_Beroep        As String * 2
+  Naam_Werk         As String * 30
+  PltsWerk          As String * 30
+  Tel_Werk          As String * 20
+  StartWerk         As String * 8
+  Cat_Ink           As String * 2
+  Uitkering         As String * 2
+  Kinderen          As String * 2
+  Behuizing         As String * 2
+  Woon_duur         As String * 2
+  Woonlasten        As String * 8
+  ' 100310 PROOVIT-EH: Basel II -- Nieuwe velden
+  Ink_Neto          As String * 7 '  100310 PROOVIT-EH: Basel II -- NETTO
+  InkTotNeto        As String * 7 '  100310 PROOVIT-EH: Basel II -- TOTAALNETTO
+  OpbMndBdrg        As String * 7 '  100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG
+  PercSchLst        As String * 7 '  100310 PROOVIT-EH: Basel II -- PERC -SCHULDENLAST
+  PercScLsTo        As String * 7 '  100310 PROOVIT-EH: Basel II -- PERC -TOT - SCHULDENLAST
+  StartWonin        As String * 8 '  100907 PROOVIT-EH: Basel II -- StartWoning = datum
+  FILLER            As String * 31 ' 120904 PROOVIT-EH: ALN-36 (MBe)
+  IBAN              As String * 34 ' 120904 PROOVIT-EH: ALN-36 (MBe)
+  BIC               As String * 12 ' 120904 PROOVIT-EH: ALN-36 (MBe)
+  EMAIL             As String * 80 ' 120904 PROOVIT-EH: ALN-36 (MBe)
+  '-- 141008 PROOVIT-EH: DESIN-292 - New fields
+  NAT_CODE          As String * 3
+  VERBLIJFNR        As String * 15
+  EVOLGEZIN         As String * 1
+  EVOLINKOMSTEN     As String * 1
+  SOORTWRKCONTRAKT  As String * 1
+  EINDDATWRKCONTR   As String * 6
+  INTENTIEWRKCONTR  As String * 1
+  VERZOEKPLATFORM   As String * 1
+  '-- 141008 PROOVIT-EH: DESIN-292 - New fields END
+  Filler3           As String * 31 ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+
+' Recordtype 46 : Relatie - Huishoudelijk
+Private Type Record_RelatieHuish ' 100310 PROOVIT-EH: New for Basel II
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  HuisHgld          As String * 7   ' 100310 PROOVIT-EH: Basel II -- HUISHGELD
+  HuisHGlTot        As String * 7   ' 100310 PROOVIT-EH: Basel II -- TOTAALHUISHGELD
+  OpnStdMndB        As String * 7   ' 100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG - HUISH
+  VateLasten        As String * 7   ' 100310 PROOVIT-EH: Basel II -- VASTE -MNDLASTEN - HUISH
+  TotMndLast        As String * 7   ' 100310 PROOVIT-EH: Basel II -- Totaal -MNDLASTEN - HUISH
+  FILLER            As String * 460 ' 100310 PROOVIT-EH: Basel II -- in doc. stond 460
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 50 : Bedrijf
+Private Type Record_Bedrijf
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  Rol               As String * 2
+  BedNaam           As String * 30
+  Zoeknaam          As String * 20
+  Rechtsvorm        As String * 2
+  Straat            As String * 32
+  HuisNr            As String * 5
+  ToevhuisNr        As String * 7
+  Postcode          As String * 6
+  Plaats            As String * 32
+  TelefoonNr        As String * 20
+  OprDatum          As String * 8
+  Gemachtigd        As String * 30
+  Functiegem        As String * 20
+  Rekeningnr        As String * 20
+  Bankgroep         As String * 2
+  Stat_naam         As String * 79
+  KvK_Inschr        As String * 10
+  KvK_Plaats        As String * 32
+  Kapitaal          As String * 9
+  DunBradnr         As String * 15
+  JaarBalans        As String * 4
+  FILLER            As String * 111 ' in doc. stond 110
+  IBAN              As String * 34 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  BIC               As String * 12 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  EMAIL             As String * 80 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Recordtype 55 : Scoring
+Private Type Record_Scoring ' 100310 PROOVIT-EH: New for Basel II
+  PCFinetnr         As String * 11
+  RecordType        As String * 2
+  Volgnr            As String * 3
+  Scoring25         As String * 450 ' 25 * 3 * 6  ' 100310 PROOVIT-EH: Basel II -- SCORING OCCURS max 25 blocks of 6x3
+  FILLER            As String * 46  ' 100310 PROOVIT-EH: Basel II -- in doc. stond 46
+  FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+  Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+Private Type Record_ScoringTempRegel ' 100310 PROOVIT-EH: New for Basel II - subrecord of 55
+  Regel     As String * 18   ' 100310 PROOVIT-EH: Basel II -- REG -code
+End Type
+Private Type Record_ScoringSub1 ' 100310 PROOVIT-EH: New for Basel II - subrecord of 55
+  REG_CODE          As String * 3   ' 100310 PROOVIT-EH: Basel II -- REG -code
+  COND_NR           As String * 3   ' 100310 PROOVIT-EH: Basel II -- COND -NR
+  Cond_Score        As String * 3   ' 100310 PROOVIT-EH: Basel II -- COND -Score
+  AfwysRegCd        As String * 3   ' 100310 PROOVIT-EH: Basel II -- AFWIJS -REG - code
+  ZekerhCode        As String * 3   ' 100310 PROOVIT-EH: Basel II -- ZEKERH -code
+  InfoRegCod        As String * 3   ' 100310 PROOVIT-EH: Basel II -- INFO -REG - code
+End Type
+
+
+' Recordtype 61, 62, 63 : Uitleg
+Private Type Record_Uitleg ' 141008 PROOVIT-EH: DESIN-292 - New record, multi used by 61, 62, 63
+    PCFinetnr         As String * 11
+    RecordType        As String * 2
+    Volgnr            As String * 3
+    Rol               As String * 2
+    UITLEGGEZIN       As String * 240
+    UITLEGINKOMSTEN   As String * 240
+    UITLEGINPLATFORM  As String * 200
+    Filler3           As String * 2  ' 141008 PROOVIT-EH: DESIN-292
+End Type
+
+' Tempregel wordt gebruikt om met LSet de ingelezen data te kunnen converteren naar
+' losse waarden
+Private Type TempRegel
+  'Regel As String * 512
+  'Regel As String * 640 ' 120904 PROOVIT-EH: ALN-36 (MB) : Alle record lengtes zijn aangepast van 512 > 640
+  Regel As String * 700 ' 141008 PROOVIT-EH: DESIN-292 : Alle record lengtes zijn aangepast van 640 > 700
+End Type
+
+Public CancelJob As Boolean
+Public Busy As Boolean
+
+Private Sub DeleteAllesVanEenAanvraag(aAanvraagNr As String)
+        Dim i As Long
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+20        i = AppCn.ExecuteSQL("DELETE FROM AV_ALG         WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+30        i = AppCn.ExecuteSQL("DELETE FROM AV_BKR         WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+40        i = AppCn.ExecuteSQL("DELETE FROM AV_FIN         WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+50        i = AppCn.ExecuteSQL("DELETE FROM AV_HERF        WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+60        i = AppCn.ExecuteSQL("DELETE FROM AV_INR         WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+70        i = AppCn.ExecuteSQL("DELETE FROM AV_OBJ         WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+80        i = AppCn.ExecuteSQL("DELETE FROM AV_SCORE       WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+90        i = AppCn.ExecuteSQL("DELETE FROM RELATIE        WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+100       i = AppCn.ExecuteSQL("DELETE FROM AV_BORG        WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+110       i = AppCn.ExecuteSQL("DELETE FROM BEDRIJF        WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+120       i = AppCn.ExecuteSQL("DELETE FROM AV_SCOREDETAIL WHERE AANVRAAGNR = '" & aAanvraagNr & "'")
+
+
+lbl_Exit:
+          'MousePointer = vbDefault
+130       Exit Sub
+
+lbl_Error:
+140       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "DeleteAllesVanEenAanvraag", Err.Description & " [" & UserID & "]") = 1 Then
+150         GoTo lbl_Exit
+160       Else
+170         Resume Next
+180       End If
+
+End Sub
+
+
+Private Sub Form_Load()
+10        On Error GoTo lbl_Error
+          Dim s As String
+
+20        On Error Resume Next
+30        MousePointer = vbHourglass
+
+40        mROL_RTHC = LeesParameter("ROL_RTHC")
+50        mROL_RTMC1 = LeesParameter("ROL_RTMC1")
+60        mROL_RTMC2 = LeesParameter("ROL_RTMC2")
+70        mROL_RTBC1 = LeesParameter("ROL_RTBC1")
+80        mROL_RTBC2 = LeesParameter("ROL_RTBC2")
+
+90        s = Replace(LeesParameter("FNT_FILE_A"), "{APP}", App.Path & "\", , , vbTextCompare)
+100       Text1.Text = Left(s, 1) & Replace(s, "\\", "\", 2)
+110       Text1.ForeColor = IIf(FileExists(Text1.Text), -2147483640, vbRed)
+120       cmd_Start.Enabled = FileExists(Text1.Text)
+130       lbl_Status.Caption = ""
+
+lbl_Exit:
+140       MousePointer = vbDefault
+150       Exit Sub
+
+lbl_Error:
+160       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "Form_Load." & Erl(), Err.Description & " [" & UserID & "]") = 1 Then
+170         GoTo lbl_Exit
+180       Else
+190         Resume Next
+200       End If
+
+End Sub
+
+
+Public Sub cmd_Start_Click()
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+20        If cmd_Start.Caption = "&Start" Then
+30            picResult.Visible = False
+40            cmd_Start.Caption = "&Annuleren"
+50            On Error Resume Next
+60            Text1.SetFocus
+70            On Error GoTo lbl_Error
+80            Call VerwerkImport(Text1.Text)
+90            Call Form_Load
+100           picProgress.Visible = False
+110           cmd_Start.Caption = "&Start"
+120       ElseIf cmd_Start.Caption = "&Annuleren" Then
+130           CancelJob = True
+140       End If
+
+lbl_Exit:
+          'MousePointer = vbDefault
+150       Exit Sub
+
+lbl_Error:
+160       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "cmd_Start_Click", Err.Description & " [" & UserID & "]") = 1 Then
+170         GoTo lbl_Exit
+180       Else
+190         Resume Next
+200       End If
+
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+10        Cancel = Busy ' niet stoppen bij kruisje
+20        CancelJob = True
+End Sub
+
+
+Private Sub SSCommand2_Click()
+10      Call Unload(Me)
+End Sub
+
+
+' Procedure voor de interface
+' Eerste globale bestandcontrole
+' - Aantal regels ok
+' - Aantal Aanvragen ok
+' - Volgnummers
+' - Alle regels van de aanvragen zijn netjes gegroepeerd
+' Daarna verwerking
+' - Lees alle regels van een aanvraag
+' - Controleer de velden
+'   - Alles ok -> doorvoeren naar DB
+'   - Fout -> Schrijf naar Y6 bestand
+
+'Private Function ControleerBestand(Filename As String) As Boolean
+'        ' Controleer het bestand
+'        ' COntroleer of het bestand wel bestaat
+'        ' Controleer de structuur van het bestand
+'        ' - Correcte aantal regels
+'        ' - Correcte aantal aanvragen
+'        ' - Correcte structuur van de aanvragen
+'        Dim Result As Boolean
+'
+'        ' Nu alleen nog maar de controle of het bestand bestaat, de rest komt later
+'57980   Result = FileExists(Filename)
+'        ' mmm
+'
+'57990   ControleerBestand = Result
+'End Function
+
+Friend Function VerwerkImport(ByVal FileName As String) As Boolean
+        ' Lees van het bestand alle aanvragen in en verwerk deze
+        ' Pre : Het bestand bestaat en de structuur ervan is reeds gecontroleerd
+        '       We hoeven hier dus geen controles uit te voeren zoals kijken of
+        '       er wel een eindregel etc. is, dit moet al gedaan zijn !!!
+  
+        ' LET OP : Het aanmaken van Y6-bestanden ( waarin de incorrecte aanvragen werden geplaatst )
+        '          is reeds enige tijd vervangen door het alsnog doorvoeren van de aanvraaggegevens
+        '          waarbij 1 van de foutindicatoren wordt gezet.
+  
+        Dim infile As Long
+        'Dim Outfile As Long
+        Dim strRegel As String
+        'Dim Regel As TempRegel
+        Dim strType As String
+        Dim AanvraagArray() As String
+        Dim VorigFinetnummer As String
+        'Dim ff As Variant
+        Dim Result As Boolean
+        Dim AantalBytes As Long
+        Dim ByteTeller As Long
+        Dim lngUbound As Long
+  
+10        On Error GoTo lbl_Error
+20        MousePointer = vbHourglass
+
+30        If Not FileExists(FileName) Then
+40          MsgBox "Bestand niet gevonden op de lokatie '" & FileName & "'.", vbExclamation
+50          GoTo lbl_Exit
+60        End If
+    
+70        Call SetFormControls(Me, "Enabled", False)
+    
+          ' bestand openen
+80        infile = FreeFile
+90        Open FileName For Input As #infile
+100       AantalBytes = FileLen(FileName) '  / 640! -- 512
+    
+          ' Eerste regel kunnen we overslaan, dit is de startregel
+110       Line Input #infile, strRegel
+120       ByteTeller = Len(strRegel) + 2
+    
+          ' Nu de eerste regel van de eerste aanvraag
+130       Line Input #infile, strRegel
+140       strType = Mid$(strRegel, 12, 2)
+150       VorigFinetnummer = Left$(strRegel, 11) ' Eerste finetnummer
+    
+160       SetInfoText "Bezig met import...", True, AantalBytes, 0
+
+170       Do While Not Val(strType) = TRecordType.rtEinde
+            ' Aanvraagarray vergroten
+            ' ubound opvragen van een lege dynamische array geeft een error
+            ' vandaar de on error resume next constructie
+180         On Error Resume Next
+190         lngUbound = UBound(AanvraagArray)
+200         If Err.Number <> 0 Then lngUbound = -1
+210         On Error GoTo lbl_Error
+
+220         ReDim Preserve AanvraagArray(0 To lngUbound + 1)
+230         AanvraagArray(UBound(AanvraagArray)) = strRegel
+
+            ' Volgende regel inlezen
+240         Line Input #infile, strRegel
+250         ByteTeller = ByteTeller + Len(strRegel) + 2
+260         strType = Mid$(strRegel, 12, 2)
+            ' Door de verwerking bij een finetnummer-wisseling hier te doen
+            ' wordt ervoor gezorgd dat ook de laatste aanvraag wordt verwerkt
+270         If VorigFinetnummer <> Left$(strRegel, 11) Then
+              ' Het finetnummer is veranderd, eerst de reeds ingelezen regels verwerken
+280           If Not VerwerkAanvraag(AanvraagArray) Then
+                ' Er is iets fout gegaan tijdens de verwerking
+290             Result = False
+  
+300           End If
+310           Erase AanvraagArray
+320           VorigFinetnummer = Left$(strRegel, 11) ' Het nieuwe finetnummer opslaan
+330         End If
+340         SetInfoText "Bezig met import...", True, AantalBytes, ByteTeller
+350       Loop
+  
+  
+360       Close #infile
+370       On Error Resume Next
+380       Unload MC_Aanvraag
+390       Kill Replace(FileName, ".txt", ".VRW", , , vbTextCompare)
+400       Name FileName As Replace(FileName, ".txt", ".VRW", , , vbTextCompare)
+  
+410       VerwerkImport = Result
+420       SetInfoText
+
+lbl_Exit:
+430       MousePointer = vbDefault
+440       Call SetFormControls(Me, "Enabled", True)
+450       Exit Function
+
+lbl_Error:
+460       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "VerwerkImport", Err.Description & " [" & UserID & "]") = 1 Then
+470         GoTo lbl_Exit
+480       Else
+490         Resume Next
+500       End If
+
+End Function
+
+Private Function VerwerkAanvraag(Aanvraag() As String) As Boolean
+        Dim i As Long
+        Dim Result As Boolean
+        Dim finetnummer As String
+        Dim Aanvraagnr As String
+        Dim strType As String
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Begin transactie
+20      AppCn.ADOConnection.BeginTrans
+  
+        ' Kijk of er al een aanvraag is met dit finetnummer
+        ' Zo ja, dan moet alles van deze aanvraag worden verwijderd.
+30      finetnummer = Left$(Aanvraag(1), 11)
+40      Aanvraagnr = AppCn.GetFieldValueBySQL("SELECT AANVRAAGNR FROM AV_ALG WHERE pcfinetnr = '" & finetnummer & "'", "", , False)
+50      If Aanvraagnr <> "" Then
+60          Call DeleteAllesVanEenAanvraag(Aanvraagnr)
+70      Else
+            ' Als het finetnummer nog niet aanwezig was, dan een nieuw aanvraagnummer aanmaken
+80          Aanvraagnr = GenereerVolgnummer(aanvraagnummer, True)
+90      End If
+100     mAanvraagNr = FormatAANVRAAGNR(Aanvraagnr)
+110     Aanvraagnr = mAanvraagNr
+  
+120     Result = True
+  
+      'Private Enum TRecordType
+      '  rtVoorloopRecord = 0
+      '  rtStart = 1
+      '  rtEinde = 99
+      '  rtAanvraagAlgemeen = 10
+      '  rtAanvraagOpmerking = 11
+      '  rtBKR = 15
+      '  rtfinancieel = 20
+      '  rtHerfinanciering = 25
+      '  rtInruil = 30
+      '  rtObject = 35
+      '  rtScore = 40
+      '  rtRelatie = 45
+      '  rtRelatieHuish = 46
+      '  rtBedrijf = 50
+      '  rtScoring = 55
+      'End Enum
+      '
+130       For i = 0 To UBound(Aanvraag)
+140           strType = Mid$(Aanvraag(i), 12, 2)
+150           Select Case Val(strType)
+                  Case TRecordType.rtAanvraagAlgemeen ' 10
+160                   Result = Result And ControleerEnVerwerk_AanvraagAlgemeen(Aanvraag(i), Aanvraagnr)
+170               Case TRecordType.rtAanvraagOpmerking ' 11
+180                   Result = Result And ControleerEnVerwerk_AanvraagOpmerking(Aanvraag(i), Aanvraagnr)
+190               Case TRecordType.rtBedrijf ' 50
+200                   Result = Result And ControleerEnVerwerk_Bedrijf(Aanvraag(i), Aanvraagnr)
+210               Case TRecordType.rtfinancieel ' 20
+220                   Result = Result And ControleerEnVerwerk_Financieel(Aanvraag(i), Aanvraagnr)
+230               Case TRecordType.rtHerfinanciering ' 25
+240                   Result = Result And ControleerEnVerwerk_Herfin(Aanvraag(i), Aanvraagnr)
+250               Case TRecordType.rtInruil ' 30
+260                   Result = Result And ControleerEnVerwerk_Inruil(Aanvraag(i), Aanvraagnr)
+270               Case TRecordType.rtObject ' 35
+280                   Result = Result And ControleerEnVerwerk_Object(Aanvraag(i), Aanvraagnr)
+290               Case TRecordType.rtRelatie ' 45
+300                   Result = Result And ControleerEnVerwerk_Relatie(Aanvraag(i), Aanvraagnr)
+310               Case TRecordType.rtRelatieHuish ' 46 -- 100310 PROOVIT-EH: Basel II
+320                   Result = Result And ControleerEnVerwerk_RelatieHuishoud(Aanvraag(i), Aanvraagnr)
+330               Case TRecordType.rtScore ' 40
+340                   Result = Result And ControleerEnVerwerk_Score(Aanvraag(i), Aanvraagnr)
+350               Case TRecordType.rtScoring ' 55 -- 100310 PROOVIT-EH: Basel II
+360                   Result = Result And ControleerEnVerwerk_ScoreDetail(Aanvraag(i), Aanvraagnr)
+    
+                  '-- 141008 PROOVIT-EH: DESIN-292 - Nieuw records
+370               Case TRecordType.rtUitlegHoofdContrt ' 61
+380                   Result = Result And ControleerEnVerwerk_Uitleg(61, Aanvraag(i), Aanvraagnr)
+390               Case TRecordType.rtUitlegMedeContrt ' 62
+400                   Result = Result And ControleerEnVerwerk_Uitleg(62, Aanvraag(i), Aanvraagnr)
+410               Case TRecordType.rtUitlegBorgContrt ' 63
+420                   Result = Result And ControleerEnVerwerk_Uitleg(63, Aanvraag(i), Aanvraagnr)
+
+430               Case TRecordType.rtStart ' \
+440               Case TRecordType.rtBKR   '  - Deze codes zouden hier niet voor mogen komen !
+450               Case TRecordType.rtEinde ' /
+460           End Select
+            ' Als er iets fout is gegaan, hoef je niet verder te kijken
+470           If Aanvraagnr = "*Cancel*" Then
+480               Result = True
+490               Exit For
+500           End If
+510       Next
+        ' controleer de aanvraaggegevens d.m.v. het aanvraagscherm
+520     If Aanvraagnr <> "*Cancel*" Then ' fouten niet controleren als de aanvraag niet hoeft te worden ingelezen
+530       Call MC_Aanvraag.OpenForm(Trim$(Aanvraagnr), "test", wp_Bewaren + wp_FinObject + wp_Herfinanciering + wp_info + wp_Personalia + wp_tussenpersoon, True)
+540       Call VerwerkFouten(Aanvraagnr)
+550       Call ZetAanvraagActiefStatus(Aanvraagnr)
+560     End If
+        'MsgBox FinetFoutTussenpersoon & FinetFoutFinObject & FinetFoutHoofdContractant & _
+                        FinetFoutMedeContractant & FinetFoutHerfinanciering
+
+570     If Result Then
+580       AppCn.ADOConnection.CommitTrans
+590       VerwerkAanvraag = True
+600     Else
+610       AppCn.ADOConnection.RollbackTrans
+620       VerwerkAanvraag = False
+630       Debug.Assert False
+640     End If
+
+lbl_Exit:
+          'MousePointer = vbDefault
+650       Exit Function
+
+lbl_Error:
+660       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "VerwerkAanvraag", Err.Description & " [" & UserID & "]") = 1 Then
+670         GoTo lbl_Exit
+680       Else
+690         Resume Next
+700       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_AanvraagAlgemeen(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_AV_ALG
+        Dim temp As TempRegel
+        Dim Result As Boolean
+        Dim Rs As Recordset
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+  
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+  
+40      Call AppCn.OpenRs(Rs, "SELECT * FROM AV_ALG WHERE 1 = 0")
+50      Rs.AddNew
+60      Rs("AANVRAAGNR").Value = Aanvraagnr
+70      Rs("ACTIEF").Value = 0
+  
+        ' Opslaan
+80      With rec_data
+          ' Alle velden controleren
+90        Rs("laad_datum").Value = Date
+100       Rs("laad_tijd").Value = Left$(Time, 5)
+110       Rs("pcfinetnr").Value = .PCFinetnr
+    
+120       Rs("DEALERNR").Value = .DEALERNR
+130       Rs("PROD_CODE").Value = .PROD_CODE
+140       Rs("zoeknaam").Value = Proper(Trim$(.Zoeknaam))
+150       Rs("verkoper").Value = .Verkoper
+160       Rs("telefoonnr").Value = .DealerTelnr
+170       Rs("acceptatie").Value = .Acceptatie
+180       Rs("aanv_datum").Value = ConvertDate(.Aanv_datum)
+190       Rs("aanv_tijd").Value = .Aanv_tijd
+200       Rs("org_accdat").Value = ConvertDate(.Acc_Datum)
+210       Rs("acc_datum").Value = ConvertDate(.Acc_Datum)
+220       Rs("acc_tijd").Value = .Acc_tijd
+230       Rs("prt_datum").Value = ConvertDate(.Prt_Datum)
+240       Rs("ann_datum").Value = Null
+250       Rs("aank_datum").Value = Null
+260       Rs("ctrl_datum").Value = Null
+270       Rs("invoerder").Value = .Invoerder
+280       Rs("acceptant").Value = .Acceptant
+290       Rs("sn_wijze").Value = AppCn.GetFieldValueBySQL("SELECT sn_wijze FROM TSPERS WHERE DEALERNR = '" & .DEALERNR & "'", "")
+300     End With
+310     On Error Resume Next
+320     Rs.Update
+330     If Err.Number <> 0 Then
+340       Result = False
+350       Debug.Assert False
+360     Else
+370       Result = True
+380     End If
+390     Rs.Close
+400     Set Rs = Nothing
+410     On Error GoTo lbl_Error
+  
+Einde:
+420     ControleerEnVerwerk_AanvraagAlgemeen = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+430       Exit Function
+
+lbl_Error:
+440       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Aanvraagalgemeen", Err.Description & " [" & UserID & "]") = 1 Then
+450         GoTo lbl_Exit
+460       Else
+470         Resume Next
+480       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_AanvraagOpmerking(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_AV_Opmerking
+        Dim temp As TempRegel
+        Dim Result As Boolean
+        Dim Rs As Recordset
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+  
+        ' LET OP : In dit geval moeten we wel ff kijken of er al een record is
+        ' met dit AANVRAAGNR ( zou er eigenlijk altijd wel moeten zijn ), en dan
+        ' dat record openen
+  
+40      If Not (AppCn.OpenRs(Rs, "SELECT * FROM AV_ALG WHERE AANVRAAGNR = '" & Aanvraagnr & "'") > 0) Then
+          ' Bestaat nog niet
+          ' Dit zou in dit geval eigenlijk nooit voor moeten kunnen komen
+          ' De algemene aanvraagregel komt namelijk VOOR de opmerkingsregel
+50        Rs.AddNew
+60        Rs("AANVRAAGNR").Value = Aanvraagnr
+70      End If
+  
+        ' Controleren
+80      With rec_data
+          ' Alle velden controleren
+          ' Alle velden afgaan. Gaat er iets fout bij het opslaan, dan ook een fout teruggeven
+90        Rs("opmerking").Value = Trim$(.Regel1) & vbCrLf & Trim$(.Regel2) & vbCrLf & Trim$(.Regel3) & vbCrLf & Trim$(.Regel4) & vbCrLf & Trim$(.Regel5) & vbCrLf & Trim$(.Regel6) & vbCrLf
+100     End With
+110     On Error Resume Next
+120     Rs.Update
+130     If Err.Number <> 0 Then
+140       Result = False
+150       Debug.Assert False
+160     Else
+170       Result = True
+180     End If
+190     Rs.Close
+200     Set Rs = Nothing
+210     On Error GoTo lbl_Error
+  
+Einde:
+220     ControleerEnVerwerk_AanvraagOpmerking = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+230       Exit Function
+
+lbl_Error:
+240       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_AanvraagOpmerking", Err.Description & " [" & UserID & "]") = 1 Then
+250         GoTo lbl_Exit
+260       Else
+270         Resume Next
+280       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_Financieel(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Financieel
+        Dim temp As TempRegel
+        Dim Result As Boolean
+        Dim Rs As Recordset
+        Dim D1 As Double
+        Dim D2 As Double
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+  
+40      Call AppCn.OpenRs(Rs, "SELECT * FROM AV_FIN WHERE 1 = 0")
+50      Rs.AddNew
+60      Rs("AANVRAAGNR").Value = Aanvraagnr
+  
+70      If rec_data.con_soort = "MK" Then
+          'Alles verwijderen v deze aanvraag. dit contr soort moet worden genegeerd
+80        Call DeleteAllesVanEenAanvraag(Aanvraagnr)
+90        Aanvraagnr = "*Cancel*"
+100       GoTo lbl_Exit
+110     End If
+  
+        ' Controleren
+120     With rec_data
+          ' Alle velden controleren
+          ' Alle velden afgaan. Gaat er iets fout bij het opslaan, dan ook een fout teruggeven
+130       Rs("con_soort").Value = .con_soort
+140       Rs("ma_optie").Value = .Ma_Optie
+150       Rs("km_jaar").Value = KommaloosNaarDouble(.KM_Jaar, 0)
+160       Rs("km_stand").Value = KommaloosNaarDouble(.KM_Stand, 0)
+170       Rs("afg_kent").Value = .Afg_kent
+180       Rs("verkprijs").Value = KommaloosNaarDouble(.Verkprijs, 2)
+190       Rs("aanbetal").Value = KommaloosNaarDouble(.Aanbetal, 2)
+200       Rs("vergoeding").Value = KommaloosNaarDouble(.Vergoeding, 2)
+210       Rs("herfin_bed").Value = KommaloosNaarDouble(.herfin_bed, 2)
+220       Rs("hoofdsom").Value = KommaloosNaarDouble(.hoofdsom, 2)
+230       Rs("fin_bedrag").Value = KommaloosNaarDouble(.fin_bedrag, 2)
+240       Rs("restant").Value = KommaloosNaarDouble(.Restant, 2)
+250       Rs("looptijd").Value = .Looptijd
+260       Rs("termijn").Value = KommaloosNaarDouble(.Termijn, 2)
+      ' FIN->INTEREST   := IF(LEN(ALLTRIM(STR(nNewInterest))) > LEN(STR(FIN->INTEREST)),0,nNewInterest)
+270       D1 = CDbl("1" & "," & (Right$(.Interest, 5)))
+280       D2 = 1 / 12
+290       D1 = D1 ^ D2
+300       D1 = (D1 - 1) * 100
+310       Rs("interest").Value = Round(D1 * 0.01, 5)
+      '220       Rs("interest").Value = Round(((KommaloosNaarDouble(.Interest, 3) + 1) ^ (1 / 12) - 1), 5)
+320       Rs("service").Value = .Service
+          ' 120904 PROOVIT-EH: ALN-36 (MB) : Alle record lengtes zijn aangepast van 512 > 640
+330       Rs("GMINRUIL").Value = KommaloosNaarDouble(.GMINRUIL, 2)
+340     End With
+350     On Error Resume Next
+360     Rs.Update
+370     If Err.Number <> 0 Then
+380       Result = False
+390       Debug.Assert False
+400     Else
+410       Result = True
+420     End If
+430     Rs.Close
+440     Set Rs = Nothing
+450     On Error GoTo lbl_Error
+  
+Einde:
+460     ControleerEnVerwerk_Financieel = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+470       Exit Function
+
+lbl_Error:
+480       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Financieel", Err.Description & " [" & UserID & "]") = 1 Then
+490         GoTo lbl_Exit
+500       Else
+510         Resume Next
+520       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_Object(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Object
+        Dim temp As TempRegel
+        Dim Result As Boolean
+        Dim Rs As Recordset
+        ' Variabelen voor berekende velden
+        Dim AltOnderpand As Long
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+  
+40      Call AppCn.OpenRs(Rs, "SELECT * FROM AV_OBJ WHERE 1 = 0")
+50      Rs.AddNew
+60      Rs("AANVRAAGNR").Value = Aanvraagnr
+  
+        ' Controleren
+70      With rec_data
+          ' Alle velden controleren
+          ' Berekende velden bepalen
+          ' - Alternatief onderpand ?
+80        If Trim$("" & .Merk & .Type & .Model) = "" Then
+90          AltOnderpand = 1
+100       Else
+110         AltOnderpand = 0
+120       End If
+    
+          ' Alle velden afgaan. Gaat er iets fout bij het opslaan, dan ook een fout teruggeven
+130       Rs("merk").Value = Trim$(.Merk)
+140       Rs("type").Value = Trim$(.Type)
+150       Rs("model").Value = Trim$(.Model)
+          'Start - 2004-06-30 MB punt 166
+160       If Trim$(.Onderpand) <> "" Then
+170         Rs("onderpand").Value = .Onderpand
+180       Else
+            'Indien er geen onderpand in ingevuld, dan samenstellen
+            'uit Merk, type en model
+190         Rs("Onderpand").Value = Left$(Trim$(.Merk) & " " & Trim$(.Type) & " " & Trim$(.Model), 30)
+200       End If
+          'Einde - 2004-06-30 MB punt 166
+210       Rs("alt_onderp").Value = AltOnderpand
+220       Rs("categorie").Value = .Categorie
+230       Rs("bouwjaar").Value = .bouwjaar
+240       Rs("kenteken").Value = .Kenteken
+250       Rs("chassisnr").Value = .Chassisnr
+260       Rs("mfrt_merk").Value = Trim$(.Mfrt_merk)
+270       Rs("mfrt_type").Value = Trim$(.Mfrt_Type)
+280       Rs("mdlaggrnr").Value = Trim$(.MdlAggrnr)
+290       Rs("soortauto").Value = SoortAuto(.Mfrt_merk, .Mfrt_Type, .MdlAggrnr)
+300     End With
+310     On Error Resume Next
+320     Rs.Update
+330     If Err.Number <> 0 Then
+340       Result = False
+350       Debug.Assert False
+360     Else
+370       Result = True
+380     End If
+390     Rs.Close
+400     Set Rs = Nothing
+410     On Error GoTo lbl_Error
+  
+Einde:
+420     ControleerEnVerwerk_Object = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+430       Exit Function
+
+lbl_Error:
+440       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Object", Err.Description & " [" & UserID & "]") = 1 Then
+450         GoTo lbl_Exit
+460       Else
+470         Resume Next
+480       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_Herfin(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Herfin
+        Dim temp As TempRegel
+        Dim Result As String
+        Dim Rs As Recordset
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+  
+40      Call AppCn.OpenRs(Rs, "SELECT * FROM AV_HERF WHERE 1 = 0")
+50      Rs.AddNew
+60      Rs("AANVRAAGNR").Value = Aanvraagnr
+    
+        ' Controleren
+70      With rec_data
+          ' Alle velden controleren
+          ' Alle velden afgaan. Gaat er iets fout bij het opslaan, dan ook een fout teruggeven
+80        Rs("srt_finmij").Value = .Srt_Finmij
+90        Rs("finmij").Value = .Finmij
+100       Rs("bruto").Value = KommaloosNaarDouble(.Bruto, 2)
+110       Rs("stat_datum").Value = ConvertDate(.Stat_Datum)
+120       Rs("contractnr").Value = .Contractnr
+130       Rs("bethist").Value = .Bethist
+140     End With
+150     On Error Resume Next
+160     Rs.Update
+170     If Err.Number <> 0 Then
+180       Result = False
+190       Debug.Assert False
+200     Else
+210       Result = True
+220     End If
+230     Rs.Close
+240     Set Rs = Nothing
+250     On Error GoTo lbl_Error
+  
+Einde:
+260     ControleerEnVerwerk_Herfin = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+270       Exit Function
+
+lbl_Error:
+280       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Herfin", Err.Description & " [" & UserID & "]") = 1 Then
+290         GoTo lbl_Exit
+300       Else
+310         Resume Next
+320       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_Relatie(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Relatie
+        Dim temp As TempRegel
+        Dim Result As String
+        Dim str_SQL As String
+        Dim Rs As Recordset
+        Dim s As String
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+          ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20        temp.Regel = strRegel
+30        LSet rec_data = temp
+    
+          ' 100309 PROOVIT-EH: De borg rol is toegevoegd, die slaan we in een aparte tabel op om conflicten te voorkomen
+          '    Dim mROL_RTHC  As String ' van tabel PARAMTR
+          '    Dim mROL_RTMC1 As String ' van tabel PARAMTR
+          '    Dim mROL_RTMC2 As String ' van tabel PARAMTR
+          '    Dim mROL_RTBC1 As String ' van tabel PARAMTR
+          '    Dim mROL_RTBC2 As String ' van tabel PARAMTR
+40        If rec_data.Rol = mROL_RTBC1 Or rec_data.Rol = mROL_RTBC2 Then
+50            str_SQL = "SELECT * FROM AV_BORG WHERE 1 = 0"
+60        Else
+70            str_SQL = "SELECT * FROM relatie WHERE 1 = 0"
+80        End If
+   
+90        Call AppCn.OpenRs(Rs, str_SQL)
+100       Call Rs.AddNew
+110       Rs("AANVRAAGNR").Value = Aanvraagnr
+          ' Controleren
+120       With rec_data
+              ' Alle velden controleren
+              ' Alle velden afgaan. Gaat er iets fout bij het opslaan, dan ook een fout teruggeven
+130           Rs("rol").Value = .Rol
+140           Rs("titulatuur").Value = .Titulatuur
+150           Rs("voorletter").Value = .Voorletter
+160           If UCase$(Trim$(.prefix)) = "T" Then .prefix = "'T"
+170           If UCase$(Trim$(.prefix)) = "VAN T" Then .prefix = "VAN 'T"
+180           Rs("prefix").Value = Trim(LCase(.prefix))
+190           Rs("naam").Value = Proper(Trim$(.Naam))
+200           s = Left$(ConvPrsZoeknaam(.Zoeknaam, .Voorletter, .prefix), 20)
+210           Rs("zoeknaam").Value = s
+220           Result = AppCn.ExecuteSQL("UPDATE AV_ALG SET Zoeknaam = '" & Replace(s, "'", "''", , , vbTextCompare) & "' WHERE AANVRAAGNR = '" & Aanvraagnr & "'") 'GIRYON-EH 2004-06-24: zoeknaam incl voorletters bij aanvraag en relatie
+230           Rs("straat").Value = Proper(Trim$(.Straat))
+240           Rs("huisnr").Value = .HuisNr
+250           Rs("toevhuisnr").Value = .ToevhuisNr
+260           Rs("postcode").Value = .Postcode
+270           Rs("plaats").Value = Proper(Trim$(.Plaats))
+280           Rs("telefoonnr").Value = .TelefoonNr
+290           Rs("gebdatum").Value = ConvertDate(.gebdatum)
+300           Rs("gebplaats").Value = Proper(Trim$(.GebPlaats))
+  
+310           If Not (rec_data.Rol = mROL_RTBC1 Or rec_data.Rol = mROL_RTBC2) Then ' 100310 PROOVIT-EH: Basel II -- Not for Caution (Borg) contracts
+320               Rs("nat").Value = .Nat
+330               Rs("burgstatus").Value = Proper(Trim$(.Burgstatus))
+340               Rs("geslacht").Value = .geslacht
+350               Rs("rekeningnr").Value = .Rekeningnr
+360               Rs("bankgroep").Value = .Bankgroep '  xxxxxxxxxxxxxxxxxxx
+370               Rs("rijbewijs").Value = .Rijbewijs
+380               Rs("beroep").Value = Proper(Trim$(.Beroep)) '  xxxxxxxxxxxxxxxxxxx
+390               Rs("cat_beroep").Value = .Cat_Beroep '  xxxxxxxxxxxxxxxxxxx
+400               Rs("srt_beroep").Value = .Srt_Beroep '  xxxxxxxxxxxxxxxxxxx
+410               Rs("naam_werk").Value = Proper(Trim$(.Naam_Werk))
+420               Rs("plaatswerk").Value = Proper(Trim$(.PltsWerk))
+430               Rs("tel_werk").Value = .Tel_Werk
+440               Rs("startwerk").Value = ConvertDate(.StartWerk)
+450               Rs("cat_ink").Value = .Cat_Ink '  xxxxxxxxxxxxxxxxxxx
+460               Rs("uitkering").Value = .Uitkering
+470               Rs("kinderen").Value = .Kinderen
+480               Rs("behuizing").Value = .Behuizing
+490               Rs("woon_duur").Value = .Woon_duur
+500               Rs("woonlasten").Value = KommaloosNaarDouble(.Woonlasten, 2)
+                  ' 100310 PROOVIT-EH: Basel II -- Nieuwe velden
+510               Rs("INKOMENNETTO").Value = KommaloosNaarDouble(.Ink_Neto, 2)          ' 100310 PROOVIT-EH: Basel II -- NETTO
+520               Rs("INKOMENNETTOTOTAAL").Value = KommaloosNaarDouble(.InkTotNeto, 2)  ' 100310 PROOVIT-EH: Basel II -- TOTAALNETTO
+530               Rs("OPENSTNDMNDBEDRAG").Value = KommaloosNaarDouble(.OpbMndBdrg, 2)   ' 100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG
+540               Rs("PREC_SCHULDENLAST").Value = KommaloosNaarDouble(.PercSchLst, 4)   ' 100310 PROOVIT-EH: Basel II -- PERC -SCHULDENLAST
+550               Rs("PREC_SCHULDLASTTOT").Value = KommaloosNaarDouble(.PercScLsTo, 4)  ' 100310 PROOVIT-EH: Basel II -- PERC -TOT - SCHULDENLAST
+560               Rs("STARTWONING").Value = ConvertDate(.StartWonin)                    ' 100907 PROOVIT-EH: Basel II -- STARTWONING
+570           End If ' If Not Caution (Borg) contracts
+
+580           Rs("IBAN").Value = UCase(Trim(.IBAN))
+590           Rs("BIC").Value = UCase(Trim(.BIC))
+600           Rs("EMAIL").Value = Replace(LCase(Trim(.EMAIL)), "à", "@")
+  
+              '-- 141008 PROOVIT-EH: DESIN-292 - Nieuw fields
+610           Rs("NAT_CODE").Value = .NAT_CODE
+620           Rs("VERBLIJFNR").Value = .VERBLIJFNR
+630           Rs("EVOLGEZIN").Value = .EVOLGEZIN
+640           Rs("EVOLINKOMSTEN").Value = .EVOLINKOMSTEN
+650           Rs("SOORTWRKCONTRAKT").Value = .SOORTWRKCONTRAKT
+660           Rs("EINDDATWRKCONTRAKT").Value = .EINDDATWRKCONTR
+670           Rs("INTENTIEWRKCONTRAKT").Value = .INTENTIEWRKCONTR
+680           Rs("VERZOEKPLATFORM").Value = .VERZOEKPLATFORM
+
+690       End With
+700       On Error Resume Next
+710       Call Rs.Update
+720       If Err.Number <> 0 Then
+730         Result = False
+740         Debug.Assert False
+750       Else
+760         Result = True
+770       End If
+780       Rs.Close
+790       Set Rs = Nothing
+800       On Error GoTo lbl_Error
+  
+Einde:
+810     ControleerEnVerwerk_Relatie = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+820       Exit Function
+
+lbl_Error:
+830       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Relatie", Err.Description & " [" & UserID & "]") = 1 Then
+840         GoTo lbl_Exit
+850       Else
+860         Resume Next
+870       End If
+
+End Function
+
+
+' 100309 PROOVIT-EH: New for Bale II; extra info from finet
+Private Function ControleerEnVerwerk_RelatieHuishoud(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_RelatieHuish
+        Dim temp As TempRegel
+        Dim Result As String
+        Dim str_SQL As String
+        Dim Rs As Recordset
+        Dim s As String
+  
+10        On Error GoTo lbl_Error
+
+          ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20        temp.Regel = strRegel
+30        LSet rec_data = temp
+    
+40        str_SQL = "SELECT * FROM relatie WHERE Aanvraagnr = '" & Aanvraagnr & "'"
+   
+          ' Add data to existing relatie
+50        If Not AppCn.OpenRs(Rs, str_SQL) > 0 Then
+60            Call CloseObject(Rs)
+70            Result = False
+80            GoTo Einde
+90        End If
+
+          ' Controleren
+100       With rec_data
+              ' 100310 PROOVIT-EH: Basel II -- Nieuwe velden
+110           Rs("HUISHOUDGELD").Value = KommaloosNaarDouble(.HuisHgld, 2)  ' 100310 PROOVIT-EH: Basel II --
+120           Rs("HUISHOUDGELDTOTAAL").Value = KommaloosNaarDouble(.HuisHGlTot, 2) ' 100310 PROOVIT-EH: Basel II --
+130           Rs("OPENSTNDMNDBDRGHH").Value = KommaloosNaarDouble(.OpnStdMndB, 2) ' 100310 PROOVIT-EH: Basel II --
+140           Rs("VASTELASTEN").Value = KommaloosNaarDouble(.VateLasten, 4) ' 100310 PROOVIT-EH: Basel II --
+150           Rs("TOTAALMAANDLASTEN").Value = KommaloosNaarDouble(.TotMndLast, 4) ' 100310 PROOVIT-EH: Basel II --
+160       End With
+    
+170       On Error Resume Next
+180       Call Rs.Update
+190       If Err.Number <> 0 Then
+200         Result = False
+210         Debug.Assert False
+220       Else
+230         Result = True
+240       End If
+250       Rs.Close
+260       Set Rs = Nothing
+270       On Error GoTo lbl_Error
+  
+Einde:
+280     ControleerEnVerwerk_RelatieHuishoud = Result
+
+lbl_Exit:
+290       Exit Function
+
+lbl_Error:
+300       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_RelatieHuishoud", Err.Description & " [" & UserID & "]") = 1 Then
+310         GoTo lbl_Exit
+320       Else
+330         Resume Next
+340       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_Bedrijf(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Bedrijf
+        Dim temp As TempRegel
+        Dim Result As String
+        Dim Rs As Recordset
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+  
+40      Call AppCn.OpenRs(Rs, "SELECT * FROM bedrijf WHERE 1 = 0")
+50      Rs.AddNew
+60      Rs("AANVRAAGNR").Value = Aanvraagnr
+        ' Controleren
+70      With rec_data
+          ' Alle velden controleren
+          ' Alle velden afgaan. Gaat er iets fout bij het opslaan, dan ook een fout teruggeven
+80        Rs("rol").Value = .Rol
+    
+90        Rs("naam").Value = Proper(Trim$(.BedNaam))
+100       Rs("zoeknaam").Value = Proper(Trim$(.Zoeknaam))
+110       Rs("rechtsvorm").Value = .Rechtsvorm
+120       Rs("straat").Value = Proper(Trim$(.Straat))
+130       Rs("huisnr").Value = .HuisNr
+140       Rs("toevhuisnr").Value = .ToevhuisNr
+150       Rs("postcode").Value = .Postcode
+160       Rs("plaats") = .Plaats
+170       Rs("telefoonnr").Value = .TelefoonNr
+180       Rs("oprdatum").Value = ConvertDate(.OprDatum)
+190       Rs("gemachtigd").Value = .Gemachtigd
+200       Rs("funktiegem").Value = Proper(Trim$(.Functiegem))
+210       Rs("rekeningnr").Value = .Rekeningnr
+220       Rs("bankgroep").Value = .Bankgroep
+230       Rs("stat_naam").Value = .Stat_naam
+240       Rs("kvk_inschr").Value = .KvK_Inschr
+250       Rs("kvk_plaats").Value = Proper(Trim$(.KvK_Plaats))
+260       Rs("kapitaal").Value = KommaloosNaarDouble(.Kapitaal, 0)
+270       Rs("dunbradnr").Value = .DunBradnr
+280       Rs("jaarbalans").Value = .JaarBalans
+
+290       Rs("IBAN").Value = UCase(Trim(.IBAN))
+300       Rs("BIC").Value = UCase(Trim(.BIC))
+310       Rs("EMAIL").Value = Replace(LCase(Trim(.EMAIL)), "à", "@")
+
+320     End With
+330     On Error Resume Next
+340     Rs.Update
+350     If Err.Number <> 0 Then
+360       Result = False
+370       Debug.Assert False
+380     Else
+390       Result = True
+400     End If
+410     Rs.Close
+420     Set Rs = Nothing
+430     On Error GoTo lbl_Error
+  
+Einde:
+440     ControleerEnVerwerk_Bedrijf = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+450       Exit Function
+
+lbl_Error:
+460       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Bedrijf", Err.Description & " [" & UserID & "]") = 1 Then
+470         GoTo lbl_Exit
+480       Else
+490         Resume Next
+500       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_Inruil(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Inruil
+        Dim temp As TempRegel
+        Dim Result As Boolean
+        Dim Rs As Recordset
+  
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+  
+40      Call AppCn.OpenRs(Rs, "SELECT * FROM av_inr WHERE 1 = 0")
+        ' We weten al dat er geen record meer is met dit finetnummer
+        ' dus nu een record toevoegen
+50      Rs.AddNew
+        ' Key zetten
+60      Rs("AANVRAAGNR").Value = Aanvraagnr
+  
+70      With rec_data
+          ' Bouwjaar
+80        If Not IsNumeric(.bouwjaar) Then
+            'FinetIntfError ("'" & .bouwjaar & "' is geen geldige waarde voor het inruilbouwjaar.")
+90          Rs("bouwjaar").Value = Null
+100       Else
+110         Rs("bouwjaar").Value = Val(.bouwjaar)
+120       End If
+    
+130       Rs("merk").Value = .Merk
+140       Rs("type").Value = .Type
+150       Rs("model").Value = .Model
+160       Rs("aanduiding").Value = BouwAanduiding(.Merk, .Type, .Model)
+170     End With
+180     On Error Resume Next
+190     Rs.Update
+200     If Err.Number <> 0 Then
+210       Result = False
+220       Debug.Assert False
+230     Else
+240       Result = True
+250     End If
+260     Rs.Close
+270     Set Rs = Nothing
+280     On Error GoTo lbl_Error
+  
+Einde:
+290     ControleerEnVerwerk_Inruil = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+300       Exit Function
+
+lbl_Error:
+310       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Inruil", Err.Description & " [" & UserID & "]") = 1 Then
+320         GoTo lbl_Exit
+330       Else
+340         Resume Next
+350       End If
+
+End Function
+
+Private Function ControleerEnVerwerk_Score(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Score
+        Dim temp As TempRegel
+        Dim Result As Boolean
+        Dim Rs As Recordset
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+    
+40      Call AppCn.OpenRs(Rs, "SELECT * FROM av_score WHERE 1 = 0")
+50      Rs.AddNew
+60      Rs("AANVRAAGNR").Value = Aanvraagnr
+  
+        ' Controleren
+70      With rec_data
+          ' Alle velden controleren
+          ' Alle velden afgaan. Gaat er iets fout bij het opslaan, dan ook een fout teruggeven
+80        Rs("tenaamstel").Value = .Tenaamstel
+90        Rs("riskmodel").Value = .Riskmodel
+100       Rs("matighist").Value = .MatigHist
+110       Rs("intelegids").Value = .InTeleGids
+120       Rs("interview").Value = .Interview
+130       Rs("bekend").Value = .Bekend
+140       Rs("eerder").Value = .Eerder
+150       Rs("alias").Value = .Alias
+160       Rs("acode").Value = .aCode
+170       Rs("apluscode").Value = .APlusCode
+180       Rs("acodehyp").Value = .ACodeHyp
+190       Rs("afgelost").Value = IIf(.Bekend = "N", " ", .Afgelost)
+200       Rs("lopend").Value = IIf(.Bekend = "N", " ", .Lopend)
+210       Rs("lopend_sk").Value = .Lopend_sk
+220       Rs("leg").Value = .Leg
+230       Rs("afgewezen").Value = .Afgewezen
+240       Rs("score").Value = IIf(EmptyValue(.Score), "    ", .Score)
+250       Rs("klasse").Value = .Klasse
+260       Rs("auto_acc").Value = ConvertJN(.Auto_Acc)
+270       Rs("add_info").Value = ConvertJN(.Add_Info)
+280       Rs("afwijzen").Value = ConvertJN(.Afwijzen)
+290       Rs("log_score").Value = .Log_Score
+300       Rs("log_info").Value = .Log_Info
+310       Rs("log_afwijs").Value = .Log_Afwijs
+320       Rs("zekerheden").Value = .Zekerheden
+330       If Trim(.bkrscore & "") = "" Then Rs("bkrscore").Value = "_" Else Rs("bkrscore").Value = .bkrscore    ' 100713 PROOVIT-EH: Toevoeging basel
+340       If Trim(.avstatus & "") <> "" Then Rs("avstatus").Value = CLng(0 & .avstatus)                         ' 100713 PROOVIT-EH: Toevoeging basel
+350       If Trim(.AantInkomn & "") <> "" Then Rs("AANTINKOMEN").Value = CLng(0 & .AantInkomn)                  ' 100907 PROOVIT-EH: Toevoeging basel
+360       If Trim(.AantBkrCtr & "") <> "" Then Rs("AANTBKRCONTR").Value = CLng(0 & .AantBkrCtr)                 ' 100907 PROOVIT-EH: Toevoeging basel
+370     End With
+380     On Error Resume Next
+390     Rs.Update
+400     If Err.Number <> 0 Then
+410       Result = False
+420       Debug.Assert False
+430     Else
+440       Result = True
+450     End If
+460     Rs.Close
+470     Set Rs = Nothing
+480     On Error GoTo lbl_Error
+  
+Einde:
+490     ControleerEnVerwerk_Score = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+500       Exit Function
+
+lbl_Error:
+510       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Score", Err.Description & " [" & UserID & "]") = 1 Then
+520         GoTo lbl_Exit
+530       Else
+540         Resume Next
+550       End If
+
+End Function
+
+
+Private Function ControleerEnVerwerk_ScoreDetail(strRegel As String, Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Scoring
+        Dim subrec_data As Record_ScoringSub1
+        Dim temp As TempRegel
+        Dim subtemp As Record_ScoringTempRegel
+        Dim Result As Long
+        Dim Rs As Recordset
+        Dim Rec As Long
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+        ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20      temp.Regel = strRegel
+30      LSet rec_data = temp
+
+        ' Speciaal geval: een scoring record bestaat uit 25 blokken van 6 x 3 cijfers (=18).
+        ' Als er meer blokken zijn dan 25 komt er een 2e record 55 met een volgnummer 2
+
+40      Call AppCn.OpenRs(Rs, "SELECT * FROM AV_SCOREDETAIL WHERE 1 = 0")
+50      Result = 0
+60      For Rec = 1 To 25
+70          subtemp.Regel = Mid(rec_data.Scoring25, ((Rec - 1) * 18) + 1, 18)
+80          LSet subrec_data = subtemp
+90          If Trim(subrec_data.REG_CODE) = "" Then Exit For
+100         Call Rs.AddNew
+110         Rs("AANVRAAGNR").Value = Aanvraagnr
+120         Rs("PCFINETNR").Value = rec_data.PCFinetnr
+130         With subrec_data
+140             Rs("REG_CODE").Value = .REG_CODE
+150             Rs("COND_NR").Value = .COND_NR
+160             Rs("COND_SCORE").Value = .Cond_Score
+170             Rs("AFWIJS_REG_CODE").Value = .AfwysRegCd
+180             Rs("ZEKERH_CODE").Value = .ZekerhCode
+190             Rs("INFO_REG_CODE").Value = .InfoRegCod
+200         End With
+210         On Error Resume Next
+220         Call Err.Clear
+230         Call Rs.Update
+240         If Err.Number <> 0 Then
+250             Debug.Assert False
+260             Result = Result + 1
+270         End If
+280         On Error GoTo lbl_Error
+290     Next Rec
+    
+ 
+lbl_Einde:
+300     ControleerEnVerwerk_ScoreDetail = (Result = 0)
+
+lbl_Exit:
+          'MousePointer = vbDefault
+310       Exit Function
+
+lbl_Error:
+320       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_ScoreDetail", Err.Description & " [" & UserID & "]") = 1 Then
+330           GoTo lbl_Exit
+340       Else
+350           Resume Next
+360       End If
+
+End Function
+
+
+
+'-- 141008 PROOVIT-EH: DESIN-292 - Nieuw records 61, 62, 63
+Private Function ControleerEnVerwerk_Uitleg(ByVal alng_RecordNummer As Long, ByVal strRegel As String, ByVal Aanvraagnr As String) As Boolean
+        Dim rec_data As Record_Uitleg
+        Dim temp As TempRegel
+        Dim Result As String
+        Dim str_SQL As String
+        Dim Rs As Recordset
+        Dim s As String
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+          ' Doorgegeven regel splitsen naar de afzonderlijke velden
+20        temp.Regel = strRegel
+30        LSet rec_data = temp
+    
+          ' 100309 PROOVIT-EH: De borg rol is toegevoegd, die slaan we in een aparte tabel op om conflicten te voorkomen
+          '    Dim mROL_RTHC  As String ' van tabel PARAMTR
+          '    Dim mROL_RTMC1 As String ' van tabel PARAMTR
+          '    Dim mROL_RTMC2 As String ' van tabel PARAMTR
+          '    Dim mROL_RTBC1 As String ' van tabel PARAMTR
+          '    Dim mROL_RTBC2 As String ' van tabel PARAMTR
+40        If alng_RecordNummer = 63 Then
+50            str_SQL = "SELECT * FROM AV_BORG WHERE Aanvraagnr = '" & Aanvraagnr & "'"
+60        Else
+70            str_SQL = "SELECT * FROM relatie WHERE Aanvraagnr = '" & Aanvraagnr & "' AND ROL = '{0}'"
+80            If alng_RecordNummer = 61 Then
+90                str_SQL = Replace(str_SQL, "{0}", mROL_RTHC)
+100           ElseIf alng_RecordNummer = 62 Then
+110               str_SQL = Replace(str_SQL, "{0}", mROL_RTMC1)
+120           Else
+130               Result = False
+140               GoTo Einde
+150           End If
+160       End If
+     
+          ' Add data to existing relatie
+170       If Not AppCn.OpenRs(Rs, str_SQL) > 0 Then
+180           Call CloseObject(Rs)
+190           Result = False
+200           GoTo Einde
+210       End If
+   
+          ' Controleren
+220       With rec_data
+              ' Alle velden controleren
+              ' Alle velden afgaan. Gaat er iets fout bij het opslaan, dan ook een fout teruggeven
+
+230           Rs("UITLEGGEZIN").Value = Replace(Replace(LCase(Trim(.UITLEGGEZIN & "")), "   ", " "), "  ", " ")
+240           Rs("UITLEGINKOMSTEN").Value = Replace(Replace(LCase(Trim(.UITLEGINKOMSTEN & "")), "   ", " "), "  ", " ")
+250           Rs("UITLEGINPLATFORM").Value = Replace(Replace(LCase(Trim(.UITLEGINPLATFORM & "")), "   ", " "), "  ", " ")
+
+260       End With
+270       On Error Resume Next
+280       Call Rs.Update
+290       If Err.Number <> 0 Then
+300         Result = False
+310         Debug.Assert False
+320       Else
+330         Result = True
+340       End If
+350       Rs.Close
+360       Set Rs = Nothing
+370       On Error GoTo lbl_Error
+  
+Einde:
+380     ControleerEnVerwerk_Uitleg = Result
+
+lbl_Exit:
+          'MousePointer = vbDefault
+390       Exit Function
+
+lbl_Error:
+400       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerEnVerwerk_Uitleg::" & alng_RecordNummer, Err.Description & " [" & UserID & "]") = 1 Then
+410         GoTo lbl_Exit
+420       Else
+430         Resume Next
+440       End If
+
+End Function
+
+
+
+
+' hulp functies voor controle en vertalen van de velden
+
+Private Function BouwAanduiding(strmerk As String, strType As String, strModel As String) As String
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+20      BouwAanduiding = Trim$(Trim$(strmerk) & " " & Trim$(strType) & " " & Trim$(strModel))
+
+lbl_Exit:
+          'MousePointer = vbDefault
+30        Exit Function
+
+lbl_Error:
+40        If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "BouwAanduiding", Err.Description & " [" & UserID & "]") = 1 Then
+50          GoTo lbl_Exit
+60        Else
+70          Resume Next
+80        End If
+
+End Function
+
+Private Function ConvertJN(Waarde As String) As Long
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+20      If UCase$(Waarde) = "J" Then
+30        ConvertJN = 1
+40      Else
+50        ConvertJN = 0
+60      End If
+
+lbl_Exit:
+          'MousePointer = vbDefault
+70        Exit Function
+
+lbl_Error:
+80        If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ConvertJN", Err.Description & " [" & UserID & "]") = 1 Then
+90          GoTo lbl_Exit
+100       Else
+110         Resume Next
+120       End If
+
+End Function
+
+Private Function SoortAuto(strMFRT_Merk As String, strMFRT_Type As String, strMDLAGGR As String) As String
+        Dim strSQL As String
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+20      strSQL = "SELECT soortauto FROM model WHERE "
+30      strSQL = strSQL & "mfrt_merk = '" & UCase$(strMFRT_Merk) & "' "
+40      strSQL = strSQL & "and mfrt_type = '" & UCase$(strMFRT_Type) & "' "
+50      strSQL = strSQL & "and mdlaggrnr = '" & UCase$(strMDLAGGR) & "'"
+  
+60      SoortAuto = AppCn.GetFieldValueBySQL(strSQL, "P")
+
+lbl_Exit:
+          'MousePointer = vbDefault
+70        Exit Function
+
+lbl_Error:
+80        If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "SoortAuto", Err.Description & " [" & UserID & "]") = 1 Then
+90          GoTo lbl_Exit
+100       Else
+110         Resume Next
+120       End If
+
+End Function
+
+Private Function ConvertDate(strDatum As String) As Variant
+        ' Converteer een datum-string met opbouw yyyymmdd om naar een Date-variabele
+        Dim Jaar As Long, Maand As Long, dag As Long
+  
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+20      If Trim$(strDatum) = "" Then
+30        ConvertDate = Null
+40      Else
+50        dag = Right$(strDatum, 2)
+60        Maand = Mid$(strDatum, 5, 2)
+70        Jaar = Left$(strDatum, 4)
+80        If IsDate(Jaar & "-" & Maand & "-" & dag) Then
+90          ConvertDate = DateSerial(Jaar, Maand, dag)
+100       Else
+110         ConvertDate = Null
+120       End If
+130     End If
+
+lbl_Exit:
+          'MousePointer = vbDefault
+140       Exit Function
+
+lbl_Error:
+150       If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ConvertDate", Err.Description & " [" & UserID & "]") = 1 Then
+160         GoTo lbl_Exit
+170       Else
+180         Resume Next
+190       End If
+
+  
+End Function
+
+Private Function ControleerReferentie(RefSoort As String, Waarde As String) As Boolean
+        ' Kijk of [waarde] een geldige waarde voor de referentie [Refsoort] is
+        Dim Dummy As String
+10        On Error GoTo lbl_Error
+          'MousePointer = vbHourglass
+
+20      Dummy = AppCn.GetFieldValueBySQL("SELECT iditem FROM reftabel WHERE nmtab = '" & RefSoort & "' and iditem = '" & Waarde & "'", "")
+        ' Als de waarde zelf gevonden is, dan is het een geldige waarde voor deze referentie
+30      ControleerReferentie = (Waarde = Dummy)
+
+lbl_Exit:
+          'MousePointer = vbDefault
+40        Exit Function
+
+lbl_Error:
+50        If HandleError(PsaApp_PCRetail, Err.Number, "Form: INTF_Finet2PCRT", "ControleerReferentie", Err.Description & " [" & UserID & "]") = 1 Then
+60          GoTo lbl_Exit
+70        Else
+80          Resume Next
+90        End If
+
+End Function
+
+' Functie om verschillende waarden te controleren
+
+Private Function ControleerBankgroep(Waarde As String) As Boolean
+10      ControleerBankgroep = ControleerReferentie("INGVRU0", Waarde)
+20      If Not ControleerBankgroep Then FinetIntfError ("Bankgroep '" & Waarde & "' bestaat niet.")
+End Function
+
+Private Function BestaatDEALERNR(Waarde As String) As Boolean
+        ' DEALERNR moet bestaan, mag dus niet uniek zijn
+10      BestaatDEALERNR = Not (VeldWaardeUniek("TSPERS", "DEALERNR", Waarde))
+20      If Not BestaatDEALERNR Then FinetIntfError ("DEALERNR '" & Waarde & "' bestaat niet.")
+End Function
+
+Private Function BestaatProdCode(Waarde As String) As Boolean
+        ' Productcode moet bestaan, mag dus niet uniek zijn
+10      BestaatProdCode = Not (VeldWaardeUniek("produkt", "PROD_CODE", Waarde))
+20      If Not BestaatProdCode Then FinetIntfError ("Produkt code '" & Waarde & "' bestaat niet.")
+End Function
+
+Private Sub FinetIntfError(Melding As String)
+10      AddWarningToLog mAanvraagNr, Melding & " (Inlezen PC-Finet)"
+End Sub
+
+Private Sub VerwerkFoutenSingle(Aanvraagnr As String, ErrorString As String, ExtraText As String, FlagField As String)
+        Dim Fouten() As String
+        Dim i As Long
+        Dim NumFouten As Long
+  
+10      NumFouten = 0
+20      If ErrorString <> "" Then
+30        Fouten = Split(ErrorString, vbCrLf)
+40        For i = LBound(Fouten) To UBound(Fouten)
+50          If Fouten(i) <> "" Then
+60            If Left$(Fouten(i), 2) <> "@ " Then ' niet kritieke fouten overslaan
+70              If Left$(Fouten(i), 2) = "- " Then Fouten(i) = Right$(Fouten(i), Len(Fouten(i)) - 2)
+80              AddWarningToLog Aanvraagnr, Fouten(i) & ExtraText
+90              NumFouten = NumFouten + 1
+100           End If
+110         End If
+120       Next
+130       If NumFouten > 0 Then ' Alleen als er ten minste 1 kritieke fout is opgetreden
+140         AppCn.ExecuteSQL ("Update av_alg set " & FlagField & " = 1 where aanvraagnr = '" & FormatAANVRAAGNR(Aanvraagnr) & "'")
+150       End If
+160     End If
+
+End Sub
+
+Private Sub VerwerkFouten(Aanvraagnr As String)
+10      VerwerkFoutenSingle Aanvraagnr, FinetFoutTussenpersoon, " (Inlezen PC-Finet, Tussenpersoon)", "INT_TUSSEN"
+20      VerwerkFoutenSingle Aanvraagnr, FinetFoutFinObject, " (Inlezen PC-Finet, Financieel/Object)", "INT_FINC"
+30      VerwerkFoutenSingle Aanvraagnr, FinetFoutHoofdContractant, " (Inlezen PC-Finet, Hoofdcontractant)", "INT_CONTR"
+40      VerwerkFoutenSingle Aanvraagnr, FinetFoutMedeContractant, " (Inlezen PC-Finet, Medecontractant)", "INT_CONTR"
+50      VerwerkFoutenSingle Aanvraagnr, FinetFoutHerfinanciering, " (Inlezen PC-Finet, Herfinanciering)", "INT_HERF"
+End Sub
