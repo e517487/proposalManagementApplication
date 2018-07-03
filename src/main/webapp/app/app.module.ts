@@ -13,10 +13,10 @@ import { NotificationInterceptor } from './blocks/interceptor/notification.inter
 import { ProposalManagementApplicationSharedModule } from 'app/shared';
 import { ProposalManagementApplicationCoreModule } from 'app/core';
 import { ProposalManagementApplicationAppRoutingModule } from './app-routing.module';
-import { ProposalManagementApplicationHomeModule } from './home/home.module';
+import { ProposalManagementApplicationHomeModule } from 'app/home';
 import { ProposalManagementApplicationAccountModule } from './account/account.module';
 import { ProposalManagementApplicationEntityModule } from './entities/entity.module';
-import { ProposalManagementApplicationAppHiThereModule } from './hi-there/hi-there.module';
+import { ProposalManagementApplicationAppHiThereModule } from 'app/hi-there';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
