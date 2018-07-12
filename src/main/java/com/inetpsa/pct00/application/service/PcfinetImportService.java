@@ -33,9 +33,9 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class PcfinetImportService {
+public class PcFinetImportService {
 
-    private final Logger log = LoggerFactory.getLogger( PcfinetImportService.class );
+    private final Logger log = LoggerFactory.getLogger( PcFinetImportService.class );
 
     private static final int RECORD_LINE_LENGTH = 700;
 
