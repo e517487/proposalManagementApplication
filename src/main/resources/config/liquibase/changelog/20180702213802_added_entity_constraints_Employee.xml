@@ -7,18 +7,18 @@
         Added the constraints for entity Employee.
     -->
     <changeSet id="20180702213802-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="manager_id"
-                                 baseTableName="employee"
-                                 constraintName="fk_employee_manager_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="employee"/>
 
         <addForeignKeyConstraint baseColumnNames="department_id"
                                  baseTableName="employee"
                                  constraintName="fk_employee_department_id"
                                  referencedColumnNames="id"
                                  referencedTableName="department"/>
+
+        <addForeignKeyConstraint baseColumnNames="manager_id"
+                                 baseTableName="employee"
+                                 constraintName="fk_employee_manager_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
 
     </changeSet>
 </databaseChangeLog>
