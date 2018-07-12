@@ -1,9 +1,7 @@
 package com.inetpsa.pct00.application.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.inetpsa.pct00.application.service.wltp.Config;
-import com.inetpsa.pct00.application.service.wltp.ObjectFactory;
-import com.inetpsa.pct00.application.service.wltp.WLTP;
+import com.inetpsa.pct00.application.service.wltp.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,26 +26,16 @@ public class WLTPInfoService {
 
     private final Logger log = LoggerFactory.getLogger(WLTPInfoService.class);
 
-    private RestTemplate restTemplate;
-    private MultiValueMap<String,String> headerWithKey;
+    private ObjectFactory objectFactory;
 
-    @Value("${wltp-info.api.url}")
+/*    @Value("${wltp-info.api.url}")
     private String rootUri;
     @Value("${wltp-info.api.key}")
-    private String key;
+    private String key;*/
 
-    public WLTPInfoService( RestTemplateBuilder builder) {
-        log.info("WLTP Info Web Client constructed.");
+    public WLTPInfoService( ) {
 
-        restTemplate =  builder.rootUri(rootUri).build();
-        headerWithKey = new LinkedMultiValueMap<>();
-//        headerWithKey.add("x-api-key", key);
-
-//        WLTP wltp = new WLTP();
-//        Config config = new Config();
-
-        ObjectFactory objectFactory = new ObjectFactory();
-        WLTP wltp = objectFactory.createWLTP();
+        objectFactory = new ObjectFactory();
     }
 
 
@@ -57,31 +45,27 @@ public class WLTPInfoService {
      * url
      *
      */
-//    @Bean
-//    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-//        return builder.build();
-//    }
-//
-//    @Bean
-//    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-//        return args -> {
-//            Quote quote = restTemplate.getForObject(
-//                "http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-//            log.info(quote.toString());
-//        };
-//    }
+    public String getWltpConfig( String t) {
+
+        Config config = objectFactory.createConfig();
+        ConfigResponse configResponse = objectFactory.createConfigResponse();
+
+        configResponse.setConfigResponse(objectFactory.createConfigResponseType());
+
+        ConfigType configType = config.getConfig();
 
 
-    public String getWltpInfo( String t){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_PLAIN);
-        HttpEntity<String> entity = new HttpEntity<>( "stringtext", headers);
-//        URI location = template.postForLocation("http://example.com", entity);
-
-        StringBuilder result = new StringBuilder();
-        result = restTemplate.exchange( "/xxxx",HttpMethod.GET,entity,result.getClass()).getBody();
-        return result.toString();
+        return "result";
     }
+
+    public void getWltpConfigFeature() {
+
+    }
+
+    public void getWltpConfigV2() {
+
+    }
+
 
 }
 

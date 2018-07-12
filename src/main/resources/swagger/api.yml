@@ -1,6 +1,1268 @@
 # API-first development with OpenAPI
 # This file will be used at compile time to generate Spring-MVC endpoint stubs using openapi-generator
-openapi: "3.0.1"
+##openapi: "3.0.1"
+##info:
+##  version: 0.0.1
+##paths: {}
+
+openapi: 3.0.0
 info:
-  version: 0.0.1
-paths: {}
+  title: Config
+  version: '1.0'
+servers:
+- url: http://localhost:8080/cfg00Web/services/Config
+  variables: {}
+paths:
+  /Config:
+    post:
+      tags:
+      - ConfigHttpBinding
+      summary: Config
+      operationId: Config
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigRequest'
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigResponse'
+        500:
+          description: Error in retrieving response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceexceptionError'
+      security: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /ConfigFeature:
+    post:
+      tags:
+      - ConfigHttpBinding
+      summary: ConfigFeature
+      operationId: ConfigFeature
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigFeatureRequest'
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigFeatureResponse'
+        500:
+          description: Error in retrieving response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceexceptionError'
+      security: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /ConfigV2:
+    post:
+      tags:
+      - ConfigHttpBinding
+      summary: ConfigV2
+      operationId: ConfigV2
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigV2Request'
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigV2Response'
+        500:
+          description: Error in retrieving response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceexceptionError'
+      security: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+components:
+  schemas:
+    TnBrand:
+      title: tn_Brand
+      enum:
+      - P
+      - C
+      type: string
+      description: ''
+      example: P
+      x-enum-elements:
+      - name: P
+        description: ''
+      - name: C
+        description: ''
+    TnContextrequest:
+      title: tn_ContextRequest
+      required:
+      - Client
+      - Brand
+      - Country
+      type: object
+      properties:
+        Client:
+          type: string
+        Brand:
+          $ref: '#/components/schemas/TnBrand'
+        Country:
+          type: string
+        Date:
+          type: string
+          format: date
+        TariffCode:
+          type: string
+        LanguageID:
+          type: string
+        Network:
+          type: boolean
+          example: false
+        TaxIncluded:
+          type: boolean
+          example: true
+        ShowBothPrices:
+          type: boolean
+          example: false
+        ProfessionalUse:
+          type: boolean
+          example: false
+        ShowMRIP:
+          type: boolean
+          example: false
+        ShowBonusMalus:
+          type: boolean
+          example: false
+        TariffZone:
+          type: string
+        LocalCurrency:
+          type: boolean
+          example: false
+        ShowUnavailableLooks:
+          type: boolean
+          example: true
+        ShowUnavailableOptionalFeatures:
+          type: boolean
+          example: false
+        ShowStatus:
+          type: boolean
+          example: false
+        GeosStatus:
+          type: string
+        ShowEcommerce:
+          type: boolean
+          example: false
+      description: ''
+    TnWltp:
+      title: tn_WLTP
+      required:
+      - FlagWLTP
+      - PhaseWLTP
+      type: object
+      properties:
+        FlagWLTP:
+          type: boolean
+        PhaseWLTP:
+          type: string
+        DateWLTP:
+          type: string
+          format: date
+        FactoryWLTP:
+          type: string
+      description: ''
+    TnFeature:
+      title: tn_Feature
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+      description: ''
+    TnConfigcriteria:
+      title: tn_ConfigCriteria
+      required:
+      - Version
+      type: object
+      properties:
+        Version:
+          type: string
+        WLTP:
+          $ref: '#/components/schemas/TnWltp'
+        Feature:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnFeature'
+          description: ''
+      description: ''
+    TnConfigtype:
+      title: tn_ConfigType
+      required:
+      - ContextRequest
+      - ConfigCriteria
+      type: object
+      properties:
+        ContextRequest:
+          $ref: '#/components/schemas/TnContextrequest'
+        ConfigCriteria:
+          $ref: '#/components/schemas/TnConfigcriteria'
+      description: ''
+    TnConfigcriteriafeature:
+      title: tn_ConfigCriteriaFeature
+      required:
+      - Model
+      - Feature
+      type: object
+      properties:
+        Model:
+          type: array
+          items:
+            type: string
+          description: ''
+        Feature:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnFeature'
+          description: ''
+        VehicleUse:
+          type: string
+        BodyStyle:
+          type: array
+          items:
+            type: string
+          description: ''
+        GrBodyStyle:
+          type: array
+          items:
+            type: string
+          description: ''
+        Grade:
+          type: array
+          items:
+            type: string
+          description: ''
+        GrCommercialName:
+          type: array
+          items:
+            type: string
+          description: ''
+        TransmissionType:
+          type: array
+          items:
+            type: string
+          description: ''
+        GrTransmissionType:
+          type: array
+          items:
+            type: string
+          description: ''
+        GrTypeBoiteVitesse:
+          type: array
+          items:
+            type: string
+          description: ''
+        GrNumberOfDoors:
+          type: array
+          items:
+            type: string
+          description: ''
+        DerivedModels:
+          type: array
+          items:
+            type: string
+          description: ''
+        Engine:
+          type: array
+          items:
+            type: string
+          description: ''
+        GrEngine:
+          type: array
+          items:
+            type: string
+          description: ''
+        Energy:
+          type: array
+          items:
+            type: string
+          description: ''
+        EcoLabel:
+          type: array
+          items:
+            type: boolean
+          description: ''
+        EcoLabelText:
+          type: array
+          items:
+            type: string
+          description: ''
+      description: ''
+    TnConfigfeaturetype:
+      title: tn_ConfigFeatureType
+      required:
+      - ContextRequest
+      - ConfigCriteria
+      type: object
+      properties:
+        ContextRequest:
+          $ref: '#/components/schemas/TnContextrequest'
+        ConfigCriteria:
+          $ref: '#/components/schemas/TnConfigcriteriafeature'
+      description: ''
+    TnIdentification:
+      title: tn_Identification
+      required:
+      - id
+      - label
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+      description: ''
+    TnTariff:
+      title: tn_Tariff
+      required:
+      - tariffCode
+      - tariffStartDate
+      type: object
+      properties:
+        tariffCode:
+          type: string
+        tariffStartDate:
+          type: string
+          format: date
+      description: ''
+    TnPrice:
+      title: tn_Price
+      required:
+      - basePrice
+      - netPrice
+      - discount
+      type: object
+      properties:
+        basePrice:
+          type: number
+        netPrice:
+          type: number
+        discount:
+          type: number
+        priceStartDate:
+          type: string
+          format: date
+        priceEndDate:
+          type: string
+          format: date
+        bonus:
+          type: number
+        malus:
+          type: number
+        novaRate:
+          type: number
+        novaValue:
+          type: number
+        ecoprixbm:
+          type: number
+      description: ''
+    TnCommercialoffer:
+      title: tn_CommercialOffer
+      required:
+      - idOc
+      - idRemise
+      - label
+      - description
+      - applied
+      - discount
+      - amount
+      - offer
+      - offerStartDate
+      - offerEndDate
+      - offerPartMar
+      - offerPartCre
+      type: object
+      properties:
+        idOc:
+          type: integer
+          format: int32
+        idRemise:
+          type: integer
+          format: int32
+        label:
+          type: string
+        description:
+          type: string
+        applied:
+          type: boolean
+        discount:
+          type: number
+        amount:
+          type: boolean
+        offer:
+          type: number
+        offerStartDate:
+          type: string
+          format: date
+        offerEndDate:
+          type: string
+          format: date
+        offerPartMar:
+          type: number
+        offerPartCre:
+          type: number
+        onBasePrice:
+          type: boolean
+        order:
+          type: string
+        avantageClient:
+          type: boolean
+      description: ''
+    TnCommercialoffers:
+      title: tn_CommercialOffers
+      required:
+      - commercialOffer
+      type: object
+      properties:
+        commercialOffer:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnCommercialoffer'
+          description: ''
+      description: ''
+    TnTechcharcomplex:
+      title: tn_TechCharComplex
+      type: object
+      properties:
+        decimalValue:
+          type: number
+        stringValue:
+          type: string
+      description: ''
+    TnStandardfeature:
+      title: tn_StandardFeature
+      required:
+      - id
+      - code
+      - label
+      - rank
+      - classe
+      - assembly
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        label:
+          type: string
+        rank:
+          type: integer
+          format: int32
+        classe:
+          type: string
+        assembly:
+          type: integer
+          format: int32
+        description:
+          type: string
+      description: ''
+    TnGeosstatus:
+      title: tn_GeosStatus
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+      description: ''
+    TnPackfeature:
+      title: tn_PackFeature
+      required:
+      - id
+      - label
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        Status:
+          $ref: '#/components/schemas/TnGeosstatus'
+      description: ''
+    TnPack100:
+      title: tn_Pack100
+      required:
+      - id
+      - code
+      - rank
+      - classe
+      - label
+      - assembly
+      - PackFeatures
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        rank:
+          type: integer
+          format: int32
+        classe:
+          type: string
+        label:
+          type: string
+        assembly:
+          type: integer
+          format: int32
+        PackFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnPackfeature'
+          description: ''
+        description:
+          type: string
+      description: ''
+    TnStandardcategory:
+      title: tn_StandardCategory
+      required:
+      - id
+      - label
+      - rank
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        rank:
+          type: integer
+          format: int32
+        StandardFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnStandardfeature'
+          description: ''
+        Packs100:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnPack100'
+          description: ''
+      description: ''
+    TnStandardcategories:
+      title: tn_StandardCategories
+      type: object
+      properties:
+        Category:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnStandardcategory'
+          description: ''
+      description: ''
+    TnTechnicalcharacteristic:
+      title: tn_TechnicalCharacteristic
+      required:
+      - id
+      - label
+      - rank
+      - value
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        rank:
+          type: integer
+          format: int32
+        value:
+          type: string
+      description: ''
+    TnTechnicalcharacteristiccategory:
+      title: tn_TechnicalCharacteristicCategory
+      required:
+      - id
+      - label
+      - rank
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        rank:
+          type: integer
+          format: int32
+        TechnicalCharacteristics:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnTechnicalcharacteristic'
+          description: ''
+      description: ''
+    TnTechnicalcharacteristicscategories:
+      title: tn_TechnicalCharacteristicsCategories
+      type: object
+      properties:
+        Category:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnTechnicalcharacteristiccategory'
+          description: ''
+      description: ''
+    TnOptionalfeature:
+      title: tn_OptionalFeature
+      required:
+      - id
+      - code
+      - rank
+      - classe
+      - label
+      - Price
+      - assembly
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        rank:
+          type: integer
+          format: int32
+        classe:
+          type: string
+        label:
+          type: string
+        Price:
+          $ref: '#/components/schemas/TnPrice'
+        assembly:
+          type: integer
+          format: int32
+        description:
+          type: string
+        PriceTtc:
+          $ref: '#/components/schemas/TnPrice'
+        PriceMrip:
+          $ref: '#/components/schemas/TnPrice'
+        PriceMripTtc:
+          $ref: '#/components/schemas/TnPrice'
+        CommercialOffers:
+          $ref: '#/components/schemas/TnCommercialoffers'
+        selection:
+          type: string
+        specific:
+          type: string
+        Co2Variation:
+          type: number
+        Co2Global:
+          type: number
+      description: ''
+    TnOptionalpack:
+      title: tn_OptionalPack
+      required:
+      - id
+      - code
+      - rank
+      - classe
+      - label
+      - assembly
+      - forced
+      - PackFeatures
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        rank:
+          type: integer
+          format: int32
+        classe:
+          type: string
+        label:
+          type: string
+        assembly:
+          type: integer
+          format: int32
+        forced:
+          type: boolean
+        PackFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnPackfeature'
+          description: ''
+        description:
+          type: string
+        Price:
+          $ref: '#/components/schemas/TnPrice'
+        PriceTtc:
+          $ref: '#/components/schemas/TnPrice'
+        PriceMrip:
+          $ref: '#/components/schemas/TnPrice'
+        PriceMripTtc:
+          $ref: '#/components/schemas/TnPrice'
+        CommercialOffers:
+          $ref: '#/components/schemas/TnCommercialoffers'
+        selection:
+          type: string
+        Co2Variation:
+          type: number
+        Co2Global:
+          type: number
+        Status:
+          $ref: '#/components/schemas/TnGeosstatus'
+      description: ''
+    TnOptionalfeaturecategory:
+      title: tn_OptionalFeatureCategory
+      required:
+      - id
+      - label
+      - rank
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        rank:
+          type: integer
+          format: int32
+        OptionalFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnOptionalfeature'
+          description: ''
+        OptionalPacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnOptionalpack'
+          description: ''
+      description: ''
+    TnOptionalfeaturescategories:
+      title: tn_OptionalFeaturesCategories
+      type: object
+      properties:
+        Category:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnOptionalfeaturecategory'
+          description: ''
+      description: ''
+    TnVersionabstract:
+      title: tn_VersionAbstract
+      required:
+      - IdVersion
+      - Model
+      - VehiclePrice
+      - Price
+      - FeaturesPrice
+      - OptionalFeaturesPrice
+      - LookFeaturesPrice
+      - DesignClass
+      - CustomerType
+      - ModelYear
+      - ModelYearModification
+      - StandardFeatures
+      - TechnicalCharacteristics
+      - OptionalFeatures
+      type: object
+      properties:
+        IdVersion:
+          $ref: '#/components/schemas/TnIdentification'
+        Model:
+          $ref: '#/components/schemas/TnIdentification'
+        VehiclePrice:
+          $ref: '#/components/schemas/TnPrice'
+        Price:
+          $ref: '#/components/schemas/TnPrice'
+        FeaturesPrice:
+          $ref: '#/components/schemas/TnPrice'
+        OptionalFeaturesPrice:
+          $ref: '#/components/schemas/TnPrice'
+        LookFeaturesPrice:
+          $ref: '#/components/schemas/TnPrice'
+        DesignClass:
+          $ref: '#/components/schemas/TnIdentification'
+        CustomerType:
+          $ref: '#/components/schemas/TnIdentification'
+        ModelYear:
+          $ref: '#/components/schemas/TnIdentification'
+        ModelYearModification:
+          $ref: '#/components/schemas/TnIdentification'
+        StandardFeatures:
+          $ref: '#/components/schemas/TnStandardcategories'
+        TechnicalCharacteristics:
+          $ref: '#/components/schemas/TnTechnicalcharacteristicscategories'
+        OptionalFeatures:
+          $ref: '#/components/schemas/TnOptionalfeaturescategories'
+        Tariff:
+          $ref: '#/components/schemas/TnTariff'
+        VehicleUse:
+          $ref: '#/components/schemas/TnIdentification'
+        VehiclePriceTtc:
+          $ref: '#/components/schemas/TnPrice'
+        PriceTtc:
+          $ref: '#/components/schemas/TnPrice'
+        FeaturesPriceTtc:
+          $ref: '#/components/schemas/TnPrice'
+        OptionalFeaturesPriceTtc:
+          $ref: '#/components/schemas/TnPrice'
+        LookFeaturesPriceTtc:
+          $ref: '#/components/schemas/TnPrice'
+        VehiclePriceMrip:
+          $ref: '#/components/schemas/TnPrice'
+        PriceMrip:
+          $ref: '#/components/schemas/TnPrice'
+        FeaturesPriceMrip:
+          $ref: '#/components/schemas/TnPrice'
+        OptionalFeaturesPriceMrip:
+          $ref: '#/components/schemas/TnPrice'
+        LookFeaturesPriceMrip:
+          $ref: '#/components/schemas/TnPrice'
+        VehiclePriceMripTtc:
+          $ref: '#/components/schemas/TnPrice'
+        PriceMripTtc:
+          $ref: '#/components/schemas/TnPrice'
+        FeaturesPriceMripTtc:
+          $ref: '#/components/schemas/TnPrice'
+        OptionalFeaturesPriceMripTtc:
+          $ref: '#/components/schemas/TnPrice'
+        LookFeaturesPriceMripTtc:
+          $ref: '#/components/schemas/TnPrice'
+        CommercialOffers:
+          $ref: '#/components/schemas/TnCommercialoffers'
+        Grade:
+          $ref: '#/components/schemas/TnIdentification'
+        BodyStyle:
+          $ref: '#/components/schemas/TnIdentification'
+        GrbodyStyle:
+          $ref: '#/components/schemas/TnIdentification'
+        CommercialName:
+          $ref: '#/components/schemas/TnIdentification'
+        GrCommercialName:
+          $ref: '#/components/schemas/TnIdentification'
+        Engine:
+          $ref: '#/components/schemas/TnIdentification'
+        GrEngine:
+          $ref: '#/components/schemas/TnIdentification'
+        TransmissionType:
+          $ref: '#/components/schemas/TnIdentification'
+        GrTransmissionType:
+          $ref: '#/components/schemas/TnIdentification'
+        Energy:
+          $ref: '#/components/schemas/TnIdentification'
+        Co2Rate:
+          type: number
+        Co2RateComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        Co2Class:
+          type: string
+        EcoLabel:
+          type: boolean
+        MixedConsumption:
+          type: number
+        MixedConsumptionComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        UsefulIntLength:
+          type: number
+        UsefulIntLengthComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        UsefulIntHeight:
+          type: number
+        UsefulIntHeightComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        ExteriorLength:
+          type: number
+        ExteriorLengthComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        ExteriorHeight:
+          type: number
+        ExteriorHeightComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        TrunkVolume:
+          type: number
+        TrunkVolumeComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        PayloadVolume:
+          type: number
+        PayloadVolumeComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        UsefulTrayLength:
+          type: number
+        UsefulTrayLengthComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        NumSittedPlaces:
+          type: integer
+          format: int32
+        NumSittedPlacesComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        PayloadWeight:
+          type: number
+        PayloadWeightComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        BodyLength:
+          type: number
+        BodyLengthComplex:
+          $ref: '#/components/schemas/TnTechcharcomplex'
+        Characteristic1:
+          type: string
+        Characteristic2:
+          type: string
+        Characteristic3:
+          type: string
+        Characteristic4:
+          type: string
+        ExtendedCode:
+          type: string
+        VisualCode:
+          type: string
+      description: ''
+    TnLookfeatures:
+      title: tn_LookFeatures
+      type: object
+      properties:
+        InteriorFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnOptionalfeature'
+          description: ''
+        ExteriorFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnOptionalfeature'
+          description: ''
+      description: ''
+    TnVersion:
+      title: tn_Version
+      allOf:
+      - $ref: '#/components/schemas/TnVersionabstract'
+      - required:
+        - LookFeatures
+        type: object
+        properties:
+          LookFeatures:
+            $ref: '#/components/schemas/TnLookfeatures'
+      description: ''
+    TnConfigresponsetype:
+      title: tn_ConfigResponseType
+      required:
+      - Version
+      type: object
+      properties:
+        Version:
+          $ref: '#/components/schemas/TnVersion'
+      description: ''
+    TnOptionalfeaturev2:
+      title: tn_OptionalFeatureV2
+      allOf:
+      - $ref: '#/components/schemas/TnOptionalfeature'
+      - type: object
+        properties:
+          isDefault:
+            type: boolean
+          Status:
+            $ref: '#/components/schemas/TnGeosstatus'
+      description: ''
+    TnLookfeaturesv2:
+      title: tn_LookFeaturesV2
+      type: object
+      properties:
+        InteriorFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnOptionalfeaturev2'
+          description: ''
+        ExteriorFeatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnOptionalfeaturev2'
+          description: ''
+      description: ''
+    TnStatus:
+      title: tn_Status
+      required:
+      - Code
+      - Desc
+      type: object
+      properties:
+        Code:
+          type: string
+        Desc:
+          type: string
+      description: ''
+    TnResult:
+      title: tn_Result
+      type: object
+      properties:
+        Code:
+          type: string
+        Value:
+          type: number
+      description: ''
+    TnPhysresult:
+      title: tn_PhysResult
+      type: object
+      properties:
+        VehType:
+          type: string
+        Category:
+          type: string
+        Destination:
+          type: string
+        Result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnResult'
+          description: ''
+      description: ''
+    TnWltpcharacteristic:
+      title: tn_WLTPCharacteristic
+      type: object
+      properties:
+        Id:
+          type: string
+        Label:
+          type: string
+        Value:
+          type: number
+      description: ''
+    TnPhase:
+      title: tn_Phase
+      type: object
+      properties:
+        Code:
+          type: string
+        WLTPCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnWltpcharacteristic'
+          description: ''
+      description: ''
+    TnWltpcharacteristics:
+      title: tn_WLTPCharacteristics
+      required:
+      - Status
+      type: object
+      properties:
+        Status:
+          $ref: '#/components/schemas/TnStatus'
+        PhysResult:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnPhysresult'
+          description: ''
+        Phase:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnPhase'
+          description: ''
+      description: ''
+    TnVersionv2:
+      title: tn_VersionV2
+      allOf:
+      - $ref: '#/components/schemas/TnVersionabstract'
+      - required:
+        - LookFeatures
+        type: object
+        properties:
+          LookFeatures:
+            $ref: '#/components/schemas/TnLookfeaturesv2'
+          FlagWLTP:
+            type: boolean
+          BaseVersion:
+            type: string
+          WLTPCharacteristics:
+            $ref: '#/components/schemas/TnWltpcharacteristics'
+          GrTypeBoiteVitesse:
+            $ref: '#/components/schemas/TnIdentification'
+          GrNumberOfDoors:
+            $ref: '#/components/schemas/TnIdentification'
+          GrBrand:
+            $ref: '#/components/schemas/TnIdentification'
+          GrDistrBrand:
+            $ref: '#/components/schemas/TnIdentification'
+          DerivedModels:
+            $ref: '#/components/schemas/TnIdentification'
+          EcoLabelText:
+            type: string
+          GrEcommerce:
+            $ref: '#/components/schemas/TnIdentification'
+      description: ''
+    TnConfigresponsetypev2:
+      title: tn_ConfigResponseTypeV2
+      required:
+      - Version
+      type: object
+      properties:
+        Version:
+          $ref: '#/components/schemas/TnVersionv2'
+      description: ''
+    TnConfigfeatureresponsetype:
+      title: tn_ConfigFeatureResponseType
+      type: object
+      properties:
+        Versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TnVersionv2'
+          description: ''
+      description: ''
+    TnCodepack:
+      title: tn_CodePack
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          type: string
+      description: ''
+    CxlServiceexception:
+      title: cxl_ServiceException
+      type: object
+      description: ''
+    TnsConfig:
+      title: tns_Config
+      required:
+      - Config
+      type: object
+      properties:
+        Config:
+          $ref: '#/components/schemas/TnConfigtype'
+      description: ''
+    TnsConfigresponse:
+      title: tns_ConfigResponse
+      required:
+      - ConfigResponse
+      type: object
+      properties:
+        ConfigResponse:
+          $ref: '#/components/schemas/TnConfigresponsetype'
+      description: ''
+    TnsConfigfeature:
+      title: tns_ConfigFeature
+      required:
+      - ConfigFeature
+      type: object
+      properties:
+        ConfigFeature:
+          $ref: '#/components/schemas/TnConfigfeaturetype'
+      description: ''
+    TnsConfigfeatureresponse:
+      title: tns_ConfigFeatureResponse
+      required:
+      - ConfigFeatureResponse
+      type: object
+      properties:
+        ConfigFeatureResponse:
+          $ref: '#/components/schemas/TnConfigfeatureresponsetype'
+      description: ''
+    TnsConfigv2:
+      title: tns_ConfigV2
+      required:
+      - Config
+      type: object
+      properties:
+        Config:
+          $ref: '#/components/schemas/TnConfigtype'
+      description: ''
+    TnsConfigv2response:
+      title: tns_ConfigV2Response
+      required:
+      - ConfigResponseV2
+      type: object
+      properties:
+        ConfigResponseV2:
+          $ref: '#/components/schemas/TnConfigresponsetypev2'
+      description: ''
+    ConfigResponse:
+      title: ConfigResponse
+      required:
+      - parameters
+      type: object
+      properties:
+        parameters:
+          $ref: '#/components/schemas/TnsConfigresponse'
+    ServiceexceptionError:
+      title: ServiceException_Error
+      required:
+      - ServiceException
+      type: object
+      properties:
+        ServiceException:
+          $ref: '#/components/schemas/CxlServiceexception'
+    ConfigFeatureResponse:
+      title: ConfigFeatureResponse
+      required:
+      - parameters
+      type: object
+      properties:
+        parameters:
+          $ref: '#/components/schemas/TnsConfigfeatureresponse'
+    ConfigV2Response:
+      title: ConfigV2Response
+      required:
+      - parameters
+      type: object
+      properties:
+        parameters:
+          $ref: '#/components/schemas/TnsConfigv2response'
+    ConfigRequest:
+      title: ConfigRequest
+      required:
+      - parameters
+      type: object
+      properties:
+        parameters:
+          $ref: '#/components/schemas/TnsConfig'
+    ConfigFeatureRequest:
+      title: ConfigFeatureRequest
+      required:
+      - parameters
+      type: object
+      properties:
+        parameters:
+          $ref: '#/components/schemas/TnsConfigfeature'
+    ConfigV2Request:
+      title: ConfigV2Request
+      required:
+      - parameters
+      type: object
+      properties:
+        parameters:
+          $ref: '#/components/schemas/TnsConfigv2'
