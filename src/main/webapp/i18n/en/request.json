@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Request"
             },
+            "pcFinetNr": "Pc Finet Nr",
             "rekenmoduleAanvraag": "Rekenmodule Aanvraag",
             "creditScore": "Credit Score",
             "customer": "Customer"

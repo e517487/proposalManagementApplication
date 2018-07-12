@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -26,6 +27,12 @@ public class Request implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @NotNull
+    @Size(min = 11, max = 11)
+    @Pattern(regexp = "[0-9]+")
+    @Column(name = "pc_finet_nr", length = 11, nullable = false)
+    private String pcFinetNr;
+
     @OneToOne(mappedBy = "request")
     @JsonIgnore
     private RekenmoduleAanvraag rekenmoduleAanvraag;
@@ -45,6 +52,19 @@ public class Request implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPcFinetNr() {
+        return pcFinetNr;
+    }
+
+    public Request pcFinetNr(String pcFinetNr) {
+        this.pcFinetNr = pcFinetNr;
+        return this;
+    }
+
+    public void setPcFinetNr(String pcFinetNr) {
+        this.pcFinetNr = pcFinetNr;
     }
 
     public RekenmoduleAanvraag getRekenmoduleAanvraag() {
@@ -111,6 +131,7 @@ public class Request implements Serializable {
     public String toString() {
         return "Request{" +
             "id=" + getId() +
+            ", pcFinetNr='" + getPcFinetNr() + "'" +
             "}";
     }
 }

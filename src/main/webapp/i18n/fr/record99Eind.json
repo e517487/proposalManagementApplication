@@ -1,0 +1,28 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record99Eind" : {
+            "home": {
+                "title": "Record99Einds",
+                "createLabel": "Créer un nouveau Record 99 Eind",
+                "createOrEditLabel": "Créer ou éditer un Record 99 Eind"
+            },
+            "created": "Un nouveau Record 99 Eind a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 99 Eind avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 99 Eind avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 99 Eind {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 99 Eind"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr",
+            "creatieDatum": "Creatie Datum",
+            "creatieTijd": "Creatie Tijd",
+            "aantalAanvragen": "Aantal Aanvragen",
+            "aantalRegels": "Aantal Regels"
+        }
+    }
+}

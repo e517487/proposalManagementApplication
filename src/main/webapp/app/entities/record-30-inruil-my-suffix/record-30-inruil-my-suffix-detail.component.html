@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="record30Inruil">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.record30Inruil.detail.title">Record 30 Inruil</span> {{record30Inruil.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record30Inruil.pcFinetNr">Pc Finet Nr</span></dt>
+                <dd>
+                    <span>{{record30Inruil.pcFinetNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record30Inruil.recordType">Record Type</span></dt>
+                <dd>
+                    <span>{{record30Inruil.recordType}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record30Inruil.volgNr">Volg Nr</span></dt>
+                <dd>
+                    <span>{{record30Inruil.volgNr}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/record-30-inruil-my-suffix', record30Inruil.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

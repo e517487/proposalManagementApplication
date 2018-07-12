@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record20Financieel" : {
+            "home": {
+                "title": "Record 20 Financieels",
+                "createLabel": "Maak een nieuwe Record 20 Financieel",
+                "createOrEditLabel": "Maak of wijzig een Record 20 Financieel"
+            },
+            "created": "A new Record 20 Financieel is created with identifier {{ param }}",
+            "updated": "A Record 20 Financieel is updated with identifier {{ param }}",
+            "deleted": "A Record 20 Financieel is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Record 20 Financieel {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Record 20 Financieel"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

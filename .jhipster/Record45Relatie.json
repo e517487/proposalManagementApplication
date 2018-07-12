@@ -1,0 +1,29 @@
+{
+    "name": "Record45Relatie",
+    "fields": [
+        {
+            "fieldName": "pcFinetNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "recordType",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "volgNr",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180703183455",
+    "javadoc": "' Recordtype 45 : Relatie\nPrivate Type Record_Relatie\nPCFinetnr         As String * 11\nRecordType        As String * 2\nVolgnr            As String * 3\nRol               As String * 2\nTitulatuur        As String * 2\nVoorletter        As String * 20\nprefix            As String * 20\nNaam              As String * 30\nZoeknaam          As String * 20\nStraat            As String * 32\nHuisNr            As String * 5\nToevhuisNr        As String * 7\nPostcode          As String * 6\nPlaats            As String * 32\nTelefoonNr        As String * 20\ngebdatum          As String * 8\nGebPlaats         As String * 32\nNat               As String * 2\nBurgstatus        As String * 2\ngeslacht          As String * 2\nRekeningnr        As String * 20\nBankgroep         As String * 2\nRijbewijs         As String * 20\nBeroep            As String * 30\nCat_Beroep        As String * 2\nSrt_Beroep        As String * 2\nNaam_Werk         As String * 30\nPltsWerk          As String * 30\nTel_Werk          As String * 20\nStartWerk         As String * 8\nCat_Ink           As String * 2\nUitkering         As String * 2\nKinderen          As String * 2\nBehuizing         As String * 2\nWoon_duur         As String * 2\nWoonlasten        As String * 8\n' 100310 PROOVIT-EH: Basel II -- Nieuwe velden\nInk_Neto          As String * 7 '  100310 PROOVIT-EH: Basel II -- NETTO\nInkTotNeto        As String * 7 '  100310 PROOVIT-EH: Basel II -- TOTAALNETTO\nOpbMndBdrg        As String * 7 '  100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG\nPercSchLst        As String * 7 '  100310 PROOVIT-EH: Basel II -- PERC -SCHULDENLAST\nPercScLsTo        As String * 7 '  100310 PROOVIT-EH: Basel II -- PERC -TOT - SCHULDENLAST\nStartWonin        As String * 8 '  100907 PROOVIT-EH: Basel II -- StartWoning = datum\nFILLER            As String * 31 ' 120904 PROOVIT-EH: ALN-36 (MBe)\nIBAN              As String * 34 ' 120904 PROOVIT-EH: ALN-36 (MBe)\nBIC               As String * 12 ' 120904 PROOVIT-EH: ALN-36 (MBe)\nEMAIL             As String * 80 ' 120904 PROOVIT-EH: ALN-36 (MBe)\n'-- 141008 PROOVIT-EH: DESIN-292 - New fields\nNAT_CODE          As String * 3\nVERBLIJFNR        As String * 15\nEVOLGEZIN         As String * 1\nEVOLINKOMSTEN     As String * 1\nSOORTWRKCONTRAKT  As String * 1\nEINDDATWRKCONTR   As String * 6\nINTENTIEWRKCONTR  As String * 1\nVERZOEKPLATFORM   As String * 1\n'-- 141008 PROOVIT-EH: DESIN-292 - New fields END\nFiller3           As String * 31 ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
+    "entityTableName": "record_45_relatie",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

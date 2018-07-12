@@ -1,0 +1,58 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="proposalManagementApplicationApp.record35Object.home.title">Record 35 Objects</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-record-35-object-my-suffix" [routerLink]="['/record-35-object-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="proposalManagementApplicationApp.record35Object.home.createLabel">
+            Create new Record 35 Object
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="record35Objects">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record35Object.pcFinetNr">Pc Finet Nr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record35Object.recordType">Record Type</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record35Object.volgNr">Volg Nr</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let record35Object of record35Objects ;trackBy: trackId">
+                <td><a [routerLink]="['/record-35-object-my-suffix', record35Object.id, 'view' ]">{{record35Object.id}}</a></td>
+                <td>{{record35Object.pcFinetNr}}</td>
+                <td>{{record35Object.recordType}}</td>
+                <td>{{record35Object.volgNr}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/record-35-object-my-suffix', record35Object.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/record-35-object-my-suffix', record35Object.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'record-35-object-my-suffix/'+ record35Object.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

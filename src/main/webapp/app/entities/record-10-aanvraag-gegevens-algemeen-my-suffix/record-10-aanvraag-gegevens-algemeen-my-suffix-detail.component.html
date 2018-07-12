@@ -1,0 +1,87 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="record10AanvraagGegevensAlgemeen">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.detail.title">Record 10 Aanvraag Gegevens Algemeen</span> {{record10AanvraagGegevensAlgemeen.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.pcFinetNr">Pc Finet Nr</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.pcFinetNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.recordType">Record Type</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.recordType}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.volgNr">Volg Nr</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.volgNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.dealerNr">Dealer Nr</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.dealerNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.productCode">Product Code</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.productCode}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.zoeknaam">Zoeknaam</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.zoeknaam}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.verkoper">Verkoper</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.verkoper}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.dealerTelnr">Dealer Telnr</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.dealerTelnr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatie">Acceptatie</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.acceptatie}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.aanvangDatum">Aanvang Datum</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.aanvangDatum}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.aanvangTijd">Aanvang Tijd</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.aanvangTijd}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatieDatum">Acceptatie Datum</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.acceptatieDatum}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatieTijd">Acceptatie Tijd</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.acceptatieTijd}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.prtDatum">Prt Datum</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.prtDatum}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.invoerder">Invoerder</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.invoerder}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptant">Acceptant</span></dt>
+                <dd>
+                    <span>{{record10AanvraagGegevensAlgemeen.acceptant}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/record-10-aanvraag-gegevens-algemeen-my-suffix', record10AanvraagGegevensAlgemeen.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

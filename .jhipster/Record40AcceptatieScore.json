@@ -1,0 +1,29 @@
+{
+    "name": "Record40AcceptatieScore",
+    "fields": [
+        {
+            "fieldName": "pcFinetNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "recordType",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "volgNr",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180703183454",
+    "javadoc": "' Recordtype 40 : Acceptatie / Score\nPrivate Type Record_Score\nPCFinetnr         As String * 11\nRecordType        As String * 2\nVolgnr            As String * 3\nTenaamstel        As String * 20\nRiskmodel         As String * 1\nMatigHist         As String * 1\nInTeleGids        As String * 1\nInterview         As String * 1\nBekend            As String * 1\nEerder            As String * 1\nAlias             As String * 1\naCode             As String * 1\nAPlusCode         As String * 1\nACodeHyp          As String * 1\nAfgelost          As String * 1\nLopend            As String * 1\nLopend_sk         As String * 1\nLeg               As String * 1\nAfgewezen         As String * 1\nScore             As String * 4\nKlasse            As String * 1\nAuto_Acc          As String * 1\nAdd_Info          As String * 1\nAfwijzen          As String * 1\nLog_Score         As String * 33\nLog_Info          As String * 24\nLog_Afwijs        As String * 4\nZekerheden        As String * 5\nbkrscore          As String * 1 ' 100713 PROOVIT-EH: Toevoeging ivm Basel 2\navstatus          As String * 2 ' 100713 PROOVIT-EH: Toevoeging ivm Basel 2\nAantInkomn        As String * 1 ' 100907 PROOVIT-EH: Toevoeging ivm Basel 2 - AANTINKOMEN\nAantBkrCtr        As String * 2 ' 100907 PROOVIT-EH: Toevoeging ivm Basel 2 - AANTBKRCONTR\nFILLER            As String * 380 ' in doc. stond 380...\nFILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)\nFiller3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
+    "entityTableName": "record_40_acceptatie_score",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

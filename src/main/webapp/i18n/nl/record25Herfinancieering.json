@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record25Herfinancieering" : {
+            "home": {
+                "title": "Record 25 Herfinancieerings",
+                "createLabel": "Maak een nieuwe Record 25 Herfinancieering",
+                "createOrEditLabel": "Maak of wijzig een Record 25 Herfinancieering"
+            },
+            "created": "A new Record 25 Herfinancieering is created with identifier {{ param }}",
+            "updated": "A Record 25 Herfinancieering is updated with identifier {{ param }}",
+            "deleted": "A Record 25 Herfinancieering is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Record 25 Herfinancieering {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Record 25 Herfinancieering"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

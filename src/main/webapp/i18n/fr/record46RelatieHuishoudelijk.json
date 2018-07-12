@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record46RelatieHuishoudelijk" : {
+            "home": {
+                "title": "Record46RelatieHuishoudelijks",
+                "createLabel": "Créer un nouveau Record 46 Relatie Huishoudelijk",
+                "createOrEditLabel": "Créer ou éditer un Record 46 Relatie Huishoudelijk"
+            },
+            "created": "Un nouveau Record 46 Relatie Huishoudelijk a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 46 Relatie Huishoudelijk avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 46 Relatie Huishoudelijk avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 46 Relatie Huishoudelijk {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 46 Relatie Huishoudelijk"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

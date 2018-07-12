@@ -1,0 +1,37 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record10AanvraagGegevensAlgemeen" : {
+            "home": {
+                "title": "Record 10 Aanvraag Gegevens Algemeens",
+                "createLabel": "Maak een nieuwe Record 10 Aanvraag Gegevens Algemeen",
+                "createOrEditLabel": "Maak of wijzig een Record 10 Aanvraag Gegevens Algemeen"
+            },
+            "created": "A new Record 10 Aanvraag Gegevens Algemeen is created with identifier {{ param }}",
+            "updated": "A Record 10 Aanvraag Gegevens Algemeen is updated with identifier {{ param }}",
+            "deleted": "A Record 10 Aanvraag Gegevens Algemeen is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Record 10 Aanvraag Gegevens Algemeen {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Record 10 Aanvraag Gegevens Algemeen"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr",
+            "dealerNr": "Dealer Nr",
+            "productCode": "Product Code",
+            "zoeknaam": "Zoeknaam",
+            "verkoper": "Verkoper",
+            "dealerTelnr": "Dealer Telnr",
+            "acceptatie": "Acceptatie",
+            "aanvangDatum": "Aanvang Datum",
+            "aanvangTijd": "Aanvang Tijd",
+            "acceptatieDatum": "Acceptatie Datum",
+            "acceptatieTijd": "Acceptatie Tijd",
+            "prtDatum": "Prt Datum",
+            "invoerder": "Invoerder",
+            "acceptant": "Acceptant"
+        }
+    }
+}

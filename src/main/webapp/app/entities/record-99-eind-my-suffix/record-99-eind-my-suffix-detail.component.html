@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="record99Eind">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.record99Eind.detail.title">Record 99 Eind</span> {{record99Eind.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99Eind.pcFinetNr">Pc Finet Nr</span></dt>
+                <dd>
+                    <span>{{record99Eind.pcFinetNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99Eind.recordType">Record Type</span></dt>
+                <dd>
+                    <span>{{record99Eind.recordType}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99Eind.volgNr">Volg Nr</span></dt>
+                <dd>
+                    <span>{{record99Eind.volgNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99Eind.creatieDatum">Creatie Datum</span></dt>
+                <dd>
+                    <span>{{record99Eind.creatieDatum}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99Eind.creatieTijd">Creatie Tijd</span></dt>
+                <dd>
+                    <span>{{record99Eind.creatieTijd}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99Eind.aantalAanvragen">Aantal Aanvragen</span></dt>
+                <dd>
+                    <span>{{record99Eind.aantalAanvragen}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99Eind.aantalRegels">Aantal Regels</span></dt>
+                <dd>
+                    <span>{{record99Eind.aantalRegels}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/record-99-eind-my-suffix', record99Eind.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

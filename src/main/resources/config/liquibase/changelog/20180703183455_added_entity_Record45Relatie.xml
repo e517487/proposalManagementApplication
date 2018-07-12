@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Record45Relatie.
+    -->
+    <changeSet id="20180703183455-1" author="jhipster">
+        <createTable tableName="record_45_relatie" remarks="&apos; Recordtype 45 : Relatie Private Type Record_Relatie PCFinetnr         As String * 11 RecordType        As String * 2 Volgnr            As String * 3 Rol               As String * 2 Titulatuur        As String * 2 Voorletter        As String * 20 prefix            As String * 20 Naam              As String * 30 Zoeknaam          As String * 20 Straat            As String * 32 HuisNr            As String * 5 ToevhuisNr        As String * 7 Postcode          As String * 6 Plaats            As String * 32 TelefoonNr        As String * 20 gebdatum          As String * 8 GebPlaats         As String * 32 Nat               As String * 2 Burgstatus        As String * 2 geslacht          As String * 2 Rekeningnr        As String * 20 Bankgroep         As String * 2 Rijbewijs         As String * 20 Beroep            As String * 30 Cat_Beroep        As String * 2 Srt_Beroep        As String * 2 Naam_Werk         As String * 30 PltsWerk          As String * 30 Tel_Werk          As String * 20 StartWerk         As String * 8 Cat_Ink           As String * 2 Uitkering         As String * 2 Kinderen          As String * 2 Behuizing         As String * 2 Woon_duur         As String * 2 Woonlasten        As String * 8 &apos; 100310 PROOVIT-EH: Basel II -- Nieuwe velden Ink_Neto          As String * 7 &apos;  100310 PROOVIT-EH: Basel II -- NETTO InkTotNeto        As String * 7 &apos;  100310 PROOVIT-EH: Basel II -- TOTAALNETTO OpbMndBdrg        As String * 7 &apos;  100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG PercSchLst        As String * 7 &apos;  100310 PROOVIT-EH: Basel II -- PERC -SCHULDENLAST PercScLsTo        As String * 7 &apos;  100310 PROOVIT-EH: Basel II -- PERC -TOT - SCHULDENLAST StartWonin        As String * 8 &apos;  100907 PROOVIT-EH: Basel II -- StartWoning = datum FILLER            As String * 31 &apos; 120904 PROOVIT-EH: ALN-36 (MBe) IBAN              As String * 34 &apos; 120904 PROOVIT-EH: ALN-36 (MBe) BIC               As String * 12 &apos; 120904 PROOVIT-EH: ALN-36 (MBe) EMAIL             As String * 80 &apos; 120904 PROOVIT-EH: ALN-36 (MBe) &apos;-- 141008 PROOVIT-EH: DESIN-292 - New fields NAT_CODE          As String * 3 VERBLIJFNR        As String * 15 EVOLGEZIN         As String * 1 EVOLINKOMSTEN     As String * 1 SOORTWRKCONTRAKT  As String * 1 EINDDATWRKCONTR   As String * 6 INTENTIEWRKCONTR  As String * 1 VERZOEKPLATFORM   As String * 1 &apos;-- 141008 PROOVIT-EH: DESIN-292 - New fields END Filler3           As String * 31 &apos; 141008 PROOVIT-EH: DESIN-292 End Type">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pc_finet_nr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="record_type" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="volg_nr" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-record-30-inruil-my-suffix-heading" jhiTranslate="proposalManagementApplicationApp.record30Inruil.home.createOrEditLabel">Create or edit a Record 30 Inruil</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!record30Inruil.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="record30Inruil.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record30Inruil.pcFinetNr" for="field_pcFinetNr">Pc Finet Nr</label>
+                    <input type="text" class="form-control" name="pcFinetNr" id="field_pcFinetNr"
+                        [(ngModel)]="record30Inruil.pcFinetNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record30Inruil.recordType" for="field_recordType">Record Type</label>
+                    <input type="number" class="form-control" name="recordType" id="field_recordType"
+                        [(ngModel)]="record30Inruil.recordType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record30Inruil.volgNr" for="field_volgNr">Volg Nr</label>
+                    <input type="number" class="form-control" name="volgNr" id="field_volgNr"
+                        [(ngModel)]="record30Inruil.volgNr" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

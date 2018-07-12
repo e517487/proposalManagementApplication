@@ -5,6 +5,10 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.request.pcFinetNr">Pc Finet Nr</span></dt>
+                <dd>
+                    <span>{{request.pcFinetNr}}</span>
+                </dd>
                 <dt><span jhiTranslate="proposalManagementApplicationApp.request.customer">Customer</span></dt>
                 <dd>
                     <div *ngIf="request.customerId">

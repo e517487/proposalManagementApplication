@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Record10AanvraagGegevensAlgemeen.
+    -->
+    <changeSet id="20180703183448-1" author="jhipster">
+        <createTable tableName="record_10_aanvraag_gegevens_algemeen" remarks="&apos; Recordtype 10 : Aanvraaggegevens algemeen Private Type Record_AV_ALG PCFinetnr         As String * 11 RecordType        As String * 2    already stripped Volgnr            As String * 3    0..3 DEALERNR          As String * 6    3..9 PROD_CODE         As String * 5    9..14 Zoeknaam          As String * 20   14..34 Verkoper          As String * 30   34..64 DealerTelnr       As String * 20   64..84 Acceptatie        As String * 1    84..85 Aanv_datum        As String * 8    85..93 Aanv_tijd         As String * 5    93..98 Acc_Datum         As String * 8    98..106 Acc_tijd          As String * 5    106..111 Prt_Datum         As String * 8    111..119 Invoerder         As String * 7    119..126 Acceptant         As String * 7    126..133 FILLER            As String * 365 FILLER2           As String * 128 &apos; 120904 PROOVIT-EH: ALN-36 (MB) Filler3           As String * 60  &apos; 141008 PROOVIT-EH: DESIN-292 End Type">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pc_finet_nr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="record_type" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="volg_nr" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="dealer_nr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="product_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="zoeknaam" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="verkoper" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="dealer_telnr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="acceptatie" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="aanvang_datum" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="aanvang_tijd" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="acceptatie_datum" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="acceptatie_tijd" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="prt_datum" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="invoerder" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="acceptant" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="record_10_aanvraag_gegevens_algemeen" columnName="aanvang_tijd" columnDataType="datetime"/>
+        <dropDefaultValue tableName="record_10_aanvraag_gegevens_algemeen" columnName="acceptatie_tijd" columnDataType="datetime"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record63Uitleg" : {
+            "home": {
+                "title": "Record 63 Uitlegs",
+                "createLabel": "Maak een nieuwe Record 63 Uitleg",
+                "createOrEditLabel": "Maak of wijzig een Record 63 Uitleg"
+            },
+            "created": "A new Record 63 Uitleg is created with identifier {{ param }}",
+            "updated": "A Record 63 Uitleg is updated with identifier {{ param }}",
+            "deleted": "A Record 63 Uitleg is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Record 63 Uitleg {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Record 63 Uitleg"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr",
+            "rol": "Rol",
+            "uitlegGezin": "Uitleg Gezin",
+            "uitlegInkomsten": "Uitleg Inkomsten",
+            "uitlegInPlatform": "Uitleg In Platform"
+        }
+    }
+}

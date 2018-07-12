@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Record35Object.
+    -->
+    <changeSet id="20180703183453-1" author="jhipster">
+        <createTable tableName="record_35_object" remarks="&apos; Recordtype 35 : Object Private Type Record_Object PCFinetnr         As String * 11 RecordType        As String * 2 Volgnr            As String * 3 Merk              As String * 15 Type              As String * 6 Model             As String * 20 Onderpand         As String * 30 Categorie         As String * 1 bouwjaar          As String * 4 Kenteken          As String * 8 Chassisnr         As String * 15 Mfrt_merk         As String * 2 Mfrt_Type         As String * 4 MdlAggrnr         As String * 3 FILLER            As String * 388 FILLER2           As String * 128 &apos; 120904 PROOVIT-EH: ALN-36 (MB) Filler3           As String * 60  &apos; 141008 PROOVIT-EH: DESIN-292 End Type">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pc_finet_nr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="record_type" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="volg_nr" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

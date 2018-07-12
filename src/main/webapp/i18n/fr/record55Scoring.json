@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record55Scoring" : {
+            "home": {
+                "title": "Record55Scorings",
+                "createLabel": "Créer un nouveau Record 55 Scoring",
+                "createOrEditLabel": "Créer ou éditer un Record 55 Scoring"
+            },
+            "created": "Un nouveau Record 55 Scoring a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 55 Scoring avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 55 Scoring avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 55 Scoring {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 55 Scoring"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

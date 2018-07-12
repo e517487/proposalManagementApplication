@@ -1,0 +1,26 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record01Start" : {
+            "home": {
+                "title": "Record01Starts",
+                "createLabel": "Créer un nouveau Record 01 Start",
+                "createOrEditLabel": "Créer ou éditer un Record 01 Start"
+            },
+            "created": "Un nouveau Record 01 Start a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 01 Start avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 01 Start avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 01 Start {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 01 Start"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr",
+            "creatieDatum": "Creatie Datum",
+            "creatieTijd": "Creatie Tijd"
+        }
+    }
+}

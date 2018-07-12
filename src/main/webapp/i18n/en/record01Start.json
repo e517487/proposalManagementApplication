@@ -1,0 +1,26 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record01Start" : {
+            "home": {
+                "title": "Record 01 Starts",
+                "createLabel": "Create a new Record 01 Start",
+                "createOrEditLabel": "Create or edit a Record 01 Start"
+            },
+            "created": "A new Record 01 Start is created with identifier {{ param }}",
+            "updated": "A Record 01 Start is updated with identifier {{ param }}",
+            "deleted": "A Record 01 Start is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Record 01 Start {{ id }}?"
+            },
+            "detail": {
+                "title": "Record 01 Start"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr",
+            "creatieDatum": "Creatie Datum",
+            "creatieTijd": "Creatie Tijd"
+        }
+    }
+}

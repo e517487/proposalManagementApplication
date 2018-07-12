@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Record50Bedrijf.
+    -->
+    <changeSet id="20180703183457-1" author="jhipster">
+        <createTable tableName="record_50_bedrijf" remarks="&apos; Recordtype 50 : Bedrijf Private Type Record_Bedrijf PCFinetnr         As String * 11 RecordType        As String * 2 Volgnr            As String * 3 Rol               As String * 2 BedNaam           As String * 30 Zoeknaam          As String * 20 Rechtsvorm        As String * 2 Straat            As String * 32 HuisNr            As String * 5 ToevhuisNr        As String * 7 Postcode          As String * 6 Plaats            As String * 32 TelefoonNr        As String * 20 OprDatum          As String * 8 Gemachtigd        As String * 30 Functiegem        As String * 20 Rekeningnr        As String * 20 Bankgroep         As String * 2 Stat_naam         As String * 79 KvK_Inschr        As String * 10 KvK_Plaats        As String * 32 Kapitaal          As String * 9 DunBradnr         As String * 15 JaarBalans        As String * 4 FILLER            As String * 111 &apos; in doc. stond 110 IBAN              As String * 34 &apos; 120904 PROOVIT-EH: ALN-36 (MB) BIC               As String * 12 &apos; 120904 PROOVIT-EH: ALN-36 (MB) EMAIL             As String * 80 &apos; 120904 PROOVIT-EH: ALN-36 (MB) Filler3           As String * 60  &apos; 141008 PROOVIT-EH: DESIN-292 End Type">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pc_finet_nr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="record_type" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="volg_nr" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

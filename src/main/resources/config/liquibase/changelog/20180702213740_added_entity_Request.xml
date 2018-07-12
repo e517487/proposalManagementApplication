@@ -21,6 +21,10 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="pc_finet_nr" type="varchar(11)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="customer_id" type="bigint">
                 <constraints nullable="true" />
             </column>

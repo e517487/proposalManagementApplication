@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record11AanvraagGegevensOpmerkingen" : {
+            "home": {
+                "title": "Record11AanvraagGegevensOpmerkingens",
+                "createLabel": "Créer un nouveau Record 11 Aanvraag Gegevens Opmerkingen",
+                "createOrEditLabel": "Créer ou éditer un Record 11 Aanvraag Gegevens Opmerkingen"
+            },
+            "created": "Un nouveau Record 11 Aanvraag Gegevens Opmerkingen a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 11 Aanvraag Gegevens Opmerkingen avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 11 Aanvraag Gegevens Opmerkingen avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 11 Aanvraag Gegevens Opmerkingen {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 11 Aanvraag Gegevens Opmerkingen"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

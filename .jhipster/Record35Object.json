@@ -1,0 +1,29 @@
+{
+    "name": "Record35Object",
+    "fields": [
+        {
+            "fieldName": "pcFinetNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "recordType",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "volgNr",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180703183453",
+    "javadoc": "' Recordtype 35 : Object\nPrivate Type Record_Object\nPCFinetnr         As String * 11\nRecordType        As String * 2\nVolgnr            As String * 3\nMerk              As String * 15\nType              As String * 6\nModel             As String * 20\nOnderpand         As String * 30\nCategorie         As String * 1\nbouwjaar          As String * 4\nKenteken          As String * 8\nChassisnr         As String * 15\nMfrt_merk         As String * 2\nMfrt_Type         As String * 4\nMdlAggrnr         As String * 3\nFILLER            As String * 388\nFILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)\nFiller3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
+    "entityTableName": "record_35_object",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

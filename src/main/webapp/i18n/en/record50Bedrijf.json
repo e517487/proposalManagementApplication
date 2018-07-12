@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record50Bedrijf" : {
+            "home": {
+                "title": "Record 50 Bedrijfs",
+                "createLabel": "Create a new Record 50 Bedrijf",
+                "createOrEditLabel": "Create or edit a Record 50 Bedrijf"
+            },
+            "created": "A new Record 50 Bedrijf is created with identifier {{ param }}",
+            "updated": "A Record 50 Bedrijf is updated with identifier {{ param }}",
+            "deleted": "A Record 50 Bedrijf is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Record 50 Bedrijf {{ id }}?"
+            },
+            "detail": {
+                "title": "Record 50 Bedrijf"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

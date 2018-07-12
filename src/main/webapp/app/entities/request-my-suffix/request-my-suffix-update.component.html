@@ -9,6 +9,29 @@
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="request.id" readonly />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.request.pcFinetNr" for="field_pcFinetNr">Pc Finet Nr</label>
+                    <input type="text" class="form-control" name="pcFinetNr" id="field_pcFinetNr"
+                        [(ngModel)]="request.pcFinetNr" required minlength="11" maxlength="11" pattern="[0-9]+"/>
+                    <div [hidden]="!(editForm.controls.pcFinetNr?.dirty && editForm.controls.pcFinetNr?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.pcFinetNr?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.pcFinetNr?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 11 }">
+                        This field is required to be at least 11 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.pcFinetNr?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 11 }">
+                        This field cannot be longer than 11 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.pcFinetNr?.errors?.pattern" jhiTranslate="entity.validation.pattern" translateValues="{ pattern: 'Pc Finet Nr' }">
+                            This field should follow pattern for "Pc Finet Nr".
+                        </small>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.request.customer" for="field_customer">Customer</label>

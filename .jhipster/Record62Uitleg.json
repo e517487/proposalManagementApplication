@@ -1,0 +1,44 @@
+{
+    "name": "Record62Uitleg",
+    "fields": [
+        {
+            "fieldName": "pcFinetNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "recordType",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "volgNr",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "rol",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uitlegGezin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uitlegInkomsten",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uitlegInPlatform",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180703183500",
+    "entityTableName": "record_62_uitleg",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record45Relatie" : {
+            "home": {
+                "title": "Record 45 Relaties",
+                "createLabel": "Create a new Record 45 Relatie",
+                "createOrEditLabel": "Create or edit a Record 45 Relatie"
+            },
+            "created": "A new Record 45 Relatie is created with identifier {{ param }}",
+            "updated": "A Record 45 Relatie is updated with identifier {{ param }}",
+            "deleted": "A Record 45 Relatie is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Record 45 Relatie {{ id }}?"
+            },
+            "detail": {
+                "title": "Record 45 Relatie"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

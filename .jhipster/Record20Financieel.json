@@ -1,0 +1,29 @@
+{
+    "name": "Record20Financieel",
+    "fields": [
+        {
+            "fieldName": "pcFinetNr",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "recordType",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "volgNr",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20180703183450",
+    "javadoc": "Recordtype 20 : Financieel\nPrivate Type Record_Financieel\nPCFinetnr         As String * 11\nRecordType        As String * 2\nVolgnr            As String * 3\ncon_soort         As String * 2\nMa_Optie          As String * 1 ' niet meer gebruikt in PCRT\nKM_Jaar           As String * 6 ' niet meer gebruikt in PCRT\nKM_Stand          As String * 6 ' niet meer gebruikt in PCRT\nAfg_kent          As String * 6\nVerkprijs         As String * 9\nAanbetal          As String * 9\nVergoeding        As String * 9\nherfin_bed        As String * 9\nhoofdsom          As String * 9 ' EH 27-5-2004\nfin_bedrag        As String * 9 ' EH 27-5-2004\nRestant           As String * 9 ' EH 27-5-2004\nLooptijd          As String * 2\nTermijn           As String * 9\nInterest          As String * 7\nService           As String * 1\nGMINRUIL          As String * 9 ' 120904 PROOVIT-EH: ALN-36 (MB)\nFILLER            As String * 383\nFILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)\nFiller3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
+    "entityTableName": "record_20_financieel",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

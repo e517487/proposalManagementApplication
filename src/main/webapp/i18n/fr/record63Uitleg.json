@@ -1,0 +1,28 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record63Uitleg" : {
+            "home": {
+                "title": "Record63Uitlegs",
+                "createLabel": "Créer un nouveau Record 63 Uitleg",
+                "createOrEditLabel": "Créer ou éditer un Record 63 Uitleg"
+            },
+            "created": "Un nouveau Record 63 Uitleg a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 63 Uitleg avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 63 Uitleg avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 63 Uitleg {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 63 Uitleg"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr",
+            "rol": "Rol",
+            "uitlegGezin": "Uitleg Gezin",
+            "uitlegInkomsten": "Uitleg Inkomsten",
+            "uitlegInPlatform": "Uitleg In Platform"
+        }
+    }
+}

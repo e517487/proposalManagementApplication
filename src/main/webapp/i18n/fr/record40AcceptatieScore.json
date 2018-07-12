@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record40AcceptatieScore" : {
+            "home": {
+                "title": "Record40AcceptatieScores",
+                "createLabel": "Créer un nouveau Record 40 Acceptatie Score",
+                "createOrEditLabel": "Créer ou éditer un Record 40 Acceptatie Score"
+            },
+            "created": "Un nouveau Record 40 Acceptatie Score a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 40 Acceptatie Score avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 40 Acceptatie Score avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 40 Acceptatie Score {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 40 Acceptatie Score"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

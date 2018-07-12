@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record35Object" : {
+            "home": {
+                "title": "Record35Objects",
+                "createLabel": "Créer un nouveau Record 35 Object",
+                "createOrEditLabel": "Créer ou éditer un Record 35 Object"
+            },
+            "created": "Un nouveau Record 35 Object a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 35 Object avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 35 Object avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 35 Object {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 35 Object"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

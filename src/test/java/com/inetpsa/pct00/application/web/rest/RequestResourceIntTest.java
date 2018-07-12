@@ -42,6 +42,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ProposalManagementApplicationApp.class)
 public class RequestResourceIntTest {
 
+    private static final String DEFAULT_PC_FINET_NR = "0";
+    private static final String UPDATED_PC_FINET_NR = "0B";
+
     @Autowired
     private RequestRepository requestRepository;
 
@@ -87,7 +90,8 @@ public class RequestResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static Request createEntity(EntityManager em) {
-        Request request = new Request();
+        Request request = new Request()
+            .pcFinetNr(DEFAULT_PC_FINET_NR);
         return request;
     }
 
@@ -112,6 +116,7 @@ public class RequestResourceIntTest {
         List<Request> requestList = requestRepository.findAll();
         assertThat(requestList).hasSize(databaseSizeBeforeCreate + 1);
         Request testRequest = requestList.get(requestList.size() - 1);
+        assertThat(testRequest.getPcFinetNr()).isEqualTo(DEFAULT_PC_FINET_NR);
     }
 
     @Test
@@ -136,6 +141,25 @@ public class RequestResourceIntTest {
 
     @Test
     @Transactional
+    public void checkPcFinetNrIsRequired() throws Exception {
+        int databaseSizeBeforeTest = requestRepository.findAll().size();
+        // set the field null
+        request.setPcFinetNr(null);
+
+        // Create the Request, which fails.
+        RequestDTO requestDTO = requestMapper.toDto(request);
+
+        restRequestMockMvc.perform(post("/api/requests")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(requestDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Request> requestList = requestRepository.findAll();
+        assertThat(requestList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllRequests() throws Exception {
         // Initialize the database
         requestRepository.saveAndFlush(request);
@@ -144,7 +168,8 @@ public class RequestResourceIntTest {
         restRequestMockMvc.perform(get("/api/requests?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(request.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(request.getId().intValue())))
+            .andExpect(jsonPath("$.[*].pcFinetNr").value(hasItem(DEFAULT_PC_FINET_NR.toString())));
     }
     
 
@@ -158,7 +183,8 @@ public class RequestResourceIntTest {
         restRequestMockMvc.perform(get("/api/requests/{id}", request.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(request.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(request.getId().intValue()))
+            .andExpect(jsonPath("$.pcFinetNr").value(DEFAULT_PC_FINET_NR.toString()));
     }
     @Test
     @Transactional
@@ -180,6 +206,8 @@ public class RequestResourceIntTest {
         Request updatedRequest = requestRepository.findById(request.getId()).get();
         // Disconnect from session so that the updates on updatedRequest are not directly saved in db
         em.detach(updatedRequest);
+        updatedRequest
+            .pcFinetNr(UPDATED_PC_FINET_NR);
         RequestDTO requestDTO = requestMapper.toDto(updatedRequest);
 
         restRequestMockMvc.perform(put("/api/requests")
@@ -191,6 +219,7 @@ public class RequestResourceIntTest {
         List<Request> requestList = requestRepository.findAll();
         assertThat(requestList).hasSize(databaseSizeBeforeUpdate);
         Request testRequest = requestList.get(requestList.size() - 1);
+        assertThat(testRequest.getPcFinetNr()).isEqualTo(UPDATED_PC_FINET_NR);
     }
 
     @Test

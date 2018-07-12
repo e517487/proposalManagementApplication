@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record30Inruil" : {
+            "home": {
+                "title": "Record30Inruils",
+                "createLabel": "Créer un nouveau Record 30 Inruil",
+                "createOrEditLabel": "Créer ou éditer un Record 30 Inruil"
+            },
+            "created": "Un nouveau Record 30 Inruil a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Record 30 Inruil avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Record 30 Inruil avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Record 30 Inruil {{ id }} ?"
+            },
+            "detail": {
+                "title": "Record 30 Inruil"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

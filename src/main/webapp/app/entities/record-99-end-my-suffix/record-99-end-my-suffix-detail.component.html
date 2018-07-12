@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="record99End">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.record99End.detail.title">Record 99 End</span> {{record99End.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99End.pcFinetNr">Pc Finet Nr</span></dt>
+                <dd>
+                    <span>{{record99End.pcFinetNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99End.recordType">Record Type</span></dt>
+                <dd>
+                    <span>{{record99End.recordType}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99End.volgnr">Volgnr</span></dt>
+                <dd>
+                    <span>{{record99End.volgnr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99End.creatieDatum">Creatie Datum</span></dt>
+                <dd>
+                    <span>{{record99End.creatieDatum}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99End.creatieTijd">Creatie Tijd</span></dt>
+                <dd>
+                    <span>{{record99End.creatieTijd}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99End.aantalAanvragen">Aantal Aanvragen</span></dt>
+                <dd>
+                    <span>{{record99End.aantalAanvragen}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record99End.aantalRegels">Aantal Regels</span></dt>
+                <dd>
+                    <span>{{record99End.aantalRegels}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/record-99-end-my-suffix', record99End.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+
+{
+    "proposalManagementApplicationApp": {
+        "record35Object" : {
+            "home": {
+                "title": "Record 35 Objects",
+                "createLabel": "Maak een nieuwe Record 35 Object",
+                "createOrEditLabel": "Maak of wijzig een Record 35 Object"
+            },
+            "created": "A new Record 35 Object is created with identifier {{ param }}",
+            "updated": "A Record 35 Object is updated with identifier {{ param }}",
+            "deleted": "A Record 35 Object is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Record 35 Object {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Record 35 Object"
+            },
+            "pcFinetNr": "Pc Finet Nr",
+            "recordType": "Record Type",
+            "volgNr": "Volg Nr"
+        }
+    }
+}

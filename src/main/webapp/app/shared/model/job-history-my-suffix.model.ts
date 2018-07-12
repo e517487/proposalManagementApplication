@@ -3,7 +3,7 @@ import { Moment } from 'moment';
 export const enum Language {
     FRENCH = 'FRENCH',
     ENGLISH = 'ENGLISH',
-    SPANISH = 'SPANISH'
+    DUTCH = 'DUTCH'
 }
 
 export interface IJobHistoryMySuffix {
