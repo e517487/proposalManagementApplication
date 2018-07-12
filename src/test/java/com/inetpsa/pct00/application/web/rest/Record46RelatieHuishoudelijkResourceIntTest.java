@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record46RelatieHuishoudelijk;
 import com.inetpsa.pct00.application.repository.Record46RelatieHuishoudelijkRepository;
-import com.inetpsa.pct00.application.service.dto.Record46RelatieHuishoudelijkDTO;
-import com.inetpsa.pct00.application.service.mapper.Record46RelatieHuishoudelijkMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record46RelatieHuishoudelijkResourceIntTest {
 
 
     @Autowired
-    private Record46RelatieHuishoudelijkMapper record46RelatieHuishoudelijkMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record46RelatieHuishoudelijkResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record46RelatieHuishoudelijkResource record46RelatieHuishoudelijkResource = new Record46RelatieHuishoudelijkResource(record46RelatieHuishoudelijkRepository, record46RelatieHuishoudelijkMapper);
+        final Record46RelatieHuishoudelijkResource record46RelatieHuishoudelijkResource = new Record46RelatieHuishoudelijkResource(record46RelatieHuishoudelijkRepository);
         this.restRecord46RelatieHuishoudelijkMockMvc = MockMvcBuilders.standaloneSetup(record46RelatieHuishoudelijkResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record46RelatieHuishoudelijkResourceIntTest {
         int databaseSizeBeforeCreate = record46RelatieHuishoudelijkRepository.findAll().size();
 
         // Create the Record46RelatieHuishoudelijk
-        Record46RelatieHuishoudelijkDTO record46RelatieHuishoudelijkDTO = record46RelatieHuishoudelijkMapper.toDto(record46RelatieHuishoudelijk);
         restRecord46RelatieHuishoudelijkMockMvc.perform(post("/api/record-46-relatie-huishoudelijks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record46RelatieHuishoudelijkDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record46RelatieHuishoudelijk)))
             .andExpect(status().isCreated());
 
         // Validate the Record46RelatieHuishoudelijk in the database
@@ -131,12 +125,11 @@ public class Record46RelatieHuishoudelijkResourceIntTest {
 
         // Create the Record46RelatieHuishoudelijk with an existing ID
         record46RelatieHuishoudelijk.setId(1L);
-        Record46RelatieHuishoudelijkDTO record46RelatieHuishoudelijkDTO = record46RelatieHuishoudelijkMapper.toDto(record46RelatieHuishoudelijk);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord46RelatieHuishoudelijkMockMvc.perform(post("/api/record-46-relatie-huishoudelijks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record46RelatieHuishoudelijkDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record46RelatieHuishoudelijk)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record46RelatieHuishoudelijk in the database
@@ -200,11 +193,10 @@ public class Record46RelatieHuishoudelijkResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record46RelatieHuishoudelijkDTO record46RelatieHuishoudelijkDTO = record46RelatieHuishoudelijkMapper.toDto(updatedRecord46RelatieHuishoudelijk);
 
         restRecord46RelatieHuishoudelijkMockMvc.perform(put("/api/record-46-relatie-huishoudelijks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record46RelatieHuishoudelijkDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord46RelatieHuishoudelijk)))
             .andExpect(status().isOk());
 
         // Validate the Record46RelatieHuishoudelijk in the database
@@ -222,12 +214,11 @@ public class Record46RelatieHuishoudelijkResourceIntTest {
         int databaseSizeBeforeUpdate = record46RelatieHuishoudelijkRepository.findAll().size();
 
         // Create the Record46RelatieHuishoudelijk
-        Record46RelatieHuishoudelijkDTO record46RelatieHuishoudelijkDTO = record46RelatieHuishoudelijkMapper.toDto(record46RelatieHuishoudelijk);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord46RelatieHuishoudelijkMockMvc.perform(put("/api/record-46-relatie-huishoudelijks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record46RelatieHuishoudelijkDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record46RelatieHuishoudelijk)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record46RelatieHuishoudelijk in the database
@@ -266,28 +257,5 @@ public class Record46RelatieHuishoudelijkResourceIntTest {
         assertThat(record46RelatieHuishoudelijk1).isNotEqualTo(record46RelatieHuishoudelijk2);
         record46RelatieHuishoudelijk1.setId(null);
         assertThat(record46RelatieHuishoudelijk1).isNotEqualTo(record46RelatieHuishoudelijk2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record46RelatieHuishoudelijkDTO.class);
-        Record46RelatieHuishoudelijkDTO record46RelatieHuishoudelijkDTO1 = new Record46RelatieHuishoudelijkDTO();
-        record46RelatieHuishoudelijkDTO1.setId(1L);
-        Record46RelatieHuishoudelijkDTO record46RelatieHuishoudelijkDTO2 = new Record46RelatieHuishoudelijkDTO();
-        assertThat(record46RelatieHuishoudelijkDTO1).isNotEqualTo(record46RelatieHuishoudelijkDTO2);
-        record46RelatieHuishoudelijkDTO2.setId(record46RelatieHuishoudelijkDTO1.getId());
-        assertThat(record46RelatieHuishoudelijkDTO1).isEqualTo(record46RelatieHuishoudelijkDTO2);
-        record46RelatieHuishoudelijkDTO2.setId(2L);
-        assertThat(record46RelatieHuishoudelijkDTO1).isNotEqualTo(record46RelatieHuishoudelijkDTO2);
-        record46RelatieHuishoudelijkDTO1.setId(null);
-        assertThat(record46RelatieHuishoudelijkDTO1).isNotEqualTo(record46RelatieHuishoudelijkDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record46RelatieHuishoudelijkMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record46RelatieHuishoudelijkMapper.fromId(null)).isNull();
     }
 }

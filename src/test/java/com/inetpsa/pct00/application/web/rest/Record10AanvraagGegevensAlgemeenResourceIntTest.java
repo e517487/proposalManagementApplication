@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record10AanvraagGegevensAlgemeen;
 import com.inetpsa.pct00.application.repository.Record10AanvraagGegevensAlgemeenRepository;
-import com.inetpsa.pct00.application.service.dto.Record10AanvraagGegevensAlgemeenDTO;
-import com.inetpsa.pct00.application.service.mapper.Record10AanvraagGegevensAlgemeenMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -100,9 +98,6 @@ public class Record10AanvraagGegevensAlgemeenResourceIntTest {
 
 
     @Autowired
-    private Record10AanvraagGegevensAlgemeenMapper record10AanvraagGegevensAlgemeenMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -121,7 +116,7 @@ public class Record10AanvraagGegevensAlgemeenResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record10AanvraagGegevensAlgemeenResource record10AanvraagGegevensAlgemeenResource = new Record10AanvraagGegevensAlgemeenResource(record10AanvraagGegevensAlgemeenRepository, record10AanvraagGegevensAlgemeenMapper);
+        final Record10AanvraagGegevensAlgemeenResource record10AanvraagGegevensAlgemeenResource = new Record10AanvraagGegevensAlgemeenResource(record10AanvraagGegevensAlgemeenRepository);
         this.restRecord10AanvraagGegevensAlgemeenMockMvc = MockMvcBuilders.standaloneSetup(record10AanvraagGegevensAlgemeenResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -167,10 +162,9 @@ public class Record10AanvraagGegevensAlgemeenResourceIntTest {
         int databaseSizeBeforeCreate = record10AanvraagGegevensAlgemeenRepository.findAll().size();
 
         // Create the Record10AanvraagGegevensAlgemeen
-        Record10AanvraagGegevensAlgemeenDTO record10AanvraagGegevensAlgemeenDTO = record10AanvraagGegevensAlgemeenMapper.toDto(record10AanvraagGegevensAlgemeen);
         restRecord10AanvraagGegevensAlgemeenMockMvc.perform(post("/api/record-10-aanvraag-gegevens-algemeens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record10AanvraagGegevensAlgemeenDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record10AanvraagGegevensAlgemeen)))
             .andExpect(status().isCreated());
 
         // Validate the Record10AanvraagGegevensAlgemeen in the database
@@ -202,12 +196,11 @@ public class Record10AanvraagGegevensAlgemeenResourceIntTest {
 
         // Create the Record10AanvraagGegevensAlgemeen with an existing ID
         record10AanvraagGegevensAlgemeen.setId(1L);
-        Record10AanvraagGegevensAlgemeenDTO record10AanvraagGegevensAlgemeenDTO = record10AanvraagGegevensAlgemeenMapper.toDto(record10AanvraagGegevensAlgemeen);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord10AanvraagGegevensAlgemeenMockMvc.perform(post("/api/record-10-aanvraag-gegevens-algemeens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record10AanvraagGegevensAlgemeenDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record10AanvraagGegevensAlgemeen)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record10AanvraagGegevensAlgemeen in the database
@@ -310,11 +303,10 @@ public class Record10AanvraagGegevensAlgemeenResourceIntTest {
             .prtDatum(UPDATED_PRT_DATUM)
             .invoerder(UPDATED_INVOERDER)
             .acceptant(UPDATED_ACCEPTANT);
-        Record10AanvraagGegevensAlgemeenDTO record10AanvraagGegevensAlgemeenDTO = record10AanvraagGegevensAlgemeenMapper.toDto(updatedRecord10AanvraagGegevensAlgemeen);
 
         restRecord10AanvraagGegevensAlgemeenMockMvc.perform(put("/api/record-10-aanvraag-gegevens-algemeens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record10AanvraagGegevensAlgemeenDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord10AanvraagGegevensAlgemeen)))
             .andExpect(status().isOk());
 
         // Validate the Record10AanvraagGegevensAlgemeen in the database
@@ -345,12 +337,11 @@ public class Record10AanvraagGegevensAlgemeenResourceIntTest {
         int databaseSizeBeforeUpdate = record10AanvraagGegevensAlgemeenRepository.findAll().size();
 
         // Create the Record10AanvraagGegevensAlgemeen
-        Record10AanvraagGegevensAlgemeenDTO record10AanvraagGegevensAlgemeenDTO = record10AanvraagGegevensAlgemeenMapper.toDto(record10AanvraagGegevensAlgemeen);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord10AanvraagGegevensAlgemeenMockMvc.perform(put("/api/record-10-aanvraag-gegevens-algemeens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record10AanvraagGegevensAlgemeenDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record10AanvraagGegevensAlgemeen)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record10AanvraagGegevensAlgemeen in the database
@@ -389,28 +380,5 @@ public class Record10AanvraagGegevensAlgemeenResourceIntTest {
         assertThat(record10AanvraagGegevensAlgemeen1).isNotEqualTo(record10AanvraagGegevensAlgemeen2);
         record10AanvraagGegevensAlgemeen1.setId(null);
         assertThat(record10AanvraagGegevensAlgemeen1).isNotEqualTo(record10AanvraagGegevensAlgemeen2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record10AanvraagGegevensAlgemeenDTO.class);
-        Record10AanvraagGegevensAlgemeenDTO record10AanvraagGegevensAlgemeenDTO1 = new Record10AanvraagGegevensAlgemeenDTO();
-        record10AanvraagGegevensAlgemeenDTO1.setId(1L);
-        Record10AanvraagGegevensAlgemeenDTO record10AanvraagGegevensAlgemeenDTO2 = new Record10AanvraagGegevensAlgemeenDTO();
-        assertThat(record10AanvraagGegevensAlgemeenDTO1).isNotEqualTo(record10AanvraagGegevensAlgemeenDTO2);
-        record10AanvraagGegevensAlgemeenDTO2.setId(record10AanvraagGegevensAlgemeenDTO1.getId());
-        assertThat(record10AanvraagGegevensAlgemeenDTO1).isEqualTo(record10AanvraagGegevensAlgemeenDTO2);
-        record10AanvraagGegevensAlgemeenDTO2.setId(2L);
-        assertThat(record10AanvraagGegevensAlgemeenDTO1).isNotEqualTo(record10AanvraagGegevensAlgemeenDTO2);
-        record10AanvraagGegevensAlgemeenDTO1.setId(null);
-        assertThat(record10AanvraagGegevensAlgemeenDTO1).isNotEqualTo(record10AanvraagGegevensAlgemeenDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record10AanvraagGegevensAlgemeenMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record10AanvraagGegevensAlgemeenMapper.fromId(null)).isNull();
     }
 }

@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="record62Uitleg">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.record62Uitleg.detail.title">Record 62 Uitleg</span> {{record62Uitleg.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record62Uitleg.pcFinetNr">Pc Finet Nr</span></dt>
+                <dd>
+                    <span>{{record62Uitleg.pcFinetNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record62Uitleg.recordType">Record Type</span></dt>
+                <dd>
+                    <span>{{record62Uitleg.recordType}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record62Uitleg.volgNr">Volg Nr</span></dt>
+                <dd>
+                    <span>{{record62Uitleg.volgNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record62Uitleg.rol">Rol</span></dt>
+                <dd>
+                    <span>{{record62Uitleg.rol}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record62Uitleg.uitlegGezin">Uitleg Gezin</span></dt>
+                <dd>
+                    <span>{{record62Uitleg.uitlegGezin}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record62Uitleg.uitlegInkomsten">Uitleg Inkomsten</span></dt>
+                <dd>
+                    <span>{{record62Uitleg.uitlegInkomsten}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record62Uitleg.uitlegInPlatform">Uitleg In Platform</span></dt>
+                <dd>
+                    <span>{{record62Uitleg.uitlegInPlatform}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/record-62-uitleg', record62Uitleg.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

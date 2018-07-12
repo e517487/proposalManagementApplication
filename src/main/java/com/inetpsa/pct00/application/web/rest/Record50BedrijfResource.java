@@ -5,8 +5,6 @@ import com.inetpsa.pct00.application.domain.Record50Bedrijf;
 import com.inetpsa.pct00.application.repository.Record50BedrijfRepository;
 import com.inetpsa.pct00.application.web.rest.errors.BadRequestAlertException;
 import com.inetpsa.pct00.application.web.rest.util.HeaderUtil;
-import com.inetpsa.pct00.application.service.dto.Record50BedrijfDTO;
-import com.inetpsa.pct00.application.service.mapper.Record50BedrijfMapper;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,31 +30,25 @@ public class Record50BedrijfResource {
 
     private final Record50BedrijfRepository record50BedrijfRepository;
 
-    private final Record50BedrijfMapper record50BedrijfMapper;
-
-    public Record50BedrijfResource(Record50BedrijfRepository record50BedrijfRepository, Record50BedrijfMapper record50BedrijfMapper) {
+    public Record50BedrijfResource(Record50BedrijfRepository record50BedrijfRepository) {
         this.record50BedrijfRepository = record50BedrijfRepository;
-        this.record50BedrijfMapper = record50BedrijfMapper;
     }
 
     /**
      * POST  /record-50-bedrijfs : Create a new record50Bedrijf.
      *
-     * @param record50BedrijfDTO the record50BedrijfDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new record50BedrijfDTO, or with status 400 (Bad Request) if the record50Bedrijf has already an ID
+     * @param record50Bedrijf the record50Bedrijf to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new record50Bedrijf, or with status 400 (Bad Request) if the record50Bedrijf has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/record-50-bedrijfs")
     @Timed
-    public ResponseEntity<Record50BedrijfDTO> createRecord50Bedrijf(@RequestBody Record50BedrijfDTO record50BedrijfDTO) throws URISyntaxException {
-        log.debug("REST request to save Record50Bedrijf : {}", record50BedrijfDTO);
-        if (record50BedrijfDTO.getId() != null) {
+    public ResponseEntity<Record50Bedrijf> createRecord50Bedrijf(@RequestBody Record50Bedrijf record50Bedrijf) throws URISyntaxException {
+        log.debug("REST request to save Record50Bedrijf : {}", record50Bedrijf);
+        if (record50Bedrijf.getId() != null) {
             throw new BadRequestAlertException("A new record50Bedrijf cannot already have an ID", ENTITY_NAME, "idexists");
         }
-
-        Record50Bedrijf record50Bedrijf = record50BedrijfMapper.toEntity(record50BedrijfDTO);
-        record50Bedrijf = record50BedrijfRepository.save(record50Bedrijf);
-        Record50BedrijfDTO result = record50BedrijfMapper.toDto(record50Bedrijf);
+        Record50Bedrijf result = record50BedrijfRepository.save(record50Bedrijf);
         return ResponseEntity.created(new URI("/api/record-50-bedrijfs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,25 +57,22 @@ public class Record50BedrijfResource {
     /**
      * PUT  /record-50-bedrijfs : Updates an existing record50Bedrijf.
      *
-     * @param record50BedrijfDTO the record50BedrijfDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated record50BedrijfDTO,
-     * or with status 400 (Bad Request) if the record50BedrijfDTO is not valid,
-     * or with status 500 (Internal Server Error) if the record50BedrijfDTO couldn't be updated
+     * @param record50Bedrijf the record50Bedrijf to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated record50Bedrijf,
+     * or with status 400 (Bad Request) if the record50Bedrijf is not valid,
+     * or with status 500 (Internal Server Error) if the record50Bedrijf couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/record-50-bedrijfs")
     @Timed
-    public ResponseEntity<Record50BedrijfDTO> updateRecord50Bedrijf(@RequestBody Record50BedrijfDTO record50BedrijfDTO) throws URISyntaxException {
-        log.debug("REST request to update Record50Bedrijf : {}", record50BedrijfDTO);
-        if (record50BedrijfDTO.getId() == null) {
+    public ResponseEntity<Record50Bedrijf> updateRecord50Bedrijf(@RequestBody Record50Bedrijf record50Bedrijf) throws URISyntaxException {
+        log.debug("REST request to update Record50Bedrijf : {}", record50Bedrijf);
+        if (record50Bedrijf.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-
-        Record50Bedrijf record50Bedrijf = record50BedrijfMapper.toEntity(record50BedrijfDTO);
-        record50Bedrijf = record50BedrijfRepository.save(record50Bedrijf);
-        Record50BedrijfDTO result = record50BedrijfMapper.toDto(record50Bedrijf);
+        Record50Bedrijf result = record50BedrijfRepository.save(record50Bedrijf);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, record50BedrijfDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, record50Bedrijf.getId().toString()))
             .body(result);
     }
 
@@ -94,31 +83,29 @@ public class Record50BedrijfResource {
      */
     @GetMapping("/record-50-bedrijfs")
     @Timed
-    public List<Record50BedrijfDTO> getAllRecord50Bedrijfs() {
+    public List<Record50Bedrijf> getAllRecord50Bedrijfs() {
         log.debug("REST request to get all Record50Bedrijfs");
-        List<Record50Bedrijf> record50Bedrijfs = record50BedrijfRepository.findAll();
-        return record50BedrijfMapper.toDto(record50Bedrijfs);
+        return record50BedrijfRepository.findAll();
     }
 
     /**
      * GET  /record-50-bedrijfs/:id : get the "id" record50Bedrijf.
      *
-     * @param id the id of the record50BedrijfDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the record50BedrijfDTO, or with status 404 (Not Found)
+     * @param id the id of the record50Bedrijf to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the record50Bedrijf, or with status 404 (Not Found)
      */
     @GetMapping("/record-50-bedrijfs/{id}")
     @Timed
-    public ResponseEntity<Record50BedrijfDTO> getRecord50Bedrijf(@PathVariable Long id) {
+    public ResponseEntity<Record50Bedrijf> getRecord50Bedrijf(@PathVariable Long id) {
         log.debug("REST request to get Record50Bedrijf : {}", id);
-        Optional<Record50BedrijfDTO> record50BedrijfDTO = record50BedrijfRepository.findById(id)
-            .map(record50BedrijfMapper::toDto);
-        return ResponseUtil.wrapOrNotFound(record50BedrijfDTO);
+        Optional<Record50Bedrijf> record50Bedrijf = record50BedrijfRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(record50Bedrijf);
     }
 
     /**
      * DELETE  /record-50-bedrijfs/:id : delete the "id" record50Bedrijf.
      *
-     * @param id the id of the record50BedrijfDTO to delete
+     * @param id the id of the record50Bedrijf to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/record-50-bedrijfs/{id}")

@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record35Object;
 import com.inetpsa.pct00.application.repository.Record35ObjectRepository;
-import com.inetpsa.pct00.application.service.dto.Record35ObjectDTO;
-import com.inetpsa.pct00.application.service.mapper.Record35ObjectMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record35ObjectResourceIntTest {
 
 
     @Autowired
-    private Record35ObjectMapper record35ObjectMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record35ObjectResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record35ObjectResource record35ObjectResource = new Record35ObjectResource(record35ObjectRepository, record35ObjectMapper);
+        final Record35ObjectResource record35ObjectResource = new Record35ObjectResource(record35ObjectRepository);
         this.restRecord35ObjectMockMvc = MockMvcBuilders.standaloneSetup(record35ObjectResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record35ObjectResourceIntTest {
         int databaseSizeBeforeCreate = record35ObjectRepository.findAll().size();
 
         // Create the Record35Object
-        Record35ObjectDTO record35ObjectDTO = record35ObjectMapper.toDto(record35Object);
         restRecord35ObjectMockMvc.perform(post("/api/record-35-objects")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record35ObjectDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record35Object)))
             .andExpect(status().isCreated());
 
         // Validate the Record35Object in the database
@@ -131,12 +125,11 @@ public class Record35ObjectResourceIntTest {
 
         // Create the Record35Object with an existing ID
         record35Object.setId(1L);
-        Record35ObjectDTO record35ObjectDTO = record35ObjectMapper.toDto(record35Object);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord35ObjectMockMvc.perform(post("/api/record-35-objects")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record35ObjectDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record35Object)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record35Object in the database
@@ -200,11 +193,10 @@ public class Record35ObjectResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record35ObjectDTO record35ObjectDTO = record35ObjectMapper.toDto(updatedRecord35Object);
 
         restRecord35ObjectMockMvc.perform(put("/api/record-35-objects")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record35ObjectDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord35Object)))
             .andExpect(status().isOk());
 
         // Validate the Record35Object in the database
@@ -222,12 +214,11 @@ public class Record35ObjectResourceIntTest {
         int databaseSizeBeforeUpdate = record35ObjectRepository.findAll().size();
 
         // Create the Record35Object
-        Record35ObjectDTO record35ObjectDTO = record35ObjectMapper.toDto(record35Object);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord35ObjectMockMvc.perform(put("/api/record-35-objects")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record35ObjectDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record35Object)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record35Object in the database
@@ -266,28 +257,5 @@ public class Record35ObjectResourceIntTest {
         assertThat(record35Object1).isNotEqualTo(record35Object2);
         record35Object1.setId(null);
         assertThat(record35Object1).isNotEqualTo(record35Object2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record35ObjectDTO.class);
-        Record35ObjectDTO record35ObjectDTO1 = new Record35ObjectDTO();
-        record35ObjectDTO1.setId(1L);
-        Record35ObjectDTO record35ObjectDTO2 = new Record35ObjectDTO();
-        assertThat(record35ObjectDTO1).isNotEqualTo(record35ObjectDTO2);
-        record35ObjectDTO2.setId(record35ObjectDTO1.getId());
-        assertThat(record35ObjectDTO1).isEqualTo(record35ObjectDTO2);
-        record35ObjectDTO2.setId(2L);
-        assertThat(record35ObjectDTO1).isNotEqualTo(record35ObjectDTO2);
-        record35ObjectDTO1.setId(null);
-        assertThat(record35ObjectDTO1).isNotEqualTo(record35ObjectDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record35ObjectMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record35ObjectMapper.fromId(null)).isNull();
     }
 }

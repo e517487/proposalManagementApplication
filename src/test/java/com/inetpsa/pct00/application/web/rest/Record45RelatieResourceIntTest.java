@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record45Relatie;
 import com.inetpsa.pct00.application.repository.Record45RelatieRepository;
-import com.inetpsa.pct00.application.service.dto.Record45RelatieDTO;
-import com.inetpsa.pct00.application.service.mapper.Record45RelatieMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record45RelatieResourceIntTest {
 
 
     @Autowired
-    private Record45RelatieMapper record45RelatieMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record45RelatieResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record45RelatieResource record45RelatieResource = new Record45RelatieResource(record45RelatieRepository, record45RelatieMapper);
+        final Record45RelatieResource record45RelatieResource = new Record45RelatieResource(record45RelatieRepository);
         this.restRecord45RelatieMockMvc = MockMvcBuilders.standaloneSetup(record45RelatieResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record45RelatieResourceIntTest {
         int databaseSizeBeforeCreate = record45RelatieRepository.findAll().size();
 
         // Create the Record45Relatie
-        Record45RelatieDTO record45RelatieDTO = record45RelatieMapper.toDto(record45Relatie);
         restRecord45RelatieMockMvc.perform(post("/api/record-45-relaties")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record45RelatieDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record45Relatie)))
             .andExpect(status().isCreated());
 
         // Validate the Record45Relatie in the database
@@ -131,12 +125,11 @@ public class Record45RelatieResourceIntTest {
 
         // Create the Record45Relatie with an existing ID
         record45Relatie.setId(1L);
-        Record45RelatieDTO record45RelatieDTO = record45RelatieMapper.toDto(record45Relatie);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord45RelatieMockMvc.perform(post("/api/record-45-relaties")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record45RelatieDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record45Relatie)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record45Relatie in the database
@@ -200,11 +193,10 @@ public class Record45RelatieResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record45RelatieDTO record45RelatieDTO = record45RelatieMapper.toDto(updatedRecord45Relatie);
 
         restRecord45RelatieMockMvc.perform(put("/api/record-45-relaties")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record45RelatieDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord45Relatie)))
             .andExpect(status().isOk());
 
         // Validate the Record45Relatie in the database
@@ -222,12 +214,11 @@ public class Record45RelatieResourceIntTest {
         int databaseSizeBeforeUpdate = record45RelatieRepository.findAll().size();
 
         // Create the Record45Relatie
-        Record45RelatieDTO record45RelatieDTO = record45RelatieMapper.toDto(record45Relatie);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord45RelatieMockMvc.perform(put("/api/record-45-relaties")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record45RelatieDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record45Relatie)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record45Relatie in the database
@@ -266,28 +257,5 @@ public class Record45RelatieResourceIntTest {
         assertThat(record45Relatie1).isNotEqualTo(record45Relatie2);
         record45Relatie1.setId(null);
         assertThat(record45Relatie1).isNotEqualTo(record45Relatie2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record45RelatieDTO.class);
-        Record45RelatieDTO record45RelatieDTO1 = new Record45RelatieDTO();
-        record45RelatieDTO1.setId(1L);
-        Record45RelatieDTO record45RelatieDTO2 = new Record45RelatieDTO();
-        assertThat(record45RelatieDTO1).isNotEqualTo(record45RelatieDTO2);
-        record45RelatieDTO2.setId(record45RelatieDTO1.getId());
-        assertThat(record45RelatieDTO1).isEqualTo(record45RelatieDTO2);
-        record45RelatieDTO2.setId(2L);
-        assertThat(record45RelatieDTO1).isNotEqualTo(record45RelatieDTO2);
-        record45RelatieDTO1.setId(null);
-        assertThat(record45RelatieDTO1).isNotEqualTo(record45RelatieDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record45RelatieMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record45RelatieMapper.fromId(null)).isNull();
     }
 }

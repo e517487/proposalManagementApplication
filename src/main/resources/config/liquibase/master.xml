@@ -6,7 +6,6 @@
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703183446_added_entity_Record01Start.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180703183447_added_entity_Record99End.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703183448_added_entity_Record10AanvraagGegevensAlgemeen.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703183449_added_entity_Record11AanvraagGegevensOpmerkingen.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703183450_added_entity_Record20Financieel.xml" relativeToChangelogFile="false"/>

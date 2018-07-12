@@ -17,8 +17,8 @@
                 "title": "Request"
             },
             "pcFinetNr": "Pc Finet Nr",
-            "rekenmoduleAanvraag": "Rekenmodule Aanvraag",
             "creditScore": "Credit Score",
+            "rekenmoduleAanvraag": "Rekenmodule Aanvraag",
             "customer": "Customer"
         }
     }

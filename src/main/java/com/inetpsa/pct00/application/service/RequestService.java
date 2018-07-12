@@ -25,17 +25,17 @@ public interface RequestService {
      */
     List<RequestDTO> findAll();
     /**
-     * Get all the RequestDTO where RekenmoduleAanvraag is null.
-     *
-     * @return the list of entities
-     */
-    List<RequestDTO> findAllWhereRekenmoduleAanvraagIsNull();
-    /**
      * Get all the RequestDTO where CreditScore is null.
      *
      * @return the list of entities
      */
     List<RequestDTO> findAllWhereCreditScoreIsNull();
+    /**
+     * Get all the RequestDTO where RekenmoduleAanvraag is null.
+     *
+     * @return the list of entities
+     */
+    List<RequestDTO> findAllWhereRekenmoduleAanvraagIsNull();
 
 
     /**

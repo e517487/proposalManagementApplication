@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record55Scoring;
 import com.inetpsa.pct00.application.repository.Record55ScoringRepository;
-import com.inetpsa.pct00.application.service.dto.Record55ScoringDTO;
-import com.inetpsa.pct00.application.service.mapper.Record55ScoringMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record55ScoringResourceIntTest {
 
 
     @Autowired
-    private Record55ScoringMapper record55ScoringMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record55ScoringResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record55ScoringResource record55ScoringResource = new Record55ScoringResource(record55ScoringRepository, record55ScoringMapper);
+        final Record55ScoringResource record55ScoringResource = new Record55ScoringResource(record55ScoringRepository);
         this.restRecord55ScoringMockMvc = MockMvcBuilders.standaloneSetup(record55ScoringResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record55ScoringResourceIntTest {
         int databaseSizeBeforeCreate = record55ScoringRepository.findAll().size();
 
         // Create the Record55Scoring
-        Record55ScoringDTO record55ScoringDTO = record55ScoringMapper.toDto(record55Scoring);
         restRecord55ScoringMockMvc.perform(post("/api/record-55-scorings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record55ScoringDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record55Scoring)))
             .andExpect(status().isCreated());
 
         // Validate the Record55Scoring in the database
@@ -131,12 +125,11 @@ public class Record55ScoringResourceIntTest {
 
         // Create the Record55Scoring with an existing ID
         record55Scoring.setId(1L);
-        Record55ScoringDTO record55ScoringDTO = record55ScoringMapper.toDto(record55Scoring);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord55ScoringMockMvc.perform(post("/api/record-55-scorings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record55ScoringDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record55Scoring)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record55Scoring in the database
@@ -200,11 +193,10 @@ public class Record55ScoringResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record55ScoringDTO record55ScoringDTO = record55ScoringMapper.toDto(updatedRecord55Scoring);
 
         restRecord55ScoringMockMvc.perform(put("/api/record-55-scorings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record55ScoringDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord55Scoring)))
             .andExpect(status().isOk());
 
         // Validate the Record55Scoring in the database
@@ -222,12 +214,11 @@ public class Record55ScoringResourceIntTest {
         int databaseSizeBeforeUpdate = record55ScoringRepository.findAll().size();
 
         // Create the Record55Scoring
-        Record55ScoringDTO record55ScoringDTO = record55ScoringMapper.toDto(record55Scoring);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord55ScoringMockMvc.perform(put("/api/record-55-scorings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record55ScoringDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record55Scoring)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record55Scoring in the database
@@ -266,28 +257,5 @@ public class Record55ScoringResourceIntTest {
         assertThat(record55Scoring1).isNotEqualTo(record55Scoring2);
         record55Scoring1.setId(null);
         assertThat(record55Scoring1).isNotEqualTo(record55Scoring2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record55ScoringDTO.class);
-        Record55ScoringDTO record55ScoringDTO1 = new Record55ScoringDTO();
-        record55ScoringDTO1.setId(1L);
-        Record55ScoringDTO record55ScoringDTO2 = new Record55ScoringDTO();
-        assertThat(record55ScoringDTO1).isNotEqualTo(record55ScoringDTO2);
-        record55ScoringDTO2.setId(record55ScoringDTO1.getId());
-        assertThat(record55ScoringDTO1).isEqualTo(record55ScoringDTO2);
-        record55ScoringDTO2.setId(2L);
-        assertThat(record55ScoringDTO1).isNotEqualTo(record55ScoringDTO2);
-        record55ScoringDTO1.setId(null);
-        assertThat(record55ScoringDTO1).isNotEqualTo(record55ScoringDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record55ScoringMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record55ScoringMapper.fromId(null)).isNull();
     }
 }

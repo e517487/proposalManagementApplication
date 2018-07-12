@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="record35Object">
+            <h2><span jhiTranslate="proposalManagementApplicationApp.record35Object.detail.title">Record 35 Object</span> {{record35Object.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record35Object.pcFinetNr">Pc Finet Nr</span></dt>
+                <dd>
+                    <span>{{record35Object.pcFinetNr}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record35Object.recordType">Record Type</span></dt>
+                <dd>
+                    <span>{{record35Object.recordType}}</span>
+                </dd>
+                <dt><span jhiTranslate="proposalManagementApplicationApp.record35Object.volgNr">Volg Nr</span></dt>
+                <dd>
+                    <span>{{record35Object.volgNr}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/record-35-object', record35Object.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

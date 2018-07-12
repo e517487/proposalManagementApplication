@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record50Bedrijf;
 import com.inetpsa.pct00.application.repository.Record50BedrijfRepository;
-import com.inetpsa.pct00.application.service.dto.Record50BedrijfDTO;
-import com.inetpsa.pct00.application.service.mapper.Record50BedrijfMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record50BedrijfResourceIntTest {
 
 
     @Autowired
-    private Record50BedrijfMapper record50BedrijfMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record50BedrijfResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record50BedrijfResource record50BedrijfResource = new Record50BedrijfResource(record50BedrijfRepository, record50BedrijfMapper);
+        final Record50BedrijfResource record50BedrijfResource = new Record50BedrijfResource(record50BedrijfRepository);
         this.restRecord50BedrijfMockMvc = MockMvcBuilders.standaloneSetup(record50BedrijfResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record50BedrijfResourceIntTest {
         int databaseSizeBeforeCreate = record50BedrijfRepository.findAll().size();
 
         // Create the Record50Bedrijf
-        Record50BedrijfDTO record50BedrijfDTO = record50BedrijfMapper.toDto(record50Bedrijf);
         restRecord50BedrijfMockMvc.perform(post("/api/record-50-bedrijfs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record50BedrijfDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record50Bedrijf)))
             .andExpect(status().isCreated());
 
         // Validate the Record50Bedrijf in the database
@@ -131,12 +125,11 @@ public class Record50BedrijfResourceIntTest {
 
         // Create the Record50Bedrijf with an existing ID
         record50Bedrijf.setId(1L);
-        Record50BedrijfDTO record50BedrijfDTO = record50BedrijfMapper.toDto(record50Bedrijf);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord50BedrijfMockMvc.perform(post("/api/record-50-bedrijfs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record50BedrijfDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record50Bedrijf)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record50Bedrijf in the database
@@ -200,11 +193,10 @@ public class Record50BedrijfResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record50BedrijfDTO record50BedrijfDTO = record50BedrijfMapper.toDto(updatedRecord50Bedrijf);
 
         restRecord50BedrijfMockMvc.perform(put("/api/record-50-bedrijfs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record50BedrijfDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord50Bedrijf)))
             .andExpect(status().isOk());
 
         // Validate the Record50Bedrijf in the database
@@ -222,12 +214,11 @@ public class Record50BedrijfResourceIntTest {
         int databaseSizeBeforeUpdate = record50BedrijfRepository.findAll().size();
 
         // Create the Record50Bedrijf
-        Record50BedrijfDTO record50BedrijfDTO = record50BedrijfMapper.toDto(record50Bedrijf);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord50BedrijfMockMvc.perform(put("/api/record-50-bedrijfs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record50BedrijfDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record50Bedrijf)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record50Bedrijf in the database
@@ -266,28 +257,5 @@ public class Record50BedrijfResourceIntTest {
         assertThat(record50Bedrijf1).isNotEqualTo(record50Bedrijf2);
         record50Bedrijf1.setId(null);
         assertThat(record50Bedrijf1).isNotEqualTo(record50Bedrijf2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record50BedrijfDTO.class);
-        Record50BedrijfDTO record50BedrijfDTO1 = new Record50BedrijfDTO();
-        record50BedrijfDTO1.setId(1L);
-        Record50BedrijfDTO record50BedrijfDTO2 = new Record50BedrijfDTO();
-        assertThat(record50BedrijfDTO1).isNotEqualTo(record50BedrijfDTO2);
-        record50BedrijfDTO2.setId(record50BedrijfDTO1.getId());
-        assertThat(record50BedrijfDTO1).isEqualTo(record50BedrijfDTO2);
-        record50BedrijfDTO2.setId(2L);
-        assertThat(record50BedrijfDTO1).isNotEqualTo(record50BedrijfDTO2);
-        record50BedrijfDTO1.setId(null);
-        assertThat(record50BedrijfDTO1).isNotEqualTo(record50BedrijfDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record50BedrijfMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record50BedrijfMapper.fromId(null)).isNull();
     }
 }

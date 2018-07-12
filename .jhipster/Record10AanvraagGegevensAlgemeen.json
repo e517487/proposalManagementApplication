@@ -70,12 +70,11 @@
     "changelogDate": "20180703183448",
     "javadoc": "' Recordtype 10 : Aanvraaggegevens algemeen\nPrivate Type Record_AV_ALG\nPCFinetnr         As String * 11\nRecordType        As String * 2    already stripped\nVolgnr            As String * 3    0..3\nDEALERNR          As String * 6    3..9\nPROD_CODE         As String * 5    9..14\nZoeknaam          As String * 20   14..34\nVerkoper          As String * 30   34..64\nDealerTelnr       As String * 20   64..84\nAcceptatie        As String * 1    84..85\nAanv_datum        As String * 8    85..93\nAanv_tijd         As String * 5    93..98\nAcc_Datum         As String * 8    98..106\nAcc_tijd          As String * 5    106..111\nPrt_Datum         As String * 8    111..119\nInvoerder         As String * 7    119..126\nAcceptant         As String * 7    126..133\nFILLER            As String * 365\nFILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)\nFiller3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
     "entityTableName": "record_10_aanvraag_gegevens_algemeen",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "angularJSSuffix": "mySuffix"
+    "applications": "*"
 }

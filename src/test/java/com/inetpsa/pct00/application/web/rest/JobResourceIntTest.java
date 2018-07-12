@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Job;
 import com.inetpsa.pct00.application.repository.JobRepository;
-import com.inetpsa.pct00.application.service.dto.JobDTO;
-import com.inetpsa.pct00.application.service.mapper.JobMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -61,9 +59,6 @@ public class JobResourceIntTest {
     private JobRepository jobRepositoryMock;
 
     @Autowired
-    private JobMapper jobMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -82,7 +77,7 @@ public class JobResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final JobResource jobResource = new JobResource(jobRepository, jobMapper);
+        final JobResource jobResource = new JobResource(jobRepository);
         this.restJobMockMvc = MockMvcBuilders.standaloneSetup(jobResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -115,10 +110,9 @@ public class JobResourceIntTest {
         int databaseSizeBeforeCreate = jobRepository.findAll().size();
 
         // Create the Job
-        JobDTO jobDTO = jobMapper.toDto(job);
         restJobMockMvc.perform(post("/api/jobs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(job)))
             .andExpect(status().isCreated());
 
         // Validate the Job in the database
@@ -137,12 +131,11 @@ public class JobResourceIntTest {
 
         // Create the Job with an existing ID
         job.setId(1L);
-        JobDTO jobDTO = jobMapper.toDto(job);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restJobMockMvc.perform(post("/api/jobs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(job)))
             .andExpect(status().isBadRequest());
 
         // Validate the Job in the database
@@ -167,7 +160,7 @@ public class JobResourceIntTest {
     }
     
     public void getAllJobsWithEagerRelationshipsIsEnabled() throws Exception {
-        JobResource jobResource = new JobResource(jobRepositoryMock, jobMapper);
+        JobResource jobResource = new JobResource(jobRepositoryMock);
         when(jobRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restJobMockMvc = MockMvcBuilders.standaloneSetup(jobResource)
@@ -183,7 +176,7 @@ public class JobResourceIntTest {
     }
 
     public void getAllJobsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        JobResource jobResource = new JobResource(jobRepositoryMock, jobMapper);
+        JobResource jobResource = new JobResource(jobRepositoryMock);
             when(jobRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restJobMockMvc = MockMvcBuilders.standaloneSetup(jobResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -236,11 +229,10 @@ public class JobResourceIntTest {
             .jobTitle(UPDATED_JOB_TITLE)
             .minSalary(UPDATED_MIN_SALARY)
             .maxSalary(UPDATED_MAX_SALARY);
-        JobDTO jobDTO = jobMapper.toDto(updatedJob);
 
         restJobMockMvc.perform(put("/api/jobs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedJob)))
             .andExpect(status().isOk());
 
         // Validate the Job in the database
@@ -258,12 +250,11 @@ public class JobResourceIntTest {
         int databaseSizeBeforeUpdate = jobRepository.findAll().size();
 
         // Create the Job
-        JobDTO jobDTO = jobMapper.toDto(job);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restJobMockMvc.perform(put("/api/jobs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(job)))
             .andExpect(status().isBadRequest());
 
         // Validate the Job in the database
@@ -302,28 +293,5 @@ public class JobResourceIntTest {
         assertThat(job1).isNotEqualTo(job2);
         job1.setId(null);
         assertThat(job1).isNotEqualTo(job2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(JobDTO.class);
-        JobDTO jobDTO1 = new JobDTO();
-        jobDTO1.setId(1L);
-        JobDTO jobDTO2 = new JobDTO();
-        assertThat(jobDTO1).isNotEqualTo(jobDTO2);
-        jobDTO2.setId(jobDTO1.getId());
-        assertThat(jobDTO1).isEqualTo(jobDTO2);
-        jobDTO2.setId(2L);
-        assertThat(jobDTO1).isNotEqualTo(jobDTO2);
-        jobDTO1.setId(null);
-        assertThat(jobDTO1).isNotEqualTo(jobDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(jobMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(jobMapper.fromId(null)).isNull();
     }
 }

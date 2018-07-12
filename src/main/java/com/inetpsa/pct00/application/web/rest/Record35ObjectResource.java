@@ -5,8 +5,6 @@ import com.inetpsa.pct00.application.domain.Record35Object;
 import com.inetpsa.pct00.application.repository.Record35ObjectRepository;
 import com.inetpsa.pct00.application.web.rest.errors.BadRequestAlertException;
 import com.inetpsa.pct00.application.web.rest.util.HeaderUtil;
-import com.inetpsa.pct00.application.service.dto.Record35ObjectDTO;
-import com.inetpsa.pct00.application.service.mapper.Record35ObjectMapper;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,31 +30,25 @@ public class Record35ObjectResource {
 
     private final Record35ObjectRepository record35ObjectRepository;
 
-    private final Record35ObjectMapper record35ObjectMapper;
-
-    public Record35ObjectResource(Record35ObjectRepository record35ObjectRepository, Record35ObjectMapper record35ObjectMapper) {
+    public Record35ObjectResource(Record35ObjectRepository record35ObjectRepository) {
         this.record35ObjectRepository = record35ObjectRepository;
-        this.record35ObjectMapper = record35ObjectMapper;
     }
 
     /**
      * POST  /record-35-objects : Create a new record35Object.
      *
-     * @param record35ObjectDTO the record35ObjectDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new record35ObjectDTO, or with status 400 (Bad Request) if the record35Object has already an ID
+     * @param record35Object the record35Object to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new record35Object, or with status 400 (Bad Request) if the record35Object has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/record-35-objects")
     @Timed
-    public ResponseEntity<Record35ObjectDTO> createRecord35Object(@RequestBody Record35ObjectDTO record35ObjectDTO) throws URISyntaxException {
-        log.debug("REST request to save Record35Object : {}", record35ObjectDTO);
-        if (record35ObjectDTO.getId() != null) {
+    public ResponseEntity<Record35Object> createRecord35Object(@RequestBody Record35Object record35Object) throws URISyntaxException {
+        log.debug("REST request to save Record35Object : {}", record35Object);
+        if (record35Object.getId() != null) {
             throw new BadRequestAlertException("A new record35Object cannot already have an ID", ENTITY_NAME, "idexists");
         }
-
-        Record35Object record35Object = record35ObjectMapper.toEntity(record35ObjectDTO);
-        record35Object = record35ObjectRepository.save(record35Object);
-        Record35ObjectDTO result = record35ObjectMapper.toDto(record35Object);
+        Record35Object result = record35ObjectRepository.save(record35Object);
         return ResponseEntity.created(new URI("/api/record-35-objects/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,25 +57,22 @@ public class Record35ObjectResource {
     /**
      * PUT  /record-35-objects : Updates an existing record35Object.
      *
-     * @param record35ObjectDTO the record35ObjectDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated record35ObjectDTO,
-     * or with status 400 (Bad Request) if the record35ObjectDTO is not valid,
-     * or with status 500 (Internal Server Error) if the record35ObjectDTO couldn't be updated
+     * @param record35Object the record35Object to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated record35Object,
+     * or with status 400 (Bad Request) if the record35Object is not valid,
+     * or with status 500 (Internal Server Error) if the record35Object couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/record-35-objects")
     @Timed
-    public ResponseEntity<Record35ObjectDTO> updateRecord35Object(@RequestBody Record35ObjectDTO record35ObjectDTO) throws URISyntaxException {
-        log.debug("REST request to update Record35Object : {}", record35ObjectDTO);
-        if (record35ObjectDTO.getId() == null) {
+    public ResponseEntity<Record35Object> updateRecord35Object(@RequestBody Record35Object record35Object) throws URISyntaxException {
+        log.debug("REST request to update Record35Object : {}", record35Object);
+        if (record35Object.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-
-        Record35Object record35Object = record35ObjectMapper.toEntity(record35ObjectDTO);
-        record35Object = record35ObjectRepository.save(record35Object);
-        Record35ObjectDTO result = record35ObjectMapper.toDto(record35Object);
+        Record35Object result = record35ObjectRepository.save(record35Object);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, record35ObjectDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, record35Object.getId().toString()))
             .body(result);
     }
 
@@ -94,31 +83,29 @@ public class Record35ObjectResource {
      */
     @GetMapping("/record-35-objects")
     @Timed
-    public List<Record35ObjectDTO> getAllRecord35Objects() {
+    public List<Record35Object> getAllRecord35Objects() {
         log.debug("REST request to get all Record35Objects");
-        List<Record35Object> record35Objects = record35ObjectRepository.findAll();
-        return record35ObjectMapper.toDto(record35Objects);
+        return record35ObjectRepository.findAll();
     }
 
     /**
      * GET  /record-35-objects/:id : get the "id" record35Object.
      *
-     * @param id the id of the record35ObjectDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the record35ObjectDTO, or with status 404 (Not Found)
+     * @param id the id of the record35Object to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the record35Object, or with status 404 (Not Found)
      */
     @GetMapping("/record-35-objects/{id}")
     @Timed
-    public ResponseEntity<Record35ObjectDTO> getRecord35Object(@PathVariable Long id) {
+    public ResponseEntity<Record35Object> getRecord35Object(@PathVariable Long id) {
         log.debug("REST request to get Record35Object : {}", id);
-        Optional<Record35ObjectDTO> record35ObjectDTO = record35ObjectRepository.findById(id)
-            .map(record35ObjectMapper::toDto);
-        return ResponseUtil.wrapOrNotFound(record35ObjectDTO);
+        Optional<Record35Object> record35Object = record35ObjectRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(record35Object);
     }
 
     /**
      * DELETE  /record-35-objects/:id : delete the "id" record35Object.
      *
-     * @param id the id of the record35ObjectDTO to delete
+     * @param id the id of the record35Object to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/record-35-objects/{id}")

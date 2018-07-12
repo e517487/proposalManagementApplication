@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record40AcceptatieScore;
 import com.inetpsa.pct00.application.repository.Record40AcceptatieScoreRepository;
-import com.inetpsa.pct00.application.service.dto.Record40AcceptatieScoreDTO;
-import com.inetpsa.pct00.application.service.mapper.Record40AcceptatieScoreMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record40AcceptatieScoreResourceIntTest {
 
 
     @Autowired
-    private Record40AcceptatieScoreMapper record40AcceptatieScoreMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record40AcceptatieScoreResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record40AcceptatieScoreResource record40AcceptatieScoreResource = new Record40AcceptatieScoreResource(record40AcceptatieScoreRepository, record40AcceptatieScoreMapper);
+        final Record40AcceptatieScoreResource record40AcceptatieScoreResource = new Record40AcceptatieScoreResource(record40AcceptatieScoreRepository);
         this.restRecord40AcceptatieScoreMockMvc = MockMvcBuilders.standaloneSetup(record40AcceptatieScoreResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record40AcceptatieScoreResourceIntTest {
         int databaseSizeBeforeCreate = record40AcceptatieScoreRepository.findAll().size();
 
         // Create the Record40AcceptatieScore
-        Record40AcceptatieScoreDTO record40AcceptatieScoreDTO = record40AcceptatieScoreMapper.toDto(record40AcceptatieScore);
         restRecord40AcceptatieScoreMockMvc.perform(post("/api/record-40-acceptatie-scores")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record40AcceptatieScoreDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record40AcceptatieScore)))
             .andExpect(status().isCreated());
 
         // Validate the Record40AcceptatieScore in the database
@@ -131,12 +125,11 @@ public class Record40AcceptatieScoreResourceIntTest {
 
         // Create the Record40AcceptatieScore with an existing ID
         record40AcceptatieScore.setId(1L);
-        Record40AcceptatieScoreDTO record40AcceptatieScoreDTO = record40AcceptatieScoreMapper.toDto(record40AcceptatieScore);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord40AcceptatieScoreMockMvc.perform(post("/api/record-40-acceptatie-scores")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record40AcceptatieScoreDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record40AcceptatieScore)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record40AcceptatieScore in the database
@@ -200,11 +193,10 @@ public class Record40AcceptatieScoreResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record40AcceptatieScoreDTO record40AcceptatieScoreDTO = record40AcceptatieScoreMapper.toDto(updatedRecord40AcceptatieScore);
 
         restRecord40AcceptatieScoreMockMvc.perform(put("/api/record-40-acceptatie-scores")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record40AcceptatieScoreDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord40AcceptatieScore)))
             .andExpect(status().isOk());
 
         // Validate the Record40AcceptatieScore in the database
@@ -222,12 +214,11 @@ public class Record40AcceptatieScoreResourceIntTest {
         int databaseSizeBeforeUpdate = record40AcceptatieScoreRepository.findAll().size();
 
         // Create the Record40AcceptatieScore
-        Record40AcceptatieScoreDTO record40AcceptatieScoreDTO = record40AcceptatieScoreMapper.toDto(record40AcceptatieScore);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord40AcceptatieScoreMockMvc.perform(put("/api/record-40-acceptatie-scores")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record40AcceptatieScoreDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record40AcceptatieScore)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record40AcceptatieScore in the database
@@ -266,28 +257,5 @@ public class Record40AcceptatieScoreResourceIntTest {
         assertThat(record40AcceptatieScore1).isNotEqualTo(record40AcceptatieScore2);
         record40AcceptatieScore1.setId(null);
         assertThat(record40AcceptatieScore1).isNotEqualTo(record40AcceptatieScore2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record40AcceptatieScoreDTO.class);
-        Record40AcceptatieScoreDTO record40AcceptatieScoreDTO1 = new Record40AcceptatieScoreDTO();
-        record40AcceptatieScoreDTO1.setId(1L);
-        Record40AcceptatieScoreDTO record40AcceptatieScoreDTO2 = new Record40AcceptatieScoreDTO();
-        assertThat(record40AcceptatieScoreDTO1).isNotEqualTo(record40AcceptatieScoreDTO2);
-        record40AcceptatieScoreDTO2.setId(record40AcceptatieScoreDTO1.getId());
-        assertThat(record40AcceptatieScoreDTO1).isEqualTo(record40AcceptatieScoreDTO2);
-        record40AcceptatieScoreDTO2.setId(2L);
-        assertThat(record40AcceptatieScoreDTO1).isNotEqualTo(record40AcceptatieScoreDTO2);
-        record40AcceptatieScoreDTO1.setId(null);
-        assertThat(record40AcceptatieScoreDTO1).isNotEqualTo(record40AcceptatieScoreDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record40AcceptatieScoreMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record40AcceptatieScoreMapper.fromId(null)).isNull();
     }
 }

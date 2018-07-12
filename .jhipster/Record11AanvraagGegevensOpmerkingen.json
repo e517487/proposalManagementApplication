@@ -18,12 +18,11 @@
     "changelogDate": "20180703183449",
     "javadoc": "' Recordtype 11 : Aanvraaggegevens, opmerking\nPrivate Type Record_AV_Opmerking\nPCFinetnr         As String * 11\nRecordType        As String * 2\nVolgNr            As String * 3\nRegel1            As String * 80\nRegel2            As String * 80\nRegel3            As String * 80\nRegel4            As String * 80\nRegel5            As String * 80\nRegel6            As String * 80\nFILLER            As String * 31 ' in doc stond 32?\nFILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)\nFiller3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
     "entityTableName": "record_11_aanvraag_gegevens_opmerkingen",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "angularJSSuffix": "mySuffix"
+    "applications": "*"
 }

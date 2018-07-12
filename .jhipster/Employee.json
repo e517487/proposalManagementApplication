@@ -33,12 +33,6 @@
     ],
     "relationships": [
         {
-            "relationshipName": "department",
-            "otherEntityName": "department",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
             "relationshipType": "one-to-many",
             "relationshipName": "job",
             "otherEntityName": "job",
@@ -49,12 +43,18 @@
             "relationshipName": "manager",
             "otherEntityName": "employee",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "department",
+            "otherEntityName": "department",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180702213802",
     "javadoc": "The Employee entity.",
     "entityTableName": "employee",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "infinite-scroll",
     "service": "no",
     "jpaMetamodelFiltering": false,

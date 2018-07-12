@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record11AanvraagGegevensOpmerkingen;
 import com.inetpsa.pct00.application.repository.Record11AanvraagGegevensOpmerkingenRepository;
-import com.inetpsa.pct00.application.service.dto.Record11AanvraagGegevensOpmerkingenDTO;
-import com.inetpsa.pct00.application.service.mapper.Record11AanvraagGegevensOpmerkingenMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record11AanvraagGegevensOpmerkingenResourceIntTest {
 
 
     @Autowired
-    private Record11AanvraagGegevensOpmerkingenMapper record11AanvraagGegevensOpmerkingenMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record11AanvraagGegevensOpmerkingenResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record11AanvraagGegevensOpmerkingenResource record11AanvraagGegevensOpmerkingenResource = new Record11AanvraagGegevensOpmerkingenResource(record11AanvraagGegevensOpmerkingenRepository, record11AanvraagGegevensOpmerkingenMapper);
+        final Record11AanvraagGegevensOpmerkingenResource record11AanvraagGegevensOpmerkingenResource = new Record11AanvraagGegevensOpmerkingenResource(record11AanvraagGegevensOpmerkingenRepository);
         this.restRecord11AanvraagGegevensOpmerkingenMockMvc = MockMvcBuilders.standaloneSetup(record11AanvraagGegevensOpmerkingenResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record11AanvraagGegevensOpmerkingenResourceIntTest {
         int databaseSizeBeforeCreate = record11AanvraagGegevensOpmerkingenRepository.findAll().size();
 
         // Create the Record11AanvraagGegevensOpmerkingen
-        Record11AanvraagGegevensOpmerkingenDTO record11AanvraagGegevensOpmerkingenDTO = record11AanvraagGegevensOpmerkingenMapper.toDto(record11AanvraagGegevensOpmerkingen);
         restRecord11AanvraagGegevensOpmerkingenMockMvc.perform(post("/api/record-11-aanvraag-gegevens-opmerkingens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record11AanvraagGegevensOpmerkingenDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record11AanvraagGegevensOpmerkingen)))
             .andExpect(status().isCreated());
 
         // Validate the Record11AanvraagGegevensOpmerkingen in the database
@@ -131,12 +125,11 @@ public class Record11AanvraagGegevensOpmerkingenResourceIntTest {
 
         // Create the Record11AanvraagGegevensOpmerkingen with an existing ID
         record11AanvraagGegevensOpmerkingen.setId(1L);
-        Record11AanvraagGegevensOpmerkingenDTO record11AanvraagGegevensOpmerkingenDTO = record11AanvraagGegevensOpmerkingenMapper.toDto(record11AanvraagGegevensOpmerkingen);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord11AanvraagGegevensOpmerkingenMockMvc.perform(post("/api/record-11-aanvraag-gegevens-opmerkingens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record11AanvraagGegevensOpmerkingenDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record11AanvraagGegevensOpmerkingen)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record11AanvraagGegevensOpmerkingen in the database
@@ -200,11 +193,10 @@ public class Record11AanvraagGegevensOpmerkingenResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record11AanvraagGegevensOpmerkingenDTO record11AanvraagGegevensOpmerkingenDTO = record11AanvraagGegevensOpmerkingenMapper.toDto(updatedRecord11AanvraagGegevensOpmerkingen);
 
         restRecord11AanvraagGegevensOpmerkingenMockMvc.perform(put("/api/record-11-aanvraag-gegevens-opmerkingens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record11AanvraagGegevensOpmerkingenDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord11AanvraagGegevensOpmerkingen)))
             .andExpect(status().isOk());
 
         // Validate the Record11AanvraagGegevensOpmerkingen in the database
@@ -222,12 +214,11 @@ public class Record11AanvraagGegevensOpmerkingenResourceIntTest {
         int databaseSizeBeforeUpdate = record11AanvraagGegevensOpmerkingenRepository.findAll().size();
 
         // Create the Record11AanvraagGegevensOpmerkingen
-        Record11AanvraagGegevensOpmerkingenDTO record11AanvraagGegevensOpmerkingenDTO = record11AanvraagGegevensOpmerkingenMapper.toDto(record11AanvraagGegevensOpmerkingen);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord11AanvraagGegevensOpmerkingenMockMvc.perform(put("/api/record-11-aanvraag-gegevens-opmerkingens")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record11AanvraagGegevensOpmerkingenDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record11AanvraagGegevensOpmerkingen)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record11AanvraagGegevensOpmerkingen in the database
@@ -266,28 +257,5 @@ public class Record11AanvraagGegevensOpmerkingenResourceIntTest {
         assertThat(record11AanvraagGegevensOpmerkingen1).isNotEqualTo(record11AanvraagGegevensOpmerkingen2);
         record11AanvraagGegevensOpmerkingen1.setId(null);
         assertThat(record11AanvraagGegevensOpmerkingen1).isNotEqualTo(record11AanvraagGegevensOpmerkingen2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record11AanvraagGegevensOpmerkingenDTO.class);
-        Record11AanvraagGegevensOpmerkingenDTO record11AanvraagGegevensOpmerkingenDTO1 = new Record11AanvraagGegevensOpmerkingenDTO();
-        record11AanvraagGegevensOpmerkingenDTO1.setId(1L);
-        Record11AanvraagGegevensOpmerkingenDTO record11AanvraagGegevensOpmerkingenDTO2 = new Record11AanvraagGegevensOpmerkingenDTO();
-        assertThat(record11AanvraagGegevensOpmerkingenDTO1).isNotEqualTo(record11AanvraagGegevensOpmerkingenDTO2);
-        record11AanvraagGegevensOpmerkingenDTO2.setId(record11AanvraagGegevensOpmerkingenDTO1.getId());
-        assertThat(record11AanvraagGegevensOpmerkingenDTO1).isEqualTo(record11AanvraagGegevensOpmerkingenDTO2);
-        record11AanvraagGegevensOpmerkingenDTO2.setId(2L);
-        assertThat(record11AanvraagGegevensOpmerkingenDTO1).isNotEqualTo(record11AanvraagGegevensOpmerkingenDTO2);
-        record11AanvraagGegevensOpmerkingenDTO1.setId(null);
-        assertThat(record11AanvraagGegevensOpmerkingenDTO1).isNotEqualTo(record11AanvraagGegevensOpmerkingenDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record11AanvraagGegevensOpmerkingenMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record11AanvraagGegevensOpmerkingenMapper.fromId(null)).isNull();
     }
 }

@@ -34,12 +34,11 @@
     "changelogDate": "20180703183459",
     "javadoc": "' Recordtype 61, 62, 63 : Uitleg\nPrivate Type Record_Uitleg ' 141008 PROOVIT-EH: DESIN-292 - New record, multi used by 61, 62, 63\nPCFinetnr         As String * 11\nRecordType        As String * 2\nVolgnr            As String * 3\nRol               As String * 2\nUITLEGGEZIN       As String * 240\nUITLEGINKOMSTEN   As String * 240\nUITLEGINPLATFORM  As String * 200\nFiller3           As String * 2  ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
     "entityTableName": "record_61_uitleg",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "angularJSSuffix": "mySuffix"
+    "applications": "*"
 }

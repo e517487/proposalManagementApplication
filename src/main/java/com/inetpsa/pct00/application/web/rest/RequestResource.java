@@ -87,13 +87,13 @@ public class RequestResource {
     @GetMapping("/requests")
     @Timed
     public List<RequestDTO> getAllRequests(@RequestParam(required = false) String filter) {
-        if ("rekenmoduleaanvraag-is-null".equals(filter)) {
-            log.debug("REST request to get all Requests where rekenmoduleAanvraag is null");
-            return requestService.findAllWhereRekenmoduleAanvraagIsNull();
-        }
         if ("creditscore-is-null".equals(filter)) {
             log.debug("REST request to get all Requests where creditScore is null");
             return requestService.findAllWhereCreditScoreIsNull();
+        }
+        if ("rekenmoduleaanvraag-is-null".equals(filter)) {
+            log.debug("REST request to get all Requests where rekenmoduleAanvraag is null");
+            return requestService.findAllWhereRekenmoduleAanvraagIsNull();
         }
         log.debug("REST request to get all Requests");
         return requestService.findAll();

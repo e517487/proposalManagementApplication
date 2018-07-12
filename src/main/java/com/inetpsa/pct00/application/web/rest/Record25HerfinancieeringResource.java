@@ -5,8 +5,6 @@ import com.inetpsa.pct00.application.domain.Record25Herfinancieering;
 import com.inetpsa.pct00.application.repository.Record25HerfinancieeringRepository;
 import com.inetpsa.pct00.application.web.rest.errors.BadRequestAlertException;
 import com.inetpsa.pct00.application.web.rest.util.HeaderUtil;
-import com.inetpsa.pct00.application.service.dto.Record25HerfinancieeringDTO;
-import com.inetpsa.pct00.application.service.mapper.Record25HerfinancieeringMapper;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,31 +30,25 @@ public class Record25HerfinancieeringResource {
 
     private final Record25HerfinancieeringRepository record25HerfinancieeringRepository;
 
-    private final Record25HerfinancieeringMapper record25HerfinancieeringMapper;
-
-    public Record25HerfinancieeringResource(Record25HerfinancieeringRepository record25HerfinancieeringRepository, Record25HerfinancieeringMapper record25HerfinancieeringMapper) {
+    public Record25HerfinancieeringResource(Record25HerfinancieeringRepository record25HerfinancieeringRepository) {
         this.record25HerfinancieeringRepository = record25HerfinancieeringRepository;
-        this.record25HerfinancieeringMapper = record25HerfinancieeringMapper;
     }
 
     /**
      * POST  /record-25-herfinancieerings : Create a new record25Herfinancieering.
      *
-     * @param record25HerfinancieeringDTO the record25HerfinancieeringDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new record25HerfinancieeringDTO, or with status 400 (Bad Request) if the record25Herfinancieering has already an ID
+     * @param record25Herfinancieering the record25Herfinancieering to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new record25Herfinancieering, or with status 400 (Bad Request) if the record25Herfinancieering has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/record-25-herfinancieerings")
     @Timed
-    public ResponseEntity<Record25HerfinancieeringDTO> createRecord25Herfinancieering(@RequestBody Record25HerfinancieeringDTO record25HerfinancieeringDTO) throws URISyntaxException {
-        log.debug("REST request to save Record25Herfinancieering : {}", record25HerfinancieeringDTO);
-        if (record25HerfinancieeringDTO.getId() != null) {
+    public ResponseEntity<Record25Herfinancieering> createRecord25Herfinancieering(@RequestBody Record25Herfinancieering record25Herfinancieering) throws URISyntaxException {
+        log.debug("REST request to save Record25Herfinancieering : {}", record25Herfinancieering);
+        if (record25Herfinancieering.getId() != null) {
             throw new BadRequestAlertException("A new record25Herfinancieering cannot already have an ID", ENTITY_NAME, "idexists");
         }
-
-        Record25Herfinancieering record25Herfinancieering = record25HerfinancieeringMapper.toEntity(record25HerfinancieeringDTO);
-        record25Herfinancieering = record25HerfinancieeringRepository.save(record25Herfinancieering);
-        Record25HerfinancieeringDTO result = record25HerfinancieeringMapper.toDto(record25Herfinancieering);
+        Record25Herfinancieering result = record25HerfinancieeringRepository.save(record25Herfinancieering);
         return ResponseEntity.created(new URI("/api/record-25-herfinancieerings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,25 +57,22 @@ public class Record25HerfinancieeringResource {
     /**
      * PUT  /record-25-herfinancieerings : Updates an existing record25Herfinancieering.
      *
-     * @param record25HerfinancieeringDTO the record25HerfinancieeringDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated record25HerfinancieeringDTO,
-     * or with status 400 (Bad Request) if the record25HerfinancieeringDTO is not valid,
-     * or with status 500 (Internal Server Error) if the record25HerfinancieeringDTO couldn't be updated
+     * @param record25Herfinancieering the record25Herfinancieering to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated record25Herfinancieering,
+     * or with status 400 (Bad Request) if the record25Herfinancieering is not valid,
+     * or with status 500 (Internal Server Error) if the record25Herfinancieering couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/record-25-herfinancieerings")
     @Timed
-    public ResponseEntity<Record25HerfinancieeringDTO> updateRecord25Herfinancieering(@RequestBody Record25HerfinancieeringDTO record25HerfinancieeringDTO) throws URISyntaxException {
-        log.debug("REST request to update Record25Herfinancieering : {}", record25HerfinancieeringDTO);
-        if (record25HerfinancieeringDTO.getId() == null) {
+    public ResponseEntity<Record25Herfinancieering> updateRecord25Herfinancieering(@RequestBody Record25Herfinancieering record25Herfinancieering) throws URISyntaxException {
+        log.debug("REST request to update Record25Herfinancieering : {}", record25Herfinancieering);
+        if (record25Herfinancieering.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-
-        Record25Herfinancieering record25Herfinancieering = record25HerfinancieeringMapper.toEntity(record25HerfinancieeringDTO);
-        record25Herfinancieering = record25HerfinancieeringRepository.save(record25Herfinancieering);
-        Record25HerfinancieeringDTO result = record25HerfinancieeringMapper.toDto(record25Herfinancieering);
+        Record25Herfinancieering result = record25HerfinancieeringRepository.save(record25Herfinancieering);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, record25HerfinancieeringDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, record25Herfinancieering.getId().toString()))
             .body(result);
     }
 
@@ -94,31 +83,29 @@ public class Record25HerfinancieeringResource {
      */
     @GetMapping("/record-25-herfinancieerings")
     @Timed
-    public List<Record25HerfinancieeringDTO> getAllRecord25Herfinancieerings() {
+    public List<Record25Herfinancieering> getAllRecord25Herfinancieerings() {
         log.debug("REST request to get all Record25Herfinancieerings");
-        List<Record25Herfinancieering> record25Herfinancieerings = record25HerfinancieeringRepository.findAll();
-        return record25HerfinancieeringMapper.toDto(record25Herfinancieerings);
+        return record25HerfinancieeringRepository.findAll();
     }
 
     /**
      * GET  /record-25-herfinancieerings/:id : get the "id" record25Herfinancieering.
      *
-     * @param id the id of the record25HerfinancieeringDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the record25HerfinancieeringDTO, or with status 404 (Not Found)
+     * @param id the id of the record25Herfinancieering to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the record25Herfinancieering, or with status 404 (Not Found)
      */
     @GetMapping("/record-25-herfinancieerings/{id}")
     @Timed
-    public ResponseEntity<Record25HerfinancieeringDTO> getRecord25Herfinancieering(@PathVariable Long id) {
+    public ResponseEntity<Record25Herfinancieering> getRecord25Herfinancieering(@PathVariable Long id) {
         log.debug("REST request to get Record25Herfinancieering : {}", id);
-        Optional<Record25HerfinancieeringDTO> record25HerfinancieeringDTO = record25HerfinancieeringRepository.findById(id)
-            .map(record25HerfinancieeringMapper::toDto);
-        return ResponseUtil.wrapOrNotFound(record25HerfinancieeringDTO);
+        Optional<Record25Herfinancieering> record25Herfinancieering = record25HerfinancieeringRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(record25Herfinancieering);
     }
 
     /**
      * DELETE  /record-25-herfinancieerings/:id : delete the "id" record25Herfinancieering.
      *
-     * @param id the id of the record25HerfinancieeringDTO to delete
+     * @param id the id of the record25Herfinancieering to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/record-25-herfinancieerings/{id}")

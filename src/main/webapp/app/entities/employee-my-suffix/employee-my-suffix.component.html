@@ -22,8 +22,8 @@
             <th jhiSortBy="hireDate"><span jhiTranslate="proposalManagementApplicationApp.employee.hireDate">Hire Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="salary"><span jhiTranslate="proposalManagementApplicationApp.employee.salary">Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="commissionPct"><span jhiTranslate="proposalManagementApplicationApp.employee.commissionPct">Commission Pct</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="departmentId"><span jhiTranslate="proposalManagementApplicationApp.employee.department">Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="managerId"><span jhiTranslate="proposalManagementApplicationApp.employee.manager">Manager</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="manager.id"><span jhiTranslate="proposalManagementApplicationApp.employee.manager">Manager</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="department.id"><span jhiTranslate="proposalManagementApplicationApp.employee.department">Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -38,13 +38,13 @@
                 <td>{{employee.salary}}</td>
                 <td>{{employee.commissionPct}}</td>
                 <td>
-                    <div *ngIf="employee.departmentId">
-                        <a [routerLink]="['../department-my-suffix', employee.departmentId , 'view' ]" >{{employee.departmentId}}</a>
+                    <div *ngIf="employee.manager">
+                        <a [routerLink]="['../employee-my-suffix', employee.manager?.id, 'view' ]" >{{employee.manager?.id}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="employee.managerId">
-                        <a [routerLink]="['../employee-my-suffix', employee.managerId , 'view' ]" >{{employee.managerId}}</a>
+                    <div *ngIf="employee.department">
+                        <a [routerLink]="['../department-my-suffix', employee.department?.id, 'view' ]" >{{employee.department?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

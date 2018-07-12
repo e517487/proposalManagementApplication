@@ -5,8 +5,6 @@ import com.inetpsa.pct00.application.domain.Record63Uitleg;
 import com.inetpsa.pct00.application.repository.Record63UitlegRepository;
 import com.inetpsa.pct00.application.web.rest.errors.BadRequestAlertException;
 import com.inetpsa.pct00.application.web.rest.util.HeaderUtil;
-import com.inetpsa.pct00.application.service.dto.Record63UitlegDTO;
-import com.inetpsa.pct00.application.service.mapper.Record63UitlegMapper;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,31 +30,25 @@ public class Record63UitlegResource {
 
     private final Record63UitlegRepository record63UitlegRepository;
 
-    private final Record63UitlegMapper record63UitlegMapper;
-
-    public Record63UitlegResource(Record63UitlegRepository record63UitlegRepository, Record63UitlegMapper record63UitlegMapper) {
+    public Record63UitlegResource(Record63UitlegRepository record63UitlegRepository) {
         this.record63UitlegRepository = record63UitlegRepository;
-        this.record63UitlegMapper = record63UitlegMapper;
     }
 
     /**
      * POST  /record-63-uitlegs : Create a new record63Uitleg.
      *
-     * @param record63UitlegDTO the record63UitlegDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new record63UitlegDTO, or with status 400 (Bad Request) if the record63Uitleg has already an ID
+     * @param record63Uitleg the record63Uitleg to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new record63Uitleg, or with status 400 (Bad Request) if the record63Uitleg has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/record-63-uitlegs")
     @Timed
-    public ResponseEntity<Record63UitlegDTO> createRecord63Uitleg(@RequestBody Record63UitlegDTO record63UitlegDTO) throws URISyntaxException {
-        log.debug("REST request to save Record63Uitleg : {}", record63UitlegDTO);
-        if (record63UitlegDTO.getId() != null) {
+    public ResponseEntity<Record63Uitleg> createRecord63Uitleg(@RequestBody Record63Uitleg record63Uitleg) throws URISyntaxException {
+        log.debug("REST request to save Record63Uitleg : {}", record63Uitleg);
+        if (record63Uitleg.getId() != null) {
             throw new BadRequestAlertException("A new record63Uitleg cannot already have an ID", ENTITY_NAME, "idexists");
         }
-
-        Record63Uitleg record63Uitleg = record63UitlegMapper.toEntity(record63UitlegDTO);
-        record63Uitleg = record63UitlegRepository.save(record63Uitleg);
-        Record63UitlegDTO result = record63UitlegMapper.toDto(record63Uitleg);
+        Record63Uitleg result = record63UitlegRepository.save(record63Uitleg);
         return ResponseEntity.created(new URI("/api/record-63-uitlegs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -65,25 +57,22 @@ public class Record63UitlegResource {
     /**
      * PUT  /record-63-uitlegs : Updates an existing record63Uitleg.
      *
-     * @param record63UitlegDTO the record63UitlegDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated record63UitlegDTO,
-     * or with status 400 (Bad Request) if the record63UitlegDTO is not valid,
-     * or with status 500 (Internal Server Error) if the record63UitlegDTO couldn't be updated
+     * @param record63Uitleg the record63Uitleg to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated record63Uitleg,
+     * or with status 400 (Bad Request) if the record63Uitleg is not valid,
+     * or with status 500 (Internal Server Error) if the record63Uitleg couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/record-63-uitlegs")
     @Timed
-    public ResponseEntity<Record63UitlegDTO> updateRecord63Uitleg(@RequestBody Record63UitlegDTO record63UitlegDTO) throws URISyntaxException {
-        log.debug("REST request to update Record63Uitleg : {}", record63UitlegDTO);
-        if (record63UitlegDTO.getId() == null) {
+    public ResponseEntity<Record63Uitleg> updateRecord63Uitleg(@RequestBody Record63Uitleg record63Uitleg) throws URISyntaxException {
+        log.debug("REST request to update Record63Uitleg : {}", record63Uitleg);
+        if (record63Uitleg.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-
-        Record63Uitleg record63Uitleg = record63UitlegMapper.toEntity(record63UitlegDTO);
-        record63Uitleg = record63UitlegRepository.save(record63Uitleg);
-        Record63UitlegDTO result = record63UitlegMapper.toDto(record63Uitleg);
+        Record63Uitleg result = record63UitlegRepository.save(record63Uitleg);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, record63UitlegDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, record63Uitleg.getId().toString()))
             .body(result);
     }
 
@@ -94,31 +83,29 @@ public class Record63UitlegResource {
      */
     @GetMapping("/record-63-uitlegs")
     @Timed
-    public List<Record63UitlegDTO> getAllRecord63Uitlegs() {
+    public List<Record63Uitleg> getAllRecord63Uitlegs() {
         log.debug("REST request to get all Record63Uitlegs");
-        List<Record63Uitleg> record63Uitlegs = record63UitlegRepository.findAll();
-        return record63UitlegMapper.toDto(record63Uitlegs);
+        return record63UitlegRepository.findAll();
     }
 
     /**
      * GET  /record-63-uitlegs/:id : get the "id" record63Uitleg.
      *
-     * @param id the id of the record63UitlegDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the record63UitlegDTO, or with status 404 (Not Found)
+     * @param id the id of the record63Uitleg to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the record63Uitleg, or with status 404 (Not Found)
      */
     @GetMapping("/record-63-uitlegs/{id}")
     @Timed
-    public ResponseEntity<Record63UitlegDTO> getRecord63Uitleg(@PathVariable Long id) {
+    public ResponseEntity<Record63Uitleg> getRecord63Uitleg(@PathVariable Long id) {
         log.debug("REST request to get Record63Uitleg : {}", id);
-        Optional<Record63UitlegDTO> record63UitlegDTO = record63UitlegRepository.findById(id)
-            .map(record63UitlegMapper::toDto);
-        return ResponseUtil.wrapOrNotFound(record63UitlegDTO);
+        Optional<Record63Uitleg> record63Uitleg = record63UitlegRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(record63Uitleg);
     }
 
     /**
      * DELETE  /record-63-uitlegs/:id : delete the "id" record63Uitleg.
      *
-     * @param id the id of the record63UitlegDTO to delete
+     * @param id the id of the record63Uitleg to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/record-63-uitlegs/{id}")

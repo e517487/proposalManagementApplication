@@ -53,16 +53,16 @@ public class Employee implements Serializable {
     @Column(name = "commission_pct")
     private Long commissionPct;
 
-    @ManyToOne
-    @JsonIgnoreProperties("employees")
-    private Department department;
-
     @OneToMany(mappedBy = "employee")
     private Set<Job> jobs = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("")
     private Employee manager;
+
+    @ManyToOne
+    @JsonIgnoreProperties("employees")
+    private Department department;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -164,19 +164,6 @@ public class Employee implements Serializable {
         this.commissionPct = commissionPct;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public Employee department(Department department) {
-        this.department = department;
-        return this;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
     public Set<Job> getJobs() {
         return jobs;
     }
@@ -213,6 +200,19 @@ public class Employee implements Serializable {
 
     public void setManager(Employee employee) {
         this.manager = employee;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public Employee department(Department department) {
+        this.department = department;
+        return this;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

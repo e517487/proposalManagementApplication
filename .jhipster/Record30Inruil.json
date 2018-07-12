@@ -18,12 +18,11 @@
     "changelogDate": "20180703183452",
     "javadoc": "' Recordtype 30 : Inruil\nPrivate Type Record_Inruil\nPCFinetnr         As String * 11\nRecordType        As String * 2\nVolgnr            As String * 3\nMerk              As String * 15\nType              As String * 6\nModel             As String * 20\nbouwjaar          As String * 4\nFILLER            As String * 451\nFILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)\nFiller3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
     "entityTableName": "record_30_inruil",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "angularJSSuffix": "mySuffix"
+    "applications": "*"
 }

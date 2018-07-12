@@ -1,0 +1,84 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.home.title">Record 10 Aanvraag Gegevens Algemeens</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-record-10-aanvraag-gegevens-algemeen" [routerLink]="['/record-10-aanvraag-gegevens-algemeen/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.home.createLabel">
+            Create new Record 10 Aanvraag Gegevens Algemeen
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="record10AanvraagGegevensAlgemeens">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.pcFinetNr">Pc Finet Nr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.recordType">Record Type</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.volgNr">Volg Nr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.dealerNr">Dealer Nr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.productCode">Product Code</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.zoeknaam">Zoeknaam</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.verkoper">Verkoper</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.dealerTelnr">Dealer Telnr</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatie">Acceptatie</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.aanvangDatum">Aanvang Datum</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.aanvangTijd">Aanvang Tijd</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatieDatum">Acceptatie Datum</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatieTijd">Acceptatie Tijd</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.prtDatum">Prt Datum</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.invoerder">Invoerder</span></th>
+            <th><span jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptant">Acceptant</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let record10AanvraagGegevensAlgemeen of record10AanvraagGegevensAlgemeens ;trackBy: trackId">
+                <td><a [routerLink]="['/record-10-aanvraag-gegevens-algemeen', record10AanvraagGegevensAlgemeen.id, 'view' ]">{{record10AanvraagGegevensAlgemeen.id}}</a></td>
+                <td>{{record10AanvraagGegevensAlgemeen.pcFinetNr}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.recordType}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.volgNr}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.dealerNr}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.productCode}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.zoeknaam}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.verkoper}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.dealerTelnr}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.acceptatie}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.aanvangDatum | date:'mediumDate'}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.aanvangTijd | date:'medium'}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.acceptatieDatum | date:'mediumDate'}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.acceptatieTijd | date:'medium'}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.prtDatum | date:'mediumDate'}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.invoerder}}</td>
+                <td>{{record10AanvraagGegevensAlgemeen.acceptant}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/record-10-aanvraag-gegevens-algemeen', record10AanvraagGegevensAlgemeen.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/record-10-aanvraag-gegevens-algemeen', record10AanvraagGegevensAlgemeen.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'record-10-aanvraag-gegevens-algemeen/'+ record10AanvraagGegevensAlgemeen.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

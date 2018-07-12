@@ -35,11 +35,11 @@ public class Request implements Serializable {
 
     @OneToOne(mappedBy = "request")
     @JsonIgnore
-    private RekenmoduleAanvraag rekenmoduleAanvraag;
+    private CreditScore creditScore;
 
     @OneToOne(mappedBy = "request")
     @JsonIgnore
-    private CreditScore creditScore;
+    private RekenmoduleAanvraag rekenmoduleAanvraag;
 
     @ManyToOne
     @JsonIgnoreProperties("requests")
@@ -67,19 +67,6 @@ public class Request implements Serializable {
         this.pcFinetNr = pcFinetNr;
     }
 
-    public RekenmoduleAanvraag getRekenmoduleAanvraag() {
-        return rekenmoduleAanvraag;
-    }
-
-    public Request rekenmoduleAanvraag(RekenmoduleAanvraag rekenmoduleAanvraag) {
-        this.rekenmoduleAanvraag = rekenmoduleAanvraag;
-        return this;
-    }
-
-    public void setRekenmoduleAanvraag(RekenmoduleAanvraag rekenmoduleAanvraag) {
-        this.rekenmoduleAanvraag = rekenmoduleAanvraag;
-    }
-
     public CreditScore getCreditScore() {
         return creditScore;
     }
@@ -91,6 +78,19 @@ public class Request implements Serializable {
 
     public void setCreditScore(CreditScore creditScore) {
         this.creditScore = creditScore;
+    }
+
+    public RekenmoduleAanvraag getRekenmoduleAanvraag() {
+        return rekenmoduleAanvraag;
+    }
+
+    public Request rekenmoduleAanvraag(RekenmoduleAanvraag rekenmoduleAanvraag) {
+        this.rekenmoduleAanvraag = rekenmoduleAanvraag;
+        return this;
+    }
+
+    public void setRekenmoduleAanvraag(RekenmoduleAanvraag rekenmoduleAanvraag) {
+        this.rekenmoduleAanvraag = rekenmoduleAanvraag;
     }
 
     public Customer getCustomer() {

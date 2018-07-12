@@ -65,21 +65,6 @@ public class RequestServiceImpl implements RequestService {
 
 
     /**
-     *  get all the requests where RekenmoduleAanvraag is null.
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true) 
-    public List<RequestDTO> findAllWhereRekenmoduleAanvraagIsNull() {
-        log.debug("Request to get all requests where RekenmoduleAanvraag is null");
-        return StreamSupport
-            .stream(requestRepository.findAll().spliterator(), false)
-            .filter(request -> request.getRekenmoduleAanvraag() == null)
-            .map(requestMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
-    }
-
-
-    /**
      *  get all the requests where CreditScore is null.
      *  @return the list of entities
      */
@@ -89,6 +74,21 @@ public class RequestServiceImpl implements RequestService {
         return StreamSupport
             .stream(requestRepository.findAll().spliterator(), false)
             .filter(request -> request.getCreditScore() == null)
+            .map(requestMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+
+    /**
+     *  get all the requests where RekenmoduleAanvraag is null.
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<RequestDTO> findAllWhereRekenmoduleAanvraagIsNull() {
+        log.debug("Request to get all requests where RekenmoduleAanvraag is null");
+        return StreamSupport
+            .stream(requestRepository.findAll().spliterator(), false)
+            .filter(request -> request.getRekenmoduleAanvraag() == null)
             .map(requestMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }

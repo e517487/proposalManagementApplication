@@ -33,12 +33,11 @@
     "relationships": [],
     "changelogDate": "20180703183500",
     "entityTableName": "record_62_uitleg",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "angularJSSuffix": "mySuffix"
+    "applications": "*"
 }

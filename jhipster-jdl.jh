@@ -1,857 +1,749 @@
+// JDL definition for application 'proposalManagementApplication' generated with command 'jhipster export-jdl'
+
 /**
  * Request to be scored
  *
  * Contains all the information and assessment status of the request for financing done.
- *
- *
  */
- entity Request {
-     pcFinetNr String required minlength(11) maxlength(11) pattern(/[0-9]+/)
- }
-relationship OneToOne {
-    Request {pcFinetRequest} to PcFinetRequest {request}
-    CreditScore {request} to Request {creditScore}
+entity Request (request) {
+  pcFinetNr String required minlength(11) maxlength(11) pattern(/[0-9]+/)
 }
-relationship OneToMany {
-    Customer{request} to Request{customer}
-}
-
-
- /**
-  * Credit scoring
-  *
-  * Status of the credit scoring of a finance request for the customer.
-  *  Relations to information for the assessment to be done and results of these assessments
-  *  Final judgement of the request done for the customer.
-  * Every credit score is uniquely bounded to a request.
-  */
-  entity CreditScore {
-
-  }
-
-
-
- /**
-  * Customer
-  *
-  * Customer of the financing request.
-  * The customer has to be checked if it is already known (existing customer, or multiple requests from multiple dealers)
-  * If Customer already known this can speedup credit scoring process if this previous scoring is available an still valid.
-  * i.e. one credit scoring for multiple requests done by this customer.
-  *
-  * Main issues for this entity
-  *  - customer known in Miles?
-  *  - processing multiple requests in short time window (multiple request for one financing issue)
-  *
-  */
-  entity Customer {
-
-  }
-//****************************************************************
 /**
- * Request from PC-Finet.
- * Input txt file containing request(s) for financing a car.
-*/
-entity PcFinetRequest {
-     pcFinetNr               String required minlength(11) maxlength(11)
-	 pcFinetAanvraagFileName String
-
-     //aanvraagbericht Aanvraagbericht,
-}
-relationship OneToOne {
-	 Aanvraagbericht {pcFinetAanvraag} to PcFinetAanvraag {aanvraagbericht}
-}
-
-
+ * Credit scoring
+ *
+ * Status of the credit scoring of a finance request for the customer.
+ * Relations to information for the assessment to be done and results of these assessments
+ * Final judgement of the request done for the customer.
+ * Every credit score is uniquely bounded to a request.
+ */
+entity CreditScore (credit_score)
 /**
-     *   ' Recordtype 1 : Start (
-     * 'Private Type Record_Start
-     * '  PCFinetnr    As String * 11
-     * '  RecordType   As String * 2
-     * '  Volgnr       As String * 3
-     * '  CreatieDatum As String * 8
-     * '  CreatieTijd  As String * 5
-     * '  FILLER       As String * 483 '<- in doc. stond 482, maar uit bestand blijkt 483 !
-     * '  FILLER2     As String * 128
-     * 'End Type
-     */
- entity Record_1_Start {
-     pcFinetNr     String required minlength(11) maxlength(11)
-     recordType    Integer
-     volgNr        Integer
-     creatieDatum  LocalDate
-     creatieTijd   ZonedDateTime
-  }
-
-
-    /**
-     *   ' RecordType 99: Eindrecord
-     * 'Private Type Record_Eind
-     * '  PCFinetnr       As String * 11
-     * '  RecordType      As String * 2
-     * '  Volgnr          As String * 3
-     * '  CreatieDatum    As String * 8
-     * '  CreatieTijd     As String * 5
-     * '  AantalAanvragen As String * 5
-     * '  AantalRegels    As String * 5
-     * '  FILLER          As String * 473 ' In doc. stond 472, uit bestand blijkt 473
-     * '  FILLER2     As String * 128
-     * 'End Type
-     */
-  entity Record_99_End {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-     creatieDatum    LocalDate
-     creatieTijd     ZonedDateTime
-     aantalAanvragen Integer
-     aantalRegels    Integer
-  }
-
-    /**
-     *   ' Recordtype 10 : Aanvraaggegevens algemeen
-     * Private Type Record_AV_ALG
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2    already stripped
-     *   Volgnr            As String * 3    0..3
-     *   DEALERNR          As String * 6    3..9
-     *   PROD_CODE         As String * 5    9..14
-     *   Zoeknaam          As String * 20   14..34
-     *   Verkoper          As String * 30   34..64
-     *   DealerTelnr       As String * 20   64..84
-     *   Acceptatie        As String * 1    84..85
-     *   Aanv_datum        As String * 8    85..93
-     *   Aanv_tijd         As String * 5    93..98
-     *   Acc_Datum         As String * 8    98..106
-     *   Acc_tijd          As String * 5    106..111
-     *   Prt_Datum         As String * 8    111..119
-     *   Invoerder         As String * 7    119..126
-     *   Acceptant         As String * 7    126..133
-     *   FILLER            As String * 365
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_10_AanvraagGegevensAlgemeen {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-     dealerNr        String
-     productCode         String
-     zoeknaam           String
-     verkoper           String
-     dealerTelnr        String
-     acceptatie         String
-     aanvangDatum        LocalDate
-     aanvangTijd         ZonedDateTime
-     acceptatieDatum     LocalDate
-     acceptatieTijd    ZonedDateTime
-     prtDatum          LocalDate
-     invoerder         String
-     acceptant         String
-}
-
-    /**
-     *   ' Recordtype 11 : Aanvraaggegevens, opmerking
-     * Private Type Record_AV_Opmerking
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   Regel1            As String * 80
-     *   Regel2            As String * 80
-     *   Regel3            As String * 80
-     *   Regel4            As String * 80
-     *   Regel5            As String * 80
-     *   Regel6            As String * 80
-     *   FILLER            As String * 31 ' in doc stond 32?
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_11_AanvraagGegevensOpmerkingen {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-     regel1			 String minlength(80) maxlength(80),
-     regel2			 String minlength(80) maxlength(80),
-     regel3			 String minlength(80) maxlength(80),
-     regel4			 String minlength(80) maxlength(80),
-     regel5			 String minlength(80) maxlength(80),
-     regel6			 String minlength(80) maxlength(80)
-}
-    /**
-     *    Recordtype 20 : Financieel
-     * Private Type Record_Financieel
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   con_soort         As String * 2
-     *   Ma_Optie          As String * 1 ' niet meer gebruikt in PCRT
-     *   KM_Jaar           As String * 6 ' niet meer gebruikt in PCRT
-     *   KM_Stand          As String * 6 ' niet meer gebruikt in PCRT
-     *   Afg_kent          As String * 6
-     *   Verkprijs         As String * 9
-     *   Aanbetal          As String * 9
-     *   Vergoeding        As String * 9
-     *   herfin_bed        As String * 9
-     *   hoofdsom          As String * 9 ' EH 27-5-2004
-     *   fin_bedrag        As String * 9 ' EH 27-5-2004
-     *   Restant           As String * 9 ' EH 27-5-2004
-     *   Looptijd          As String * 2
-     *   Termijn           As String * 9
-     *   Interest          As String * 7
-     *   Service           As String * 1
-     *   GMINRUIL          As String * 9 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   FILLER            As String * 383
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_20_Financieel {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer,
-     volgnr          Integer
-}
-    /**
-     *   ' Recordtype 25 : Herfinanciering
-     * Private Type Record_Herfin
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   Srt_Finmij        As String * 1
-     *   Finmij            As String * 30
-     *   Bruto             As String * 9
-     *   Stat_Datum        As String * 8
-     *   Contractnr        As String * 20
-     *   Bethist           As String * 1
-     *   FILLER            As String * 426 ' in doc. stond 428
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_20_Herfinancieering {
-     pcFinetNr       String,
-     recordType      Integer,
-     volgnr          Integer
-}
-    /**
-     *   ' Recordtype 30 : Inruil
-     * Private Type Record_Inruil
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   Merk              As String * 15
-     *   Type              As String * 6
-     *   Model             As String * 20
-     *   bouwjaar          As String * 4
-     *   FILLER            As String * 451
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_30_Inruil {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-}
-    /**
-     *   ' Recordtype 35 : Object
-     * Private Type Record_Object
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   Merk              As String * 15
-     *   Type              As String * 6
-     *   Model             As String * 20
-     *   Onderpand         As String * 30
-     *   Categorie         As String * 1
-     *   bouwjaar          As String * 4
-     *   Kenteken          As String * 8
-     *   Chassisnr         As String * 15
-     *   Mfrt_merk         As String * 2
-     *   Mfrt_Type         As String * 4
-     *   MdlAggrnr         As String * 3
-     *   FILLER            As String * 388
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_35_Object {
-     pcFinetNr       String,
-     recordType      Integer,
-     volgnr          Integer
-}
-    /**
-     *   ' Recordtype 40 : Acceptatie / Score
-     * Private Type Record_Score
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   Tenaamstel        As String * 20
-     *   Riskmodel         As String * 1
-     *   MatigHist         As String * 1
-     *   InTeleGids        As String * 1
-     *   Interview         As String * 1
-     *   Bekend            As String * 1
-     *   Eerder            As String * 1
-     *   Alias             As String * 1
-     *   aCode             As String * 1
-     *   APlusCode         As String * 1
-     *   ACodeHyp          As String * 1
-     *   Afgelost          As String * 1
-     *   Lopend            As String * 1
-     *   Lopend_sk         As String * 1
-     *   Leg               As String * 1
-     *   Afgewezen         As String * 1
-     *   Score             As String * 4
-     *   Klasse            As String * 1
-     *   Auto_Acc          As String * 1
-     *   Add_Info          As String * 1
-     *   Afwijzen          As String * 1
-     *   Log_Score         As String * 33
-     *   Log_Info          As String * 24
-     *   Log_Afwijs        As String * 4
-     *   Zekerheden        As String * 5
-     *   bkrscore          As String * 1 ' 100713 PROOVIT-EH: Toevoeging ivm Basel 2
-     *   avstatus          As String * 2 ' 100713 PROOVIT-EH: Toevoeging ivm Basel 2
-     *   AantInkomn        As String * 1 ' 100907 PROOVIT-EH: Toevoeging ivm Basel 2 - AANTINKOMEN
-     *   AantBkrCtr        As String * 2 ' 100907 PROOVIT-EH: Toevoeging ivm Basel 2 - AANTBKRCONTR
-     *   FILLER            As String * 380 ' in doc. stond 380...
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_40_AcceptatieScore {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer required minlength(11) maxlength(11)
-     volgnr          Integer
-}
-    /**
-     *   ' Recordtype 45 : Relatie
-     * Private Type Record_Relatie
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   Rol               As String * 2
-     *   Titulatuur        As String * 2
-     *   Voorletter        As String * 20
-     *   prefix            As String * 20
-     *   Naam              As String * 30
-     *   Zoeknaam          As String * 20
-     *   Straat            As String * 32
-     *   HuisNr            As String * 5
-     *   ToevhuisNr        As String * 7
-     *   Postcode          As String * 6
-     *   Plaats            As String * 32
-     *   TelefoonNr        As String * 20
-     *   gebdatum          As String * 8
-     *   GebPlaats         As String * 32
-     *   Nat               As String * 2
-     *   Burgstatus        As String * 2
-     *   geslacht          As String * 2
-     *   Rekeningnr        As String * 20
-     *   Bankgroep         As String * 2
-     *   Rijbewijs         As String * 20
-     *   Beroep            As String * 30
-     *   Cat_Beroep        As String * 2
-     *   Srt_Beroep        As String * 2
-     *   Naam_Werk         As String * 30
-     *   PltsWerk          As String * 30
-     *   Tel_Werk          As String * 20
-     *   StartWerk         As String * 8
-     *   Cat_Ink           As String * 2
-     *   Uitkering         As String * 2
-     *   Kinderen          As String * 2
-     *   Behuizing         As String * 2
-     *   Woon_duur         As String * 2
-     *   Woonlasten        As String * 8
-     *   ' 100310 PROOVIT-EH: Basel II -- Nieuwe velden
-     *   Ink_Neto          As String * 7 '  100310 PROOVIT-EH: Basel II -- NETTO
-     *   InkTotNeto        As String * 7 '  100310 PROOVIT-EH: Basel II -- TOTAALNETTO
-     *   OpbMndBdrg        As String * 7 '  100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG
-     *   PercSchLst        As String * 7 '  100310 PROOVIT-EH: Basel II -- PERC -SCHULDENLAST
-     *   PercScLsTo        As String * 7 '  100310 PROOVIT-EH: Basel II -- PERC -TOT - SCHULDENLAST
-     *   StartWonin        As String * 8 '  100907 PROOVIT-EH: Basel II -- StartWoning = datum
-     *   FILLER            As String * 31 ' 120904 PROOVIT-EH: ALN-36 (MBe)
-     *   IBAN              As String * 34 ' 120904 PROOVIT-EH: ALN-36 (MBe)
-     *   BIC               As String * 12 ' 120904 PROOVIT-EH: ALN-36 (MBe)
-     *   EMAIL             As String * 80 ' 120904 PROOVIT-EH: ALN-36 (MBe)
-     *   '-- 141008 PROOVIT-EH: DESIN-292 - New fields
-     *   NAT_CODE          As String * 3
-     *   VERBLIJFNR        As String * 15
-     *   EVOLGEZIN         As String * 1
-     *   EVOLINKOMSTEN     As String * 1
-     *   SOORTWRKCONTRAKT  As String * 1
-     *   EINDDATWRKCONTR   As String * 6
-     *   INTENTIEWRKCONTR  As String * 1
-     *   VERZOEKPLATFORM   As String * 1
-     *   '-- 141008 PROOVIT-EH: DESIN-292 - New fields END
-     *   Filler3           As String * 31 ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_45_Relatie {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-}
-
-    /**
-     *   ' Recordtype 46 : Relatie - Huishoudelijk
-     * Private Type Record_RelatieHuish ' 100310 PROOVIT-EH: New for Basel II
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   HuisHgld          As String * 7   ' 100310 PROOVIT-EH: Basel II -- HUISHGELD
-     *   HuisHGlTot        As String * 7   ' 100310 PROOVIT-EH: Basel II -- TOTAALHUISHGELD
-     *   OpnStdMndB        As String * 7   ' 100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG - HUISH
-     *   VateLasten        As String * 7   ' 100310 PROOVIT-EH: Basel II -- VASTE -MNDLASTEN - HUISH
-     *   TotMndLast        As String * 7   ' 100310 PROOVIT-EH: Basel II -- Totaal -MNDLASTEN - HUISH
-     *   FILLER            As String * 460 ' 100310 PROOVIT-EH: Basel II -- in doc. stond 460
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_46_RelatieHuishoudelijk {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-}
-
-    /**
-     *   ' Recordtype 50 : Bedrijf
-     * Private Type Record_Bedrijf
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   Rol               As String * 2
-     *   BedNaam           As String * 30
-     *   Zoeknaam          As String * 20
-     *   Rechtsvorm        As String * 2
-     *   Straat            As String * 32
-     *   HuisNr            As String * 5
-     *   ToevhuisNr        As String * 7
-     *   Postcode          As String * 6
-     *   Plaats            As String * 32
-     *   TelefoonNr        As String * 20
-     *   OprDatum          As String * 8
-     *   Gemachtigd        As String * 30
-     *   Functiegem        As String * 20
-     *   Rekeningnr        As String * 20
-     *   Bankgroep         As String * 2
-     *   Stat_naam         As String * 79
-     *   KvK_Inschr        As String * 10
-     *   KvK_Plaats        As String * 32
-     *   Kapitaal          As String * 9
-     *   DunBradnr         As String * 15
-     *   JaarBalans        As String * 4
-     *   FILLER            As String * 111 ' in doc. stond 110
-     *   IBAN              As String * 34 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   BIC               As String * 12 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   EMAIL             As String * 80 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
-entity Record_50_Bedrijf {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-}
-    /**
-     *   ' Recordtype 55 : Scoring
-     * Private Type Record_Scoring ' 100310 PROOVIT-EH: New for Basel II
-     *   PCFinetnr         As String * 11
-     *   RecordType        As String * 2
-     *   Volgnr            As String * 3
-     *   Scoring25         As String * 450 ' 25 * 3 * 6  ' 100310 PROOVIT-EH: Basel II -- SCORING OCCURS max 25 blocks of 6x3
-     *   FILLER            As String * 46  ' 100310 PROOVIT-EH: Basel II -- in doc. stond 46
-     *   FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
-     *   Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     * Private Type Record_ScoringTempRegel ' 100310 PROOVIT-EH: New for Basel II - subrecord of 55
-     *   Regel     As String * 18   ' 100310 PROOVIT-EH: Basel II -- REG -code
-     * End Type
-     * Private Type Record_ScoringSub1 ' 100310 PROOVIT-EH: New for Basel II - subrecord of 55
-     *   REG_CODE          As String * 3   ' 100310 PROOVIT-EH: Basel II -- REG -code
-     *   COND_NR           As String * 3   ' 100310 PROOVIT-EH: Basel II -- COND -NR
-     *   Cond_Score        As String * 3   ' 100310 PROOVIT-EH: Basel II -- COND -Score
-     *   AfwysRegCd        As String * 3   ' 100310 PROOVIT-EH: Basel II -- AFWIJS -REG - code
-     *   ZekerhCode        As String * 3   ' 100310 PROOVIT-EH: Basel II -- ZEKERH -code
-     *   InfoRegCod        As String * 3   ' 100310 PROOVIT-EH: Basel II -- INFO -REG - code
-     * End Type
-     */
- entity Record_55_Scoring {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-}
-
-    /**
-     *   ' Recordtype 61, 62, 63 : Uitleg
-     * Private Type Record_Uitleg ' 141008 PROOVIT-EH: DESIN-292 - New record, multi used by 61, 62, 63
-     *     PCFinetnr         As String * 11
-     *     RecordType        As String * 2
-     *     Volgnr            As String * 3
-     *     Rol               As String * 2
-     *     UITLEGGEZIN       As String * 240
-     *     UITLEGINKOMSTEN   As String * 240
-     *     UITLEGINPLATFORM  As String * 200
-     *     Filler3           As String * 2  ' 141008 PROOVIT-EH: DESIN-292
-     * End Type
-     */
- entity Record_61_Uitleg {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-     rol              String
-     uitlegGezin      String  maxlength(240)
-     uitlegInkomsten  String  maxlength(240)
-     uitlegInPlatform String  maxlength(200)
-}
- entity Record_62_Uitleg {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-     rol              String
-     uitlegGezin      String  maxlength(240)
-     uitlegInkomsten  String  maxlength(240)
-     uitlegInPlatform String  maxlength(200)
-}
- entity Record_63_Uitleg {
-     pcFinetNr       String required minlength(11) maxlength(11)
-     recordType      Integer
-     volgnr          Integer
-     rol              String
-     uitlegGezin      String  maxlength(240)
-     uitlegInkomsten  String  maxlength(240)
-     uitlegInPlatform String  maxlength(200)
-}
-
-//****************************************************************
+ * Customer
+ *
+ * Customer of the financing request.
+ * The customer has to be checked if it is already known (existing customer, or multiple requests from multiple dealers)
+ * If Customer already known this can speedup credit scoring process if this previous scoring is available an still valid.
+ * i.e. one credit scoring for multiple requests done by this customer.
+ *
+ * Main issues for this entity
+ * - customer known in Miles?
+ * - processing multiple requests in short time window (multiple request for one financing issue)
+ */
+entity Customer (customer)
 /**
  * Request from Rekenmodule.
  * Input xml file containing request(s) for financing a car.
-*/
-entity RekenmoduleAanvraag {
-     pcFinetNr     String,
-	 rekenmoduleAanvraagFileName String //,
-     //aanvraagbericht Aanvraagbericht,
-}
-relationship OneToOne {
-	 Aanvraagbericht {rekenmoduleAanvraag} to RekenmoduleAanvraag {aanvraagbericht}
-}
-
-/**
-*  Main entry of rekenmodule aanvraag xml file with the request.
-*/
-entity Aanvraagbericht {
-    //header Header,
-    //algemeen Algemeen,
-    //fdnAanvrager List<FdnAanvrager>,
-	//kredietAanvraag List<KredietAanvraag>,
-	//vrijeTekst List<VrijeTekst>
-}
-relationship OneToOne  { Aanvraagbericht {header}          to Header {aanvraagbericht}}
-relationship OneToOne  { Aanvraagbericht {algemeen}        to Algemeen {aanvraagbericht}}
-relationship OneToMany { Aanvraagbericht {fdnAanvrager}    to FdnAanvrager {aanvraagbericht}}
-relationship OneToMany { Aanvraagbericht {kredietAanvraag} to KredietAanvraag {aanvraagbericht}}
-relationship OneToMany { Aanvraagbericht {vrijeTekst}      to VrijeTekst {aanvraagbericht}}
-
-/**
-* 1 Header allowed per <Aanvraagbericht>
-*/
-entity Header {
-	emailZender String,
-    emailOntvanger String,
-    ontvangerNaam String,
-    lognaam String,
-    messageRef String,
-    berichtVersie Integer,
-    verzendDt LocalDate,
-    verzendTijd LocalDate
-}
-
-/**
-* 1 Algemeen allowed per <Aanvraagbericht>
-*/
-entity Algemeen {
-	viewcode String,
-    versiecode String,
-    valuta String,
-    aanvraagVersie Long,
-    aanvraagVolgNr Long,
-    tussenpersoonNr Long,
-    bedrijfsnaamTp String,
-    contactPersoonTp String,
-    maatschappij String,
-    registratieDt LocalDate,
-    subagentNr Long,
-    verkopersNaam String
-}
-
-/**
-* 0..n of FdnAanvrager allowed per <Aanvraagbericht>
-*/
-entity FdnAanvrager {
- 	volgnummer Long,
-
-    soortAanvrager String,
-    achterNaam String,
-    voorletters String,
-    gebNaam String,
-    woonachtigHuidigDt LocalDate,
-    telBereikbaar String,
-    telefoonNrPrive String,
-    iban String,
-    geboorteDt LocalDate,
-    nationaliteit String,
-    geslacht String,
-    sociaalFiscaalNr String,
-    relatieTp String
-    //adres
-    //legitimatiebewijs
-    //werksituatie
-    //gezinsituatie
-    //financieleSituatie
-}
-/** not an ignored comment */
-entity Adres {
- 	volgnummer Long,
-
-	soortAdres	String,
-	straatNaam	String,
-	huisNr		String,
-	plaatsNaam	String,
-	postcode	String,
-	land		String
-}
-entity Legitimatiebewijs {
- 	volgnummer Long,
-
-    soort	String,
-    land	String
-}
-entity Werksituatie {
-	volgnummer Long
-
-    beroep	String,
-    aardDienstverband	String,
-    beginDienstverbandDt	LocalDate,
-}
-entity NawWerkgeverUWV {
-	volgnummer Long,
-
-    naam	String,
-    plaatsNaam	String
-}
-relationship OneToMany { Werksituatie {nawWerkgeverUWV} to NawWerkgeverUWV {werksituatie}}
-entity Gezinssituatie {
-	volgnummer Long,
-
-    burgerlijkeStaat		String,
-	huwelijkseVw		String,
-	huwelijkOntbonden		String,
-	weduweWeduwnaar		String,
-	kinderenAantal	Integer
-}
-entity FinancieleSituatie {
-	volgnummer Long,
-
-    brutoMaandInk BigDecimal,
-	nettoMaandInk BigDecimal,
-	voorlopigeTeruggaaf String,
-	eigenWoning	String,
-	hypotheek String,
-	brutoMndHypotheek	BigDecimal,
-	lopendeLeningen	String,
-	woonsituatie	String,
-	woonlasten	BigDecimal
-}
-relationship OneToMany {
-	FdnAanvrager {adres}              to Adres {fdnAanvrager}
-    FdnAanvrager {legitimatiebewijs}  to Legitimatiebewijs {fdnAanvrager}
-    FdnAanvrager {werksituatie}       to Werksituatie {fdnAanvrager}
-    FdnAanvrager {gezinssituatie}     to Gezinssituatie {fdnAanvrager}
-    FdnAanvrager {financieleSituatie} to FinancieleSituatie {fdnAanvrager}
+ */
+entity RekenmoduleAanvraag (rekenmodule_aanvraag) {
+  rekenmoduleAanvraagFileName String
 }
 /**
-* 0..n of KredietAanvraag allowed per <Aanvraagbericht>
-*/
-entity KredietAanvraag {
-	volgnummer Long,
-
-    duurInMnd String,
-    soortAanvraag String,
-    produktCodeNaam String,
-    leningBedrag BigDecimal,
-    mndAflosBedrag BigDecimal,
-    gevrBedrInHanden BigDecimal,
-    zekerheid String,
-    bestedingsdoel String,
-    merkObject String,
-    typeObject String,
-	bouwjaarObject String,
-    koopsomWaardeObj String,
-    kenteken String,
-    chassisnr String,
-    inruilbedrag String,
-    doelNieuw String,
-    aanbetalingbedrag BigDecimal,
-    inruilbedrag BigDecimal,
-    modelObject	 String,
-    sparen String,
-	typeTarief String,
-    tariefNaam String,
-    soortContract String,
-    kontraktNaam String,
-    produktNr String,
-    produktCodeNaam String,
-    perspectief String,
-    nieuwGebruikt String,
-    verkoopprijs BigDecimal,
-    aanbetaling BigDecimal,
-    overnameLopendeLening String,
-    kredietSom BigDecimal,
-    gMI String,
-    overnameKentekennr String,
-    overnameFinanMy String,
-    ovvrnameContractNr String,
-    overnamePlaats String,
-    duurinMnd String,
-    restantbetaling	BigDecimal,
-    effectiveRente  String,
-    verkoper String,
-}
-//------------------------
+ * Main entry of rekenmodule aanvraag xml file with the request.
+ */
+entity Aanvraagbericht (aanvraagbericht)
 /**
-* 0..n of VrijeTekst allowed per <Aanvraagbericht>
-* Make a tekst blok(s) containing severalrows of tekst.
-*/
-entity VrijeTekst {
-	volgnummer Long,
-    //TekstRegel List<String>
+ * 1 Header allowed per <Aanvraagbericht>
+ */
+entity Header (header) {
+  emailZender String,
+  emailOntvanger String,
+  ontvangerNaam String,
+  lognaam String,
+  messageRef String,
+  berichtVersie Integer,
+  verzendDt LocalDate,
+  verzendTijd LocalDate
 }
 /**
-* 0..n Rows of text in the parent VrijeTekst
-*/
-entity TekstRegel {
-	regelnummer Long,
-    tekst String
+ * 1 Algemeen allowed per <Aanvraagbericht>
+ */
+entity Algemeen (algemeen) {
+  viewcode String,
+  versiecode String,
+  valuta String,
+  aanvraagVersie Long,
+  aanvraagVolgNr Long,
+  tussenpersoonNr Long,
+  bedrijfsnaamTp String,
+  contactPersoonTp String,
+  maatschappij String,
+  registratieDt LocalDate,
+  subagentNr Long,
+  verkopersNaam String
 }
-relationship OneToMany {VrijeTekst {tekstRegel} to  TekstRegel {vrijeTekst} }
-
-//------------------------
-entity Region {
-	regionName String
+/**
+ * 0..n of FdnAanvrager allowed per <Aanvraagbericht>
+ */
+entity FdnAanvrager (fdn_aanvrager) {
+  volgnummer Long,
+  soortAanvrager String,
+  achterNaam String,
+  voorletters String,
+  gebNaam String,
+  woonachtigHuidigDt LocalDate,
+  telBereikbaar String,
+  telefoonNrPrive String,
+  iban String,
+  geboorteDt LocalDate,
+  nationaliteit String,
+  geslacht String,
+  sociaalFiscaalNr String,
+  relatieTp String
 }
-
-entity Country {
-	countryName String
+/**
+ * not an ignored comment
+ */
+entity Adres (adres) {
+  volgnummer Long,
+  soortAdres String,
+  straatNaam String,
+  huisNr String,
+  plaatsNaam String,
+  postcode String,
+  land String
 }
-
-// an ignored comment
-/** not an ignored comment */
-entity Location {
-	streetAddress String,
-	postalCode String,
-	city String,
-	stateProvince String
+entity Legitimatiebewijs (legitimatiebewijs) {
+  volgnummer Long,
+  soort String,
+  land String
 }
-
-entity Department {
-	departmentName String required
+entity Werksituatie (werksituatie) {
+  volgnummer Long,
+  beroep String,
+  aardDienstverband String,
+  beginDienstverbandDt LocalDate
 }
-
+entity NawWerkgeverUWV (naw_werkgever_uwv) {
+  volgnummer Long,
+  naam String,
+  plaatsNaam String
+}
+entity Gezinssituatie (gezinssituatie) {
+  volgnummer Long,
+  burgerlijkeStaat String,
+  huwelijkseVw String,
+  huwelijkOntbonden String,
+  weduweWeduwnaar String,
+  kinderenAantal Integer
+}
+entity FinancieleSituatie (financiele_situatie) {
+  volgnummer Long,
+  brutoMaandInk BigDecimal,
+  nettoMaandInk BigDecimal,
+  voorlopigeTeruggaaf String,
+  eigenWoning String,
+  hypotheek String,
+  brutoMndHypotheek BigDecimal,
+  lopendeLeningen String,
+  woonsituatie String,
+  woonlasten BigDecimal
+}
+/**
+ * 0..n of KredietAanvraag allowed per <Aanvraagbericht>
+ */
+entity KredietAanvraag (krediet_aanvraag) {
+  volgnummer Long,
+  duurInMnd String,
+  soortAanvraag String,
+  produktCodeNaam String,
+  leningBedrag BigDecimal,
+  mndAflosBedrag BigDecimal,
+  gevrBedrInHanden BigDecimal,
+  zekerheid String,
+  bestedingsdoel String,
+  merkObject String,
+  typeObject String,
+  bouwjaarObject String,
+  koopsomWaardeObj String,
+  kenteken String,
+  chassisnr String,
+  inruilbedrag BigDecimal,
+  doelNieuw String,
+  aanbetalingbedrag BigDecimal,
+  modelObject String,
+  sparen String,
+  typeTarief String,
+  tariefNaam String,
+  soortContract String,
+  kontraktNaam String,
+  produktNr String,
+  perspectief String,
+  nieuwGebruikt String,
+  verkoopprijs BigDecimal,
+  aanbetaling BigDecimal,
+  overnameLopendeLening String,
+  kredietSom BigDecimal,
+  gMI String,
+  overnameKentekennr String,
+  overnameFinanMy String,
+  ovvrnameContractNr String,
+  overnamePlaats String,
+  duurinMnd String,
+  restantbetaling BigDecimal,
+  effectiveRente String,
+  verkoper String
+}
+/**
+ * 0..n of VrijeTekst allowed per <Aanvraagbericht>
+ * Make a tekst blok(s) containing severalrows of tekst.
+ */
+entity VrijeTekst (vrije_tekst) {
+  volgnummer Long
+}
+/**
+ * 0..n Rows of text in the parent VrijeTekst
+ */
+entity TekstRegel (tekst_regel) {
+  regelnummer Long,
+  tekst String
+}
+entity Region (region) {
+  regionName String
+}
+entity Country (country) {
+  countryName String
+}
+/**
+ * not an ignored comment
+ */
+entity Location (location) {
+  streetAddress String,
+  postalCode String,
+  city String,
+  stateProvince String
+}
+entity Department (department) {
+  departmentName String required
+}
 /**
  * Task entity.
  * @author The JHipster team.
  */
-entity Task {
-	title String,
-	description String
+entity Task (task) {
+  title String,
+  description String
 }
-
 /**
  * The Employee entity.
  */
-entity Employee {
-	/**
-	* The firstname attribute.
-	*/
-	firstName String,
-	lastName String,
-	email String,
-	phoneNumber String,
-	hireDate Instant,
-	salary Long,
-	commissionPct Long
+entity Employee (employee) {
+  /**
+   * The firstname attribute.
+   */
+  firstName String,
+  lastName String,
+  email String,
+  phoneNumber String,
+  hireDate Instant,
+  salary Long,
+  commissionPct Long
 }
-
-entity Job {
-	jobTitle String,
-	minSalary Long,
-	maxSalary Long
+entity Job (job) {
+  jobTitle String,
+  minSalary Long,
+  maxSalary Long
 }
-
-entity JobHistory {
-	startDate Instant,
-	endDate Instant,
-	language Language
+entity JobHistory (job_history) {
+  startDate Instant,
+  endDate Instant,
+  language Language
+}
+/**
+ * ' Recordtype 1 : Start (
+ * 'Private Type Record_Start
+ * '  PCFinetnr    As String * 11
+ * '  RecordType   As String * 2
+ * '  Volgnr       As String * 3
+ * '  CreatieDatum As String * 8
+ * '  CreatieTijd  As String * 5
+ * '  FILLER       As String * 483 '<- in doc. stond 482, maar uit bestand blijkt 483 !
+ * '  FILLER2     As String * 128
+ * 'End Type
+ */
+entity Record01Start (record_01_start) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer,
+  creatieDatum LocalDate,
+  creatieTijd ZonedDateTime
+}
+/**
+ * ' Recordtype 10 : Aanvraaggegevens algemeen
+ * Private Type Record_AV_ALG
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2    already stripped
+ * Volgnr            As String * 3    0..3
+ * DEALERNR          As String * 6    3..9
+ * PROD_CODE         As String * 5    9..14
+ * Zoeknaam          As String * 20   14..34
+ * Verkoper          As String * 30   34..64
+ * DealerTelnr       As String * 20   64..84
+ * Acceptatie        As String * 1    84..85
+ * Aanv_datum        As String * 8    85..93
+ * Aanv_tijd         As String * 5    93..98
+ * Acc_Datum         As String * 8    98..106
+ * Acc_tijd          As String * 5    106..111
+ * Prt_Datum         As String * 8    111..119
+ * Invoerder         As String * 7    119..126
+ * Acceptant         As String * 7    126..133
+ * FILLER            As String * 365
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record10AanvraagGegevensAlgemeen (record_10_aanvraag_gegevens_algemeen) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer,
+  dealerNr String,
+  productCode String,
+  zoeknaam String,
+  verkoper String,
+  dealerTelnr String,
+  acceptatie String,
+  aanvangDatum LocalDate,
+  aanvangTijd ZonedDateTime,
+  acceptatieDatum LocalDate,
+  acceptatieTijd ZonedDateTime,
+  prtDatum LocalDate,
+  invoerder String,
+  acceptant String
+}
+/**
+ * ' Recordtype 11 : Aanvraaggegevens, opmerking
+ * Private Type Record_AV_Opmerking
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * VolgNr            As String * 3
+ * Regel1            As String * 80
+ * Regel2            As String * 80
+ * Regel3            As String * 80
+ * Regel4            As String * 80
+ * Regel5            As String * 80
+ * Regel6            As String * 80
+ * FILLER            As String * 31 ' in doc stond 32?
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record11AanvraagGegevensOpmerkingen (record_11_aanvraag_gegevens_opmerkingen) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * Recordtype 20 : Financieel
+ * Private Type Record_Financieel
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * con_soort         As String * 2
+ * Ma_Optie          As String * 1 ' niet meer gebruikt in PCRT
+ * KM_Jaar           As String * 6 ' niet meer gebruikt in PCRT
+ * KM_Stand          As String * 6 ' niet meer gebruikt in PCRT
+ * Afg_kent          As String * 6
+ * Verkprijs         As String * 9
+ * Aanbetal          As String * 9
+ * Vergoeding        As String * 9
+ * herfin_bed        As String * 9
+ * hoofdsom          As String * 9 ' EH 27-5-2004
+ * fin_bedrag        As String * 9 ' EH 27-5-2004
+ * Restant           As String * 9 ' EH 27-5-2004
+ * Looptijd          As String * 2
+ * Termijn           As String * 9
+ * Interest          As String * 7
+ * Service           As String * 1
+ * GMINRUIL          As String * 9 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * FILLER            As String * 383
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record20Financieel (record_20_financieel) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 25 : Herfinanciering
+ * Private Type Record_Herfin
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * Srt_Finmij        As String * 1
+ * Finmij            As String * 30
+ * Bruto             As String * 9
+ * Stat_Datum        As String * 8
+ * Contractnr        As String * 20
+ * Bethist           As String * 1
+ * FILLER            As String * 426 ' in doc. stond 428
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record25Herfinancieering (record_25_herfinancieering) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 30 : Inruil
+ * Private Type Record_Inruil
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * Merk              As String * 15
+ * Type              As String * 6
+ * Model             As String * 20
+ * bouwjaar          As String * 4
+ * FILLER            As String * 451
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record30Inruil (record_30_inruil) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 35 : Object
+ * Private Type Record_Object
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * Merk              As String * 15
+ * Type              As String * 6
+ * Model             As String * 20
+ * Onderpand         As String * 30
+ * Categorie         As String * 1
+ * bouwjaar          As String * 4
+ * Kenteken          As String * 8
+ * Chassisnr         As String * 15
+ * Mfrt_merk         As String * 2
+ * Mfrt_Type         As String * 4
+ * MdlAggrnr         As String * 3
+ * FILLER            As String * 388
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record35Object (record_35_object) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 40 : Acceptatie / Score
+ * Private Type Record_Score
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * Tenaamstel        As String * 20
+ * Riskmodel         As String * 1
+ * MatigHist         As String * 1
+ * InTeleGids        As String * 1
+ * Interview         As String * 1
+ * Bekend            As String * 1
+ * Eerder            As String * 1
+ * Alias             As String * 1
+ * aCode             As String * 1
+ * APlusCode         As String * 1
+ * ACodeHyp          As String * 1
+ * Afgelost          As String * 1
+ * Lopend            As String * 1
+ * Lopend_sk         As String * 1
+ * Leg               As String * 1
+ * Afgewezen         As String * 1
+ * Score             As String * 4
+ * Klasse            As String * 1
+ * Auto_Acc          As String * 1
+ * Add_Info          As String * 1
+ * Afwijzen          As String * 1
+ * Log_Score         As String * 33
+ * Log_Info          As String * 24
+ * Log_Afwijs        As String * 4
+ * Zekerheden        As String * 5
+ * bkrscore          As String * 1 ' 100713 PROOVIT-EH: Toevoeging ivm Basel 2
+ * avstatus          As String * 2 ' 100713 PROOVIT-EH: Toevoeging ivm Basel 2
+ * AantInkomn        As String * 1 ' 100907 PROOVIT-EH: Toevoeging ivm Basel 2 - AANTINKOMEN
+ * AantBkrCtr        As String * 2 ' 100907 PROOVIT-EH: Toevoeging ivm Basel 2 - AANTBKRCONTR
+ * FILLER            As String * 380 ' in doc. stond 380...
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record40AcceptatieScore (record_40_acceptatie_score) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 45 : Relatie
+ * Private Type Record_Relatie
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * Rol               As String * 2
+ * Titulatuur        As String * 2
+ * Voorletter        As String * 20
+ * prefix            As String * 20
+ * Naam              As String * 30
+ * Zoeknaam          As String * 20
+ * Straat            As String * 32
+ * HuisNr            As String * 5
+ * ToevhuisNr        As String * 7
+ * Postcode          As String * 6
+ * Plaats            As String * 32
+ * TelefoonNr        As String * 20
+ * gebdatum          As String * 8
+ * GebPlaats         As String * 32
+ * Nat               As String * 2
+ * Burgstatus        As String * 2
+ * geslacht          As String * 2
+ * Rekeningnr        As String * 20
+ * Bankgroep         As String * 2
+ * Rijbewijs         As String * 20
+ * Beroep            As String * 30
+ * Cat_Beroep        As String * 2
+ * Srt_Beroep        As String * 2
+ * Naam_Werk         As String * 30
+ * PltsWerk          As String * 30
+ * Tel_Werk          As String * 20
+ * StartWerk         As String * 8
+ * Cat_Ink           As String * 2
+ * Uitkering         As String * 2
+ * Kinderen          As String * 2
+ * Behuizing         As String * 2
+ * Woon_duur         As String * 2
+ * Woonlasten        As String * 8
+ * ' 100310 PROOVIT-EH: Basel II -- Nieuwe velden
+ * Ink_Neto          As String * 7 '  100310 PROOVIT-EH: Basel II -- NETTO
+ * InkTotNeto        As String * 7 '  100310 PROOVIT-EH: Basel II -- TOTAALNETTO
+ * OpbMndBdrg        As String * 7 '  100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG
+ * PercSchLst        As String * 7 '  100310 PROOVIT-EH: Basel II -- PERC -SCHULDENLAST
+ * PercScLsTo        As String * 7 '  100310 PROOVIT-EH: Basel II -- PERC -TOT - SCHULDENLAST
+ * StartWonin        As String * 8 '  100907 PROOVIT-EH: Basel II -- StartWoning = datum
+ * FILLER            As String * 31 ' 120904 PROOVIT-EH: ALN-36 (MBe)
+ * IBAN              As String * 34 ' 120904 PROOVIT-EH: ALN-36 (MBe)
+ * BIC               As String * 12 ' 120904 PROOVIT-EH: ALN-36 (MBe)
+ * EMAIL             As String * 80 ' 120904 PROOVIT-EH: ALN-36 (MBe)
+ * '-- 141008 PROOVIT-EH: DESIN-292 - New fields
+ * NAT_CODE          As String * 3
+ * VERBLIJFNR        As String * 15
+ * EVOLGEZIN         As String * 1
+ * EVOLINKOMSTEN     As String * 1
+ * SOORTWRKCONTRAKT  As String * 1
+ * EINDDATWRKCONTR   As String * 6
+ * INTENTIEWRKCONTR  As String * 1
+ * VERZOEKPLATFORM   As String * 1
+ * '-- 141008 PROOVIT-EH: DESIN-292 - New fields END
+ * Filler3           As String * 31 ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record45Relatie (record_45_relatie) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 46 : Relatie - Huishoudelijk
+ * Private Type Record_RelatieHuish ' 100310 PROOVIT-EH: New for Basel II
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * HuisHgld          As String * 7   ' 100310 PROOVIT-EH: Basel II -- HUISHGELD
+ * HuisHGlTot        As String * 7   ' 100310 PROOVIT-EH: Basel II -- TOTAALHUISHGELD
+ * OpnStdMndB        As String * 7   ' 100310 PROOVIT-EH: Basel II -- OPENST -MNDBEDRAG - HUISH
+ * VateLasten        As String * 7   ' 100310 PROOVIT-EH: Basel II -- VASTE -MNDLASTEN - HUISH
+ * TotMndLast        As String * 7   ' 100310 PROOVIT-EH: Basel II -- Totaal -MNDLASTEN - HUISH
+ * FILLER            As String * 460 ' 100310 PROOVIT-EH: Basel II -- in doc. stond 460
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record46RelatieHuishoudelijk (record_46_relatie_huishoudelijk) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 50 : Bedrijf
+ * Private Type Record_Bedrijf
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * Rol               As String * 2
+ * BedNaam           As String * 30
+ * Zoeknaam          As String * 20
+ * Rechtsvorm        As String * 2
+ * Straat            As String * 32
+ * HuisNr            As String * 5
+ * ToevhuisNr        As String * 7
+ * Postcode          As String * 6
+ * Plaats            As String * 32
+ * TelefoonNr        As String * 20
+ * OprDatum          As String * 8
+ * Gemachtigd        As String * 30
+ * Functiegem        As String * 20
+ * Rekeningnr        As String * 20
+ * Bankgroep         As String * 2
+ * Stat_naam         As String * 79
+ * KvK_Inschr        As String * 10
+ * KvK_Plaats        As String * 32
+ * Kapitaal          As String * 9
+ * DunBradnr         As String * 15
+ * JaarBalans        As String * 4
+ * FILLER            As String * 111 ' in doc. stond 110
+ * IBAN              As String * 34 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * BIC               As String * 12 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * EMAIL             As String * 80 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record50Bedrijf (record_50_bedrijf) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 55 : Scoring
+ * Private Type Record_Scoring ' 100310 PROOVIT-EH: New for Basel II
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * Scoring25         As String * 450 ' 25 * 3 * 6  ' 100310 PROOVIT-EH: Basel II -- SCORING OCCURS max 25 blocks of 6x3
+ * FILLER            As String * 46  ' 100310 PROOVIT-EH: Basel II -- in doc. stond 46
+ * FILLER2           As String * 128 ' 120904 PROOVIT-EH: ALN-36 (MB)
+ * Filler3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ * Private Type Record_ScoringTempRegel ' 100310 PROOVIT-EH: New for Basel II - subrecord of 55
+ * Regel     As String * 18   ' 100310 PROOVIT-EH: Basel II -- REG -code
+ * End Type
+ * Private Type Record_ScoringSub1 ' 100310 PROOVIT-EH: New for Basel II - subrecord of 55
+ * REG_CODE          As String * 3   ' 100310 PROOVIT-EH: Basel II -- REG -code
+ * COND_NR           As String * 3   ' 100310 PROOVIT-EH: Basel II -- COND -NR
+ * Cond_Score        As String * 3   ' 100310 PROOVIT-EH: Basel II -- COND -Score
+ * AfwysRegCd        As String * 3   ' 100310 PROOVIT-EH: Basel II -- AFWIJS -REG - code
+ * ZekerhCode        As String * 3   ' 100310 PROOVIT-EH: Basel II -- ZEKERH -code
+ * InfoRegCod        As String * 3   ' 100310 PROOVIT-EH: Basel II -- INFO -REG - code
+ * End Type
+ */
+entity Record55Scoring (record_55_scoring) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer
+}
+/**
+ * ' Recordtype 61, 62, 63 : Uitleg
+ * Private Type Record_Uitleg ' 141008 PROOVIT-EH: DESIN-292 - New record, multi used by 61, 62, 63
+ * PCFinetnr         As String * 11
+ * RecordType        As String * 2
+ * Volgnr            As String * 3
+ * Rol               As String * 2
+ * UITLEGGEZIN       As String * 240
+ * UITLEGINKOMSTEN   As String * 240
+ * UITLEGINPLATFORM  As String * 200
+ * Filler3           As String * 2  ' 141008 PROOVIT-EH: DESIN-292
+ * End Type
+ */
+entity Record61Uitleg (record_61_uitleg) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer,
+  rol String,
+  uitlegGezin String,
+  uitlegInkomsten String,
+  uitlegInPlatform String
+}
+entity Record62Uitleg (record_62_uitleg) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer,
+  rol String,
+  uitlegGezin String,
+  uitlegInkomsten String,
+  uitlegInPlatform String
+}
+entity Record63Uitleg (record_63_uitleg) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer,
+  rol String,
+  uitlegGezin String,
+  uitlegInkomsten String,
+  uitlegInPlatform String
+}
+/**
+ * ' RecordType 99: Eindrecord
+ * 'Private Type Record_Eind
+ * '  PCFinetnr       As String * 11
+ * '  RecordType      As String * 2
+ * '  Volgnr          As String * 3
+ * '  CreatieDatum    As String * 8
+ * '  CreatieTijd     As String * 5
+ * '  AantalAanvragen As String * 5
+ * '  AantalRegels    As String * 5
+ * '  FILLER          As String * 473 ' In doc. stond 472, uit bestand blijkt 473
+ * '  FILLER2     As String * 128
+ * 'End Type
+ */
+entity Record99Eind (record_99_eind) {
+  pcFinetNr String,
+  recordType Integer,
+  volgNr Integer,
+  creatieDatum LocalDate,
+  creatieTijd ZonedDateTime,
+  aantalAanvragen Integer,
+  aantalRegels Integer
 }
 
 enum Language {
-    FRENCH, ENGLISH, SPANISH
+  FRENCH,
+  ENGLISH,
+  DUTCH
 }
 
 relationship OneToOne {
-	Country{region} to Region
+  CreditScore{request} to Request{creditScore},
+  RekenmoduleAanvraag{request} to Request{rekenmoduleAanvraag},
+  Aanvraagbericht{rekenmoduleAanvraag} to RekenmoduleAanvraag{aanvraagbericht},
+  Aanvraagbericht{header} to Header{aanvraagbericht},
+  Aanvraagbericht{algemeen} to Algemeen{aanvraagbericht},
+  Country{region} to Region,
+  Location{country} to Country,
+  Department{location} to Location,
+  JobHistory{job} to Job,
+  JobHistory{department} to Department,
+  JobHistory{employee} to Employee
 }
-
-relationship OneToOne {
-	Location{country} to Country
-}
-
-relationship OneToOne {
-	Department{location} to Location
-}
-
-relationship ManyToMany {
-	Job{task(title)} to Task{job}
-}
-
-// defining multiple OneToMany relationships with comments
 relationship OneToMany {
-	Employee{job} to Job,
-	/**
-	* A relationship
-	*/
-	Department{employee} to
-	/**
-	* Another side of the same relationship
-	*/
-	Employee
+  Customer{request} to Request{customer},
+  Aanvraagbericht{fdnAanvrager} to FdnAanvrager{aanvraagbericht},
+  FdnAanvrager{adres} to Adres{fdnAanvrager},
+  FdnAanvrager{legitimatiebewijs} to Legitimatiebewijs{fdnAanvrager},
+  FdnAanvrager{werksituatie} to Werksituatie{fdnAanvrager},
+  Werksituatie{nawWerkgeverUWV} to NawWerkgeverUWV{werksituatie},
+  FdnAanvrager{gezinssituatie} to Gezinssituatie{fdnAanvrager},
+  FdnAanvrager{financieleSituatie} to FinancieleSituatie{fdnAanvrager},
+  Aanvraagbericht{kredietAanvraag} to KredietAanvraag{aanvraagbericht},
+  Aanvraagbericht{vrijeTekst} to VrijeTekst{aanvraagbericht},
+  VrijeTekst{tekstRegel} to TekstRegel{vrijeTekst},
+  /**
+   * A relationship
+   */
+  Department{employee} to Employee{department},
+  Employee{job} to Job{employee}
 }
-
 relationship ManyToOne {
-	Employee{manager} to Employee
+  Employee{manager} to Employee
+}
+relationship ManyToMany {
+  Job{task(title)} to Task{job}
 }
 
-// defining multiple oneToOne relationships
-relationship OneToOne {
-	JobHistory{job} to Job,
-	JobHistory{department} to Department,
-	JobHistory{employee} to Employee
-}
-
-//**********************************************************
-// Set pagination options
-paginate JobHistory, Employee with infinite-scroll
+dto Request, CreditScore, Customer, RekenmoduleAanvraag, Aanvraagbericht, Header, Algemeen, FdnAanvrager, Adres, Legitimatiebewijs, Werksituatie, NawWerkgeverUWV, Gezinssituatie, FinancieleSituatie, KredietAanvraag, VrijeTekst, TekstRegel, Region, Country, Location, Department, Task  with mapstruct
+service Request, CreditScore, Customer, RekenmoduleAanvraag, Aanvraagbericht, Header, Algemeen, FdnAanvrager, Adres, Legitimatiebewijs, Werksituatie, NawWerkgeverUWV, Gezinssituatie, FinancieleSituatie, KredietAanvraag, VrijeTekst, TekstRegel, Region, Country, Location, Department, Task, JobHistory with serviceImpl
+angularSuffix Request, CreditScore, Customer, RekenmoduleAanvraag, Aanvraagbericht, Header, Algemeen, FdnAanvrager, Adres, Legitimatiebewijs, Werksituatie, NawWerkgeverUWV, Gezinssituatie, FinancieleSituatie, KredietAanvraag, VrijeTekst, TekstRegel, Region, Country, Location, Department, Task, Employee with mySuffix
+paginate Employee, JobHistory with infinite-scroll
 paginate Job with pagination
-
-dto * with mapstruct
-
-// Set service options to all except few
-service all with serviceImpl except Employee, Job, Record01Start, Record10AanvraagGegevensAlgemeen, Record11AanvraagGegevensOpmerkingen, Record20Financieel, Record25Herfinancieering, Record30Inruil, Record35Object, Record40AcceptatieScore, Record45Relatie, Record46RelatieHuishoudelijk, Record50Bedrijf, Record55Scoring, Record61Uitleg, Record62Uitleg, Record63Uitleg, Record99Eind
-// Set an angular suffix
-angularSuffix * with mySuffix
-
-

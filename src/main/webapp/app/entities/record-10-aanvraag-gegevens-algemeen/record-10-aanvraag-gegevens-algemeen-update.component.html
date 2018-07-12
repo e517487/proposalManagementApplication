@@ -1,0 +1,123 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-record-10-aanvraag-gegevens-algemeen-heading" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.home.createOrEditLabel">Create or edit a Record 10 Aanvraag Gegevens Algemeen</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!record10AanvraagGegevensAlgemeen.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.pcFinetNr" for="field_pcFinetNr">Pc Finet Nr</label>
+                    <input type="text" class="form-control" name="pcFinetNr" id="field_pcFinetNr"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.pcFinetNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.recordType" for="field_recordType">Record Type</label>
+                    <input type="number" class="form-control" name="recordType" id="field_recordType"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.recordType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.volgNr" for="field_volgNr">Volg Nr</label>
+                    <input type="number" class="form-control" name="volgNr" id="field_volgNr"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.volgNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.dealerNr" for="field_dealerNr">Dealer Nr</label>
+                    <input type="text" class="form-control" name="dealerNr" id="field_dealerNr"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.dealerNr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.productCode" for="field_productCode">Product Code</label>
+                    <input type="text" class="form-control" name="productCode" id="field_productCode"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.productCode" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.zoeknaam" for="field_zoeknaam">Zoeknaam</label>
+                    <input type="text" class="form-control" name="zoeknaam" id="field_zoeknaam"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.zoeknaam" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.verkoper" for="field_verkoper">Verkoper</label>
+                    <input type="text" class="form-control" name="verkoper" id="field_verkoper"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.verkoper" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.dealerTelnr" for="field_dealerTelnr">Dealer Telnr</label>
+                    <input type="text" class="form-control" name="dealerTelnr" id="field_dealerTelnr"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.dealerTelnr" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatie" for="field_acceptatie">Acceptatie</label>
+                    <input type="text" class="form-control" name="acceptatie" id="field_acceptatie"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.acceptatie" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.aanvangDatum" for="field_aanvangDatum">Aanvang Datum</label>
+                    <div class="input-group">
+                        <input id="field_aanvangDatum" type="text" class="form-control" name="aanvangDatum" ngbDatepicker  #aanvangDatumDp="ngbDatepicker" [(ngModel)]="record10AanvraagGegevensAlgemeen.aanvangDatum"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="aanvangDatumDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.aanvangTijd" for="field_aanvangTijd">Aanvang Tijd</label>
+                    <div class="d-flex">
+                        <input id="field_aanvangTijd" type="datetime-local" class="form-control" name="aanvangTijd" [(ngModel)]="aanvangTijd"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatieDatum" for="field_acceptatieDatum">Acceptatie Datum</label>
+                    <div class="input-group">
+                        <input id="field_acceptatieDatum" type="text" class="form-control" name="acceptatieDatum" ngbDatepicker  #acceptatieDatumDp="ngbDatepicker" [(ngModel)]="record10AanvraagGegevensAlgemeen.acceptatieDatum"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="acceptatieDatumDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptatieTijd" for="field_acceptatieTijd">Acceptatie Tijd</label>
+                    <div class="d-flex">
+                        <input id="field_acceptatieTijd" type="datetime-local" class="form-control" name="acceptatieTijd" [(ngModel)]="acceptatieTijd"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.prtDatum" for="field_prtDatum">Prt Datum</label>
+                    <div class="input-group">
+                        <input id="field_prtDatum" type="text" class="form-control" name="prtDatum" ngbDatepicker  #prtDatumDp="ngbDatepicker" [(ngModel)]="record10AanvraagGegevensAlgemeen.prtDatum"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="prtDatumDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.invoerder" for="field_invoerder">Invoerder</label>
+                    <input type="text" class="form-control" name="invoerder" id="field_invoerder"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.invoerder" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="proposalManagementApplicationApp.record10AanvraagGegevensAlgemeen.acceptant" for="field_acceptant">Acceptant</label>
+                    <input type="text" class="form-control" name="acceptant" id="field_acceptant"
+                        [(ngModel)]="record10AanvraagGegevensAlgemeen.acceptant" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

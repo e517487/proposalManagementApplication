@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record25Herfinancieering;
 import com.inetpsa.pct00.application.repository.Record25HerfinancieeringRepository;
-import com.inetpsa.pct00.application.service.dto.Record25HerfinancieeringDTO;
-import com.inetpsa.pct00.application.service.mapper.Record25HerfinancieeringMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record25HerfinancieeringResourceIntTest {
 
 
     @Autowired
-    private Record25HerfinancieeringMapper record25HerfinancieeringMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record25HerfinancieeringResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record25HerfinancieeringResource record25HerfinancieeringResource = new Record25HerfinancieeringResource(record25HerfinancieeringRepository, record25HerfinancieeringMapper);
+        final Record25HerfinancieeringResource record25HerfinancieeringResource = new Record25HerfinancieeringResource(record25HerfinancieeringRepository);
         this.restRecord25HerfinancieeringMockMvc = MockMvcBuilders.standaloneSetup(record25HerfinancieeringResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record25HerfinancieeringResourceIntTest {
         int databaseSizeBeforeCreate = record25HerfinancieeringRepository.findAll().size();
 
         // Create the Record25Herfinancieering
-        Record25HerfinancieeringDTO record25HerfinancieeringDTO = record25HerfinancieeringMapper.toDto(record25Herfinancieering);
         restRecord25HerfinancieeringMockMvc.perform(post("/api/record-25-herfinancieerings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record25HerfinancieeringDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record25Herfinancieering)))
             .andExpect(status().isCreated());
 
         // Validate the Record25Herfinancieering in the database
@@ -131,12 +125,11 @@ public class Record25HerfinancieeringResourceIntTest {
 
         // Create the Record25Herfinancieering with an existing ID
         record25Herfinancieering.setId(1L);
-        Record25HerfinancieeringDTO record25HerfinancieeringDTO = record25HerfinancieeringMapper.toDto(record25Herfinancieering);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord25HerfinancieeringMockMvc.perform(post("/api/record-25-herfinancieerings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record25HerfinancieeringDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record25Herfinancieering)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record25Herfinancieering in the database
@@ -200,11 +193,10 @@ public class Record25HerfinancieeringResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record25HerfinancieeringDTO record25HerfinancieeringDTO = record25HerfinancieeringMapper.toDto(updatedRecord25Herfinancieering);
 
         restRecord25HerfinancieeringMockMvc.perform(put("/api/record-25-herfinancieerings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record25HerfinancieeringDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord25Herfinancieering)))
             .andExpect(status().isOk());
 
         // Validate the Record25Herfinancieering in the database
@@ -222,12 +214,11 @@ public class Record25HerfinancieeringResourceIntTest {
         int databaseSizeBeforeUpdate = record25HerfinancieeringRepository.findAll().size();
 
         // Create the Record25Herfinancieering
-        Record25HerfinancieeringDTO record25HerfinancieeringDTO = record25HerfinancieeringMapper.toDto(record25Herfinancieering);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord25HerfinancieeringMockMvc.perform(put("/api/record-25-herfinancieerings")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record25HerfinancieeringDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record25Herfinancieering)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record25Herfinancieering in the database
@@ -266,28 +257,5 @@ public class Record25HerfinancieeringResourceIntTest {
         assertThat(record25Herfinancieering1).isNotEqualTo(record25Herfinancieering2);
         record25Herfinancieering1.setId(null);
         assertThat(record25Herfinancieering1).isNotEqualTo(record25Herfinancieering2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record25HerfinancieeringDTO.class);
-        Record25HerfinancieeringDTO record25HerfinancieeringDTO1 = new Record25HerfinancieeringDTO();
-        record25HerfinancieeringDTO1.setId(1L);
-        Record25HerfinancieeringDTO record25HerfinancieeringDTO2 = new Record25HerfinancieeringDTO();
-        assertThat(record25HerfinancieeringDTO1).isNotEqualTo(record25HerfinancieeringDTO2);
-        record25HerfinancieeringDTO2.setId(record25HerfinancieeringDTO1.getId());
-        assertThat(record25HerfinancieeringDTO1).isEqualTo(record25HerfinancieeringDTO2);
-        record25HerfinancieeringDTO2.setId(2L);
-        assertThat(record25HerfinancieeringDTO1).isNotEqualTo(record25HerfinancieeringDTO2);
-        record25HerfinancieeringDTO1.setId(null);
-        assertThat(record25HerfinancieeringDTO1).isNotEqualTo(record25HerfinancieeringDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record25HerfinancieeringMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record25HerfinancieeringMapper.fromId(null)).isNull();
     }
 }

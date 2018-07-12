@@ -6,10 +6,10 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IRequestMySuffix } from 'app/shared/model/request-my-suffix.model';
 import { RequestMySuffixService } from './request-my-suffix.service';
-import { IRekenmoduleAanvraagMySuffix } from 'app/shared/model/rekenmodule-aanvraag-my-suffix.model';
-import { RekenmoduleAanvraagMySuffixService } from 'app/entities/rekenmodule-aanvraag-my-suffix';
 import { ICreditScoreMySuffix } from 'app/shared/model/credit-score-my-suffix.model';
 import { CreditScoreMySuffixService } from 'app/entities/credit-score-my-suffix';
+import { IRekenmoduleAanvraagMySuffix } from 'app/shared/model/rekenmodule-aanvraag-my-suffix.model';
+import { RekenmoduleAanvraagMySuffixService } from 'app/entities/rekenmodule-aanvraag-my-suffix';
 import { ICustomerMySuffix } from 'app/shared/model/customer-my-suffix.model';
 import { CustomerMySuffixService } from 'app/entities/customer-my-suffix';
 
@@ -21,17 +21,17 @@ export class RequestMySuffixUpdateComponent implements OnInit {
     private _request: IRequestMySuffix;
     isSaving: boolean;
 
-    rekenmoduleaanvraags: IRekenmoduleAanvraagMySuffix[];
-
     creditscores: ICreditScoreMySuffix[];
+
+    rekenmoduleaanvraags: IRekenmoduleAanvraagMySuffix[];
 
     customers: ICustomerMySuffix[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private requestService: RequestMySuffixService,
-        private rekenmoduleAanvraagService: RekenmoduleAanvraagMySuffixService,
         private creditScoreService: CreditScoreMySuffixService,
+        private rekenmoduleAanvraagService: RekenmoduleAanvraagMySuffixService,
         private customerService: CustomerMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -41,15 +41,15 @@ export class RequestMySuffixUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ request }) => {
             this.request = request;
         });
-        this.rekenmoduleAanvraagService.query().subscribe(
-            (res: HttpResponse<IRekenmoduleAanvraagMySuffix[]>) => {
-                this.rekenmoduleaanvraags = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.creditScoreService.query().subscribe(
             (res: HttpResponse<ICreditScoreMySuffix[]>) => {
                 this.creditscores = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.rekenmoduleAanvraagService.query().subscribe(
+            (res: HttpResponse<IRekenmoduleAanvraagMySuffix[]>) => {
+                this.rekenmoduleaanvraags = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -91,11 +91,11 @@ export class RequestMySuffixUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackRekenmoduleAanvraagById(index: number, item: IRekenmoduleAanvraagMySuffix) {
+    trackCreditScoreById(index: number, item: ICreditScoreMySuffix) {
         return item.id;
     }
 
-    trackCreditScoreById(index: number, item: ICreditScoreMySuffix) {
+    trackRekenmoduleAanvraagById(index: number, item: IRekenmoduleAanvraagMySuffix) {
         return item.id;
     }
 

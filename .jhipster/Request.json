@@ -18,15 +18,15 @@
     "relationships": [
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "rekenmoduleAanvraag",
-            "otherEntityName": "rekenmoduleAanvraag",
+            "relationshipName": "creditScore",
+            "otherEntityName": "creditScore",
             "ownerSide": false,
             "otherEntityRelationshipName": "request"
         },
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "creditScore",
-            "otherEntityName": "creditScore",
+            "relationshipName": "rekenmoduleAanvraag",
+            "otherEntityName": "rekenmoduleAanvraag",
             "ownerSide": false,
             "otherEntityRelationshipName": "request"
         },

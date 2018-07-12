@@ -1,7 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { ProposalManagementApplicationRecord01StartMySuffixModule } from './record-01-start-my-suffix/record-01-start-my-suffix.module';
-import { ProposalManagementApplicationRecord99EndMySuffixModule } from './record-99-end-my-suffix/record-99-end-my-suffix.module';
 // prettier-ignore
 import {
     ProposalManagementApplicationRecord10AanvraagGegevensAlgemeenMySuffixModule
@@ -51,13 +50,30 @@ import { ProposalManagementApplicationDepartmentMySuffixModule } from './departm
 import { ProposalManagementApplicationTaskMySuffixModule } from './task-my-suffix/task-my-suffix.module';
 import { ProposalManagementApplicationEmployeeMySuffixModule } from './employee-my-suffix/employee-my-suffix.module';
 import { ProposalManagementApplicationJobMySuffixModule } from './job-my-suffix/job-my-suffix.module';
+import { ProposalManagementApplicationJobModule } from './job/job.module';
+import { ProposalManagementApplicationJobHistoryModule } from './job-history/job-history.module';
+import { ProposalManagementApplicationRecord01StartModule } from './record-01-start/record-01-start.module';
+import { ProposalManagementApplicationRecord10AanvraagGegevensAlgemeenModule } from './record-10-aanvraag-gegevens-algemeen/record-10-aanvraag-gegevens-algemeen.module';
+import { ProposalManagementApplicationRecord11AanvraagGegevensOpmerkingenModule } from './record-11-aanvraag-gegevens-opmerkingen/record-11-aanvraag-gegevens-opmerkingen.module';
+import { ProposalManagementApplicationRecord20FinancieelModule } from './record-20-financieel/record-20-financieel.module';
+import { ProposalManagementApplicationRecord25HerfinancieeringModule } from './record-25-herfinancieering/record-25-herfinancieering.module';
+import { ProposalManagementApplicationRecord30InruilModule } from './record-30-inruil/record-30-inruil.module';
+import { ProposalManagementApplicationRecord35ObjectModule } from './record-35-object/record-35-object.module';
+import { ProposalManagementApplicationRecord40AcceptatieScoreModule } from './record-40-acceptatie-score/record-40-acceptatie-score.module';
+import { ProposalManagementApplicationRecord45RelatieModule } from './record-45-relatie/record-45-relatie.module';
+import { ProposalManagementApplicationRecord46RelatieHuishoudelijkModule } from './record-46-relatie-huishoudelijk/record-46-relatie-huishoudelijk.module';
+import { ProposalManagementApplicationRecord50BedrijfModule } from './record-50-bedrijf/record-50-bedrijf.module';
+import { ProposalManagementApplicationRecord55ScoringModule } from './record-55-scoring/record-55-scoring.module';
+import { ProposalManagementApplicationRecord61UitlegModule } from './record-61-uitleg/record-61-uitleg.module';
+import { ProposalManagementApplicationRecord62UitlegModule } from './record-62-uitleg/record-62-uitleg.module';
+import { ProposalManagementApplicationRecord63UitlegModule } from './record-63-uitleg/record-63-uitleg.module';
+import { ProposalManagementApplicationRecord99EindModule } from './record-99-eind/record-99-eind.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
     // prettier-ignore
     imports: [
         ProposalManagementApplicationRecord01StartMySuffixModule,
-        ProposalManagementApplicationRecord99EndMySuffixModule,
         ProposalManagementApplicationRecord10AanvraagGegevensAlgemeenMySuffixModule,
         ProposalManagementApplicationRecord11AanvraagGegevensOpmerkingenMySuffixModule,
         ProposalManagementApplicationRecord20FinancieelMySuffixModule,
@@ -98,6 +114,24 @@ import { ProposalManagementApplicationJobMySuffixModule } from './job-my-suffix/
         ProposalManagementApplicationTaskMySuffixModule,
         ProposalManagementApplicationEmployeeMySuffixModule,
         ProposalManagementApplicationJobMySuffixModule,
+        ProposalManagementApplicationJobModule,
+        ProposalManagementApplicationJobHistoryModule,
+        ProposalManagementApplicationRecord01StartModule,
+        ProposalManagementApplicationRecord10AanvraagGegevensAlgemeenModule,
+        ProposalManagementApplicationRecord11AanvraagGegevensOpmerkingenModule,
+        ProposalManagementApplicationRecord20FinancieelModule,
+        ProposalManagementApplicationRecord25HerfinancieeringModule,
+        ProposalManagementApplicationRecord30InruilModule,
+        ProposalManagementApplicationRecord35ObjectModule,
+        ProposalManagementApplicationRecord40AcceptatieScoreModule,
+        ProposalManagementApplicationRecord45RelatieModule,
+        ProposalManagementApplicationRecord46RelatieHuishoudelijkModule,
+        ProposalManagementApplicationRecord50BedrijfModule,
+        ProposalManagementApplicationRecord55ScoringModule,
+        ProposalManagementApplicationRecord61UitlegModule,
+        ProposalManagementApplicationRecord62UitlegModule,
+        ProposalManagementApplicationRecord63UitlegModule,
+        ProposalManagementApplicationRecord99EindModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

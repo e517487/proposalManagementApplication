@@ -14,8 +14,8 @@ public interface RequestMapper extends EntityMapper<RequestDTO, Request> {
     @Mapping(source = "customer.id", target = "customerId")
     RequestDTO toDto(Request request);
 
-    @Mapping(target = "rekenmoduleAanvraag", ignore = true)
     @Mapping(target = "creditScore", ignore = true)
+    @Mapping(target = "rekenmoduleAanvraag", ignore = true)
     @Mapping(source = "customerId", target = "customer")
     Request toEntity(RequestDTO requestDTO);
 

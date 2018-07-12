@@ -18,12 +18,11 @@
     "changelogDate": "20180703183457",
     "javadoc": "' Recordtype 50 : Bedrijf\nPrivate Type Record_Bedrijf\nPCFinetnr         As String * 11\nRecordType        As String * 2\nVolgnr            As String * 3\nRol               As String * 2\nBedNaam           As String * 30\nZoeknaam          As String * 20\nRechtsvorm        As String * 2\nStraat            As String * 32\nHuisNr            As String * 5\nToevhuisNr        As String * 7\nPostcode          As String * 6\nPlaats            As String * 32\nTelefoonNr        As String * 20\nOprDatum          As String * 8\nGemachtigd        As String * 30\nFunctiegem        As String * 20\nRekeningnr        As String * 20\nBankgroep         As String * 2\nStat_naam         As String * 79\nKvK_Inschr        As String * 10\nKvK_Plaats        As String * 32\nKapitaal          As String * 9\nDunBradnr         As String * 15\nJaarBalans        As String * 4\nFILLER            As String * 111 ' in doc. stond 110\nIBAN              As String * 34 ' 120904 PROOVIT-EH: ALN-36 (MB)\nBIC               As String * 12 ' 120904 PROOVIT-EH: ALN-36 (MB)\nEMAIL             As String * 80 ' 120904 PROOVIT-EH: ALN-36 (MB)\nFiller3           As String * 60  ' 141008 PROOVIT-EH: DESIN-292\nEnd Type",
     "entityTableName": "record_50_bedrijf",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "angularJSSuffix": "mySuffix"
+    "applications": "*"
 }

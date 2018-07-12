@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record01Start;
 import com.inetpsa.pct00.application.repository.Record01StartRepository;
-import com.inetpsa.pct00.application.service.dto.Record01StartDTO;
-import com.inetpsa.pct00.application.service.mapper.Record01StartMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -67,9 +65,6 @@ public class Record01StartResourceIntTest {
 
 
     @Autowired
-    private Record01StartMapper record01StartMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -88,7 +83,7 @@ public class Record01StartResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record01StartResource record01StartResource = new Record01StartResource(record01StartRepository, record01StartMapper);
+        final Record01StartResource record01StartResource = new Record01StartResource(record01StartRepository);
         this.restRecord01StartMockMvc = MockMvcBuilders.standaloneSetup(record01StartResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -123,10 +118,9 @@ public class Record01StartResourceIntTest {
         int databaseSizeBeforeCreate = record01StartRepository.findAll().size();
 
         // Create the Record01Start
-        Record01StartDTO record01StartDTO = record01StartMapper.toDto(record01Start);
         restRecord01StartMockMvc.perform(post("/api/record-01-starts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record01StartDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record01Start)))
             .andExpect(status().isCreated());
 
         // Validate the Record01Start in the database
@@ -147,12 +141,11 @@ public class Record01StartResourceIntTest {
 
         // Create the Record01Start with an existing ID
         record01Start.setId(1L);
-        Record01StartDTO record01StartDTO = record01StartMapper.toDto(record01Start);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord01StartMockMvc.perform(post("/api/record-01-starts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record01StartDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record01Start)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record01Start in the database
@@ -222,11 +215,10 @@ public class Record01StartResourceIntTest {
             .volgNr(UPDATED_VOLG_NR)
             .creatieDatum(UPDATED_CREATIE_DATUM)
             .creatieTijd(UPDATED_CREATIE_TIJD);
-        Record01StartDTO record01StartDTO = record01StartMapper.toDto(updatedRecord01Start);
 
         restRecord01StartMockMvc.perform(put("/api/record-01-starts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record01StartDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord01Start)))
             .andExpect(status().isOk());
 
         // Validate the Record01Start in the database
@@ -246,12 +238,11 @@ public class Record01StartResourceIntTest {
         int databaseSizeBeforeUpdate = record01StartRepository.findAll().size();
 
         // Create the Record01Start
-        Record01StartDTO record01StartDTO = record01StartMapper.toDto(record01Start);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord01StartMockMvc.perform(put("/api/record-01-starts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record01StartDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record01Start)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record01Start in the database
@@ -290,28 +281,5 @@ public class Record01StartResourceIntTest {
         assertThat(record01Start1).isNotEqualTo(record01Start2);
         record01Start1.setId(null);
         assertThat(record01Start1).isNotEqualTo(record01Start2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record01StartDTO.class);
-        Record01StartDTO record01StartDTO1 = new Record01StartDTO();
-        record01StartDTO1.setId(1L);
-        Record01StartDTO record01StartDTO2 = new Record01StartDTO();
-        assertThat(record01StartDTO1).isNotEqualTo(record01StartDTO2);
-        record01StartDTO2.setId(record01StartDTO1.getId());
-        assertThat(record01StartDTO1).isEqualTo(record01StartDTO2);
-        record01StartDTO2.setId(2L);
-        assertThat(record01StartDTO1).isNotEqualTo(record01StartDTO2);
-        record01StartDTO1.setId(null);
-        assertThat(record01StartDTO1).isNotEqualTo(record01StartDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record01StartMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record01StartMapper.fromId(null)).isNull();
     }
 }

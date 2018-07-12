@@ -19,9 +19,9 @@ export class EmployeeMySuffixUpdateComponent implements OnInit {
     private _employee: IEmployeeMySuffix;
     isSaving: boolean;
 
-    departments: IDepartmentMySuffix[];
-
     employees: IEmployeeMySuffix[];
+
+    departments: IDepartmentMySuffix[];
     hireDate: string;
 
     constructor(
@@ -36,15 +36,15 @@ export class EmployeeMySuffixUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ employee }) => {
             this.employee = employee;
         });
-        this.departmentService.query().subscribe(
-            (res: HttpResponse<IDepartmentMySuffix[]>) => {
-                this.departments = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.employeeService.query().subscribe(
             (res: HttpResponse<IEmployeeMySuffix[]>) => {
                 this.employees = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.departmentService.query().subscribe(
+            (res: HttpResponse<IDepartmentMySuffix[]>) => {
+                this.departments = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -81,11 +81,11 @@ export class EmployeeMySuffixUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackDepartmentById(index: number, item: IDepartmentMySuffix) {
+    trackEmployeeById(index: number, item: IEmployeeMySuffix) {
         return item.id;
     }
 
-    trackEmployeeById(index: number, item: IEmployeeMySuffix) {
+    trackDepartmentById(index: number, item: IDepartmentMySuffix) {
         return item.id;
     }
     get employee() {

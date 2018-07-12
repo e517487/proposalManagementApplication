@@ -26,12 +26,11 @@
     "changelogDate": "20180703183446",
     "javadoc": "' Recordtype 1 : Start (\n'Private Type Record_Start\n'  PCFinetnr    As String * 11\n'  RecordType   As String * 2\n'  Volgnr       As String * 3\n'  CreatieDatum As String * 8\n'  CreatieTijd  As String * 5\n'  FILLER       As String * 483 '<- in doc. stond 482, maar uit bestand blijkt 483 !\n'  FILLER2     As String * 128\n'End Type",
     "entityTableName": "record_01_start",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "angularJSSuffix": "mySuffix"
+    "applications": "*"
 }

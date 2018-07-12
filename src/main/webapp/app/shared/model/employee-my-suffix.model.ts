@@ -1,5 +1,7 @@
 import { Moment } from 'moment';
-import { IJobMySuffix } from 'app/shared/model//job-my-suffix.model';
+import { IJob } from 'app/shared/model//job.model';
+import { IEmployeeMySuffix } from 'app/shared/model//employee-my-suffix.model';
+import { IDepartmentMySuffix } from 'app/shared/model//department-my-suffix.model';
 
 export interface IEmployeeMySuffix {
     id?: number;
@@ -10,9 +12,9 @@ export interface IEmployeeMySuffix {
     hireDate?: Moment;
     salary?: number;
     commissionPct?: number;
-    departmentId?: number;
-    jobs?: IJobMySuffix[];
-    managerId?: number;
+    jobs?: IJob[];
+    manager?: IEmployeeMySuffix;
+    department?: IDepartmentMySuffix;
 }
 
 export class EmployeeMySuffix implements IEmployeeMySuffix {
@@ -25,8 +27,8 @@ export class EmployeeMySuffix implements IEmployeeMySuffix {
         public hireDate?: Moment,
         public salary?: number,
         public commissionPct?: number,
-        public departmentId?: number,
-        public jobs?: IJobMySuffix[],
-        public managerId?: number
+        public jobs?: IJob[],
+        public manager?: IEmployeeMySuffix,
+        public department?: IDepartmentMySuffix
     ) {}
 }

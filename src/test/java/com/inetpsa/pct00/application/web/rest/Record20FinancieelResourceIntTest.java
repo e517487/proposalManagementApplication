@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record20Financieel;
 import com.inetpsa.pct00.application.repository.Record20FinancieelRepository;
-import com.inetpsa.pct00.application.service.dto.Record20FinancieelDTO;
-import com.inetpsa.pct00.application.service.mapper.Record20FinancieelMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record20FinancieelResourceIntTest {
 
 
     @Autowired
-    private Record20FinancieelMapper record20FinancieelMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record20FinancieelResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record20FinancieelResource record20FinancieelResource = new Record20FinancieelResource(record20FinancieelRepository, record20FinancieelMapper);
+        final Record20FinancieelResource record20FinancieelResource = new Record20FinancieelResource(record20FinancieelRepository);
         this.restRecord20FinancieelMockMvc = MockMvcBuilders.standaloneSetup(record20FinancieelResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record20FinancieelResourceIntTest {
         int databaseSizeBeforeCreate = record20FinancieelRepository.findAll().size();
 
         // Create the Record20Financieel
-        Record20FinancieelDTO record20FinancieelDTO = record20FinancieelMapper.toDto(record20Financieel);
         restRecord20FinancieelMockMvc.perform(post("/api/record-20-financieels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record20FinancieelDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record20Financieel)))
             .andExpect(status().isCreated());
 
         // Validate the Record20Financieel in the database
@@ -131,12 +125,11 @@ public class Record20FinancieelResourceIntTest {
 
         // Create the Record20Financieel with an existing ID
         record20Financieel.setId(1L);
-        Record20FinancieelDTO record20FinancieelDTO = record20FinancieelMapper.toDto(record20Financieel);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord20FinancieelMockMvc.perform(post("/api/record-20-financieels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record20FinancieelDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record20Financieel)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record20Financieel in the database
@@ -200,11 +193,10 @@ public class Record20FinancieelResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record20FinancieelDTO record20FinancieelDTO = record20FinancieelMapper.toDto(updatedRecord20Financieel);
 
         restRecord20FinancieelMockMvc.perform(put("/api/record-20-financieels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record20FinancieelDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord20Financieel)))
             .andExpect(status().isOk());
 
         // Validate the Record20Financieel in the database
@@ -222,12 +214,11 @@ public class Record20FinancieelResourceIntTest {
         int databaseSizeBeforeUpdate = record20FinancieelRepository.findAll().size();
 
         // Create the Record20Financieel
-        Record20FinancieelDTO record20FinancieelDTO = record20FinancieelMapper.toDto(record20Financieel);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord20FinancieelMockMvc.perform(put("/api/record-20-financieels")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record20FinancieelDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record20Financieel)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record20Financieel in the database
@@ -266,28 +257,5 @@ public class Record20FinancieelResourceIntTest {
         assertThat(record20Financieel1).isNotEqualTo(record20Financieel2);
         record20Financieel1.setId(null);
         assertThat(record20Financieel1).isNotEqualTo(record20Financieel2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record20FinancieelDTO.class);
-        Record20FinancieelDTO record20FinancieelDTO1 = new Record20FinancieelDTO();
-        record20FinancieelDTO1.setId(1L);
-        Record20FinancieelDTO record20FinancieelDTO2 = new Record20FinancieelDTO();
-        assertThat(record20FinancieelDTO1).isNotEqualTo(record20FinancieelDTO2);
-        record20FinancieelDTO2.setId(record20FinancieelDTO1.getId());
-        assertThat(record20FinancieelDTO1).isEqualTo(record20FinancieelDTO2);
-        record20FinancieelDTO2.setId(2L);
-        assertThat(record20FinancieelDTO1).isNotEqualTo(record20FinancieelDTO2);
-        record20FinancieelDTO1.setId(null);
-        assertThat(record20FinancieelDTO1).isNotEqualTo(record20FinancieelDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record20FinancieelMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record20FinancieelMapper.fromId(null)).isNull();
     }
 }

@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record99Eind;
 import com.inetpsa.pct00.application.repository.Record99EindRepository;
-import com.inetpsa.pct00.application.service.dto.Record99EindDTO;
-import com.inetpsa.pct00.application.service.mapper.Record99EindMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -73,9 +71,6 @@ public class Record99EindResourceIntTest {
 
 
     @Autowired
-    private Record99EindMapper record99EindMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -94,7 +89,7 @@ public class Record99EindResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record99EindResource record99EindResource = new Record99EindResource(record99EindRepository, record99EindMapper);
+        final Record99EindResource record99EindResource = new Record99EindResource(record99EindRepository);
         this.restRecord99EindMockMvc = MockMvcBuilders.standaloneSetup(record99EindResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -131,10 +126,9 @@ public class Record99EindResourceIntTest {
         int databaseSizeBeforeCreate = record99EindRepository.findAll().size();
 
         // Create the Record99Eind
-        Record99EindDTO record99EindDTO = record99EindMapper.toDto(record99Eind);
         restRecord99EindMockMvc.perform(post("/api/record-99-einds")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record99EindDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record99Eind)))
             .andExpect(status().isCreated());
 
         // Validate the Record99Eind in the database
@@ -157,12 +151,11 @@ public class Record99EindResourceIntTest {
 
         // Create the Record99Eind with an existing ID
         record99Eind.setId(1L);
-        Record99EindDTO record99EindDTO = record99EindMapper.toDto(record99Eind);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord99EindMockMvc.perform(post("/api/record-99-einds")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record99EindDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record99Eind)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record99Eind in the database
@@ -238,11 +231,10 @@ public class Record99EindResourceIntTest {
             .creatieTijd(UPDATED_CREATIE_TIJD)
             .aantalAanvragen(UPDATED_AANTAL_AANVRAGEN)
             .aantalRegels(UPDATED_AANTAL_REGELS);
-        Record99EindDTO record99EindDTO = record99EindMapper.toDto(updatedRecord99Eind);
 
         restRecord99EindMockMvc.perform(put("/api/record-99-einds")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record99EindDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord99Eind)))
             .andExpect(status().isOk());
 
         // Validate the Record99Eind in the database
@@ -264,12 +256,11 @@ public class Record99EindResourceIntTest {
         int databaseSizeBeforeUpdate = record99EindRepository.findAll().size();
 
         // Create the Record99Eind
-        Record99EindDTO record99EindDTO = record99EindMapper.toDto(record99Eind);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord99EindMockMvc.perform(put("/api/record-99-einds")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record99EindDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record99Eind)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record99Eind in the database
@@ -308,28 +299,5 @@ public class Record99EindResourceIntTest {
         assertThat(record99Eind1).isNotEqualTo(record99Eind2);
         record99Eind1.setId(null);
         assertThat(record99Eind1).isNotEqualTo(record99Eind2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record99EindDTO.class);
-        Record99EindDTO record99EindDTO1 = new Record99EindDTO();
-        record99EindDTO1.setId(1L);
-        Record99EindDTO record99EindDTO2 = new Record99EindDTO();
-        assertThat(record99EindDTO1).isNotEqualTo(record99EindDTO2);
-        record99EindDTO2.setId(record99EindDTO1.getId());
-        assertThat(record99EindDTO1).isEqualTo(record99EindDTO2);
-        record99EindDTO2.setId(2L);
-        assertThat(record99EindDTO1).isNotEqualTo(record99EindDTO2);
-        record99EindDTO1.setId(null);
-        assertThat(record99EindDTO1).isNotEqualTo(record99EindDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record99EindMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record99EindMapper.fromId(null)).isNull();
     }
 }

@@ -16,28 +16,27 @@
     ],
     "relationships": [
         {
-            "relationshipName": "employee",
-            "otherEntityName": "employee",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "job",
             "relationshipName": "task",
             "otherEntityName": "task",
             "otherEntityField": "title",
             "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "employee",
+            "otherEntityName": "employee",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180702213803",
     "entityTableName": "job",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "pagination",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",
-    "applications": "*",
-    "angularJSSuffix": "mySuffix"
+    "applications": "*"
 }

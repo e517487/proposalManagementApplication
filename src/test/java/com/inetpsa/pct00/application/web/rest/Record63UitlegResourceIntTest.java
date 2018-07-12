@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record63Uitleg;
 import com.inetpsa.pct00.application.repository.Record63UitlegRepository;
-import com.inetpsa.pct00.application.service.dto.Record63UitlegDTO;
-import com.inetpsa.pct00.application.service.mapper.Record63UitlegMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -67,9 +65,6 @@ public class Record63UitlegResourceIntTest {
 
 
     @Autowired
-    private Record63UitlegMapper record63UitlegMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -88,7 +83,7 @@ public class Record63UitlegResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record63UitlegResource record63UitlegResource = new Record63UitlegResource(record63UitlegRepository, record63UitlegMapper);
+        final Record63UitlegResource record63UitlegResource = new Record63UitlegResource(record63UitlegRepository);
         this.restRecord63UitlegMockMvc = MockMvcBuilders.standaloneSetup(record63UitlegResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -125,10 +120,9 @@ public class Record63UitlegResourceIntTest {
         int databaseSizeBeforeCreate = record63UitlegRepository.findAll().size();
 
         // Create the Record63Uitleg
-        Record63UitlegDTO record63UitlegDTO = record63UitlegMapper.toDto(record63Uitleg);
         restRecord63UitlegMockMvc.perform(post("/api/record-63-uitlegs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record63UitlegDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record63Uitleg)))
             .andExpect(status().isCreated());
 
         // Validate the Record63Uitleg in the database
@@ -151,12 +145,11 @@ public class Record63UitlegResourceIntTest {
 
         // Create the Record63Uitleg with an existing ID
         record63Uitleg.setId(1L);
-        Record63UitlegDTO record63UitlegDTO = record63UitlegMapper.toDto(record63Uitleg);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord63UitlegMockMvc.perform(post("/api/record-63-uitlegs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record63UitlegDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record63Uitleg)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record63Uitleg in the database
@@ -232,11 +225,10 @@ public class Record63UitlegResourceIntTest {
             .uitlegGezin(UPDATED_UITLEG_GEZIN)
             .uitlegInkomsten(UPDATED_UITLEG_INKOMSTEN)
             .uitlegInPlatform(UPDATED_UITLEG_IN_PLATFORM);
-        Record63UitlegDTO record63UitlegDTO = record63UitlegMapper.toDto(updatedRecord63Uitleg);
 
         restRecord63UitlegMockMvc.perform(put("/api/record-63-uitlegs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record63UitlegDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord63Uitleg)))
             .andExpect(status().isOk());
 
         // Validate the Record63Uitleg in the database
@@ -258,12 +250,11 @@ public class Record63UitlegResourceIntTest {
         int databaseSizeBeforeUpdate = record63UitlegRepository.findAll().size();
 
         // Create the Record63Uitleg
-        Record63UitlegDTO record63UitlegDTO = record63UitlegMapper.toDto(record63Uitleg);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord63UitlegMockMvc.perform(put("/api/record-63-uitlegs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record63UitlegDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record63Uitleg)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record63Uitleg in the database
@@ -302,28 +293,5 @@ public class Record63UitlegResourceIntTest {
         assertThat(record63Uitleg1).isNotEqualTo(record63Uitleg2);
         record63Uitleg1.setId(null);
         assertThat(record63Uitleg1).isNotEqualTo(record63Uitleg2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record63UitlegDTO.class);
-        Record63UitlegDTO record63UitlegDTO1 = new Record63UitlegDTO();
-        record63UitlegDTO1.setId(1L);
-        Record63UitlegDTO record63UitlegDTO2 = new Record63UitlegDTO();
-        assertThat(record63UitlegDTO1).isNotEqualTo(record63UitlegDTO2);
-        record63UitlegDTO2.setId(record63UitlegDTO1.getId());
-        assertThat(record63UitlegDTO1).isEqualTo(record63UitlegDTO2);
-        record63UitlegDTO2.setId(2L);
-        assertThat(record63UitlegDTO1).isNotEqualTo(record63UitlegDTO2);
-        record63UitlegDTO1.setId(null);
-        assertThat(record63UitlegDTO1).isNotEqualTo(record63UitlegDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record63UitlegMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record63UitlegMapper.fromId(null)).isNull();
     }
 }

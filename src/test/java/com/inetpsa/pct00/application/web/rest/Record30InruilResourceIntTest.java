@@ -4,8 +4,6 @@ import com.inetpsa.pct00.application.ProposalManagementApplicationApp;
 
 import com.inetpsa.pct00.application.domain.Record30Inruil;
 import com.inetpsa.pct00.application.repository.Record30InruilRepository;
-import com.inetpsa.pct00.application.service.dto.Record30InruilDTO;
-import com.inetpsa.pct00.application.service.mapper.Record30InruilMapper;
 import com.inetpsa.pct00.application.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -55,9 +53,6 @@ public class Record30InruilResourceIntTest {
 
 
     @Autowired
-    private Record30InruilMapper record30InruilMapper;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -76,7 +71,7 @@ public class Record30InruilResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final Record30InruilResource record30InruilResource = new Record30InruilResource(record30InruilRepository, record30InruilMapper);
+        final Record30InruilResource record30InruilResource = new Record30InruilResource(record30InruilRepository);
         this.restRecord30InruilMockMvc = MockMvcBuilders.standaloneSetup(record30InruilResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -109,10 +104,9 @@ public class Record30InruilResourceIntTest {
         int databaseSizeBeforeCreate = record30InruilRepository.findAll().size();
 
         // Create the Record30Inruil
-        Record30InruilDTO record30InruilDTO = record30InruilMapper.toDto(record30Inruil);
         restRecord30InruilMockMvc.perform(post("/api/record-30-inruils")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record30InruilDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record30Inruil)))
             .andExpect(status().isCreated());
 
         // Validate the Record30Inruil in the database
@@ -131,12 +125,11 @@ public class Record30InruilResourceIntTest {
 
         // Create the Record30Inruil with an existing ID
         record30Inruil.setId(1L);
-        Record30InruilDTO record30InruilDTO = record30InruilMapper.toDto(record30Inruil);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecord30InruilMockMvc.perform(post("/api/record-30-inruils")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record30InruilDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record30Inruil)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record30Inruil in the database
@@ -200,11 +193,10 @@ public class Record30InruilResourceIntTest {
             .pcFinetNr(UPDATED_PC_FINET_NR)
             .recordType(UPDATED_RECORD_TYPE)
             .volgNr(UPDATED_VOLG_NR);
-        Record30InruilDTO record30InruilDTO = record30InruilMapper.toDto(updatedRecord30Inruil);
 
         restRecord30InruilMockMvc.perform(put("/api/record-30-inruils")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record30InruilDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecord30Inruil)))
             .andExpect(status().isOk());
 
         // Validate the Record30Inruil in the database
@@ -222,12 +214,11 @@ public class Record30InruilResourceIntTest {
         int databaseSizeBeforeUpdate = record30InruilRepository.findAll().size();
 
         // Create the Record30Inruil
-        Record30InruilDTO record30InruilDTO = record30InruilMapper.toDto(record30Inruil);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restRecord30InruilMockMvc.perform(put("/api/record-30-inruils")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(record30InruilDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(record30Inruil)))
             .andExpect(status().isBadRequest());
 
         // Validate the Record30Inruil in the database
@@ -266,28 +257,5 @@ public class Record30InruilResourceIntTest {
         assertThat(record30Inruil1).isNotEqualTo(record30Inruil2);
         record30Inruil1.setId(null);
         assertThat(record30Inruil1).isNotEqualTo(record30Inruil2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Record30InruilDTO.class);
-        Record30InruilDTO record30InruilDTO1 = new Record30InruilDTO();
-        record30InruilDTO1.setId(1L);
-        Record30InruilDTO record30InruilDTO2 = new Record30InruilDTO();
-        assertThat(record30InruilDTO1).isNotEqualTo(record30InruilDTO2);
-        record30InruilDTO2.setId(record30InruilDTO1.getId());
-        assertThat(record30InruilDTO1).isEqualTo(record30InruilDTO2);
-        record30InruilDTO2.setId(2L);
-        assertThat(record30InruilDTO1).isNotEqualTo(record30InruilDTO2);
-        record30InruilDTO1.setId(null);
-        assertThat(record30InruilDTO1).isNotEqualTo(record30InruilDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(record30InruilMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(record30InruilMapper.fromId(null)).isNull();
     }
 }

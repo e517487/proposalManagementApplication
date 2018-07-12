@@ -1,6 +1,6 @@
 package com.inetpsa.pct00.application.service;
 
-import com.inetpsa.pct00.application.service.dto.JobHistoryDTO;
+import com.inetpsa.pct00.application.domain.JobHistory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +15,10 @@ public interface JobHistoryService {
     /**
      * Save a jobHistory.
      *
-     * @param jobHistoryDTO the entity to save
+     * @param jobHistory the entity to save
      * @return the persisted entity
      */
-    JobHistoryDTO save(JobHistoryDTO jobHistoryDTO);
+    JobHistory save(JobHistory jobHistory);
 
     /**
      * Get all the jobHistories.
@@ -26,7 +26,7 @@ public interface JobHistoryService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<JobHistoryDTO> findAll(Pageable pageable);
+    Page<JobHistory> findAll(Pageable pageable);
 
 
     /**
@@ -35,7 +35,7 @@ public interface JobHistoryService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<JobHistoryDTO> findOne(Long id);
+    Optional<JobHistory> findOne(Long id);
 
     /**
      * Delete the "id" jobHistory.
